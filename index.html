@@ -3,1159 +3,1276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AK Outreach Pro</title>
+<title>AK Outreach Pro — Premium v5</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#07090F;--s1:#0C1018;--s2:#111620;--s3:#161D2A;--b1:#1E2940;--b2:#253047;--blue:#4D8EFF;--blue2:#7AACFF;--green:#00E5A0;--green2:#00B87F;--red:#FF4466;--gold:#FFB800;--purple:#9B72FF;--orange:#FF7B3B;--text:#EEF2FF;--t2:#8A9BBF;--t3:#4A5A78;}
+:root{--bg:#07090F;--s1:#0C1018;--s2:#111620;--s3:#161D2A;--b1:#1E2940;--b2:#253047;--blue:#4D8EFF;--b2l:#7AACFF;--green:#00E5A0;--g2:#00B87F;--red:#FF4466;--gold:#FFB800;--purple:#9B72FF;--orange:#FF7B3B;--text:#EEF2FF;--t2:#8A9BBF;--t3:#4A5A78;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 10% 0%,rgba(77,142,255,0.07) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 90% 100%,rgba(155,114,255,0.06) 0%,transparent 70%);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
 
 /* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;}
-.lbox{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px;width:320px;text-align:center;}
-.llogo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px;}
-.llogo span{color:var(--blue);}
-.lsub{color:var(--t2);font-size:12px;margin-bottom:22px;}
-.member-grid{display:flex;flex-direction:column;gap:7px;}
-.mbtn{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;background:var(--s2);border:1px solid var(--b1);cursor:pointer;transition:all 0.15s;width:100%;font-family:'DM Sans',sans-serif;text-align:left;}
-.mbtn:hover{border-color:var(--blue);background:rgba(77,142,255,0.05);}
+.lbox{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px;width:320px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.4);}
+.l-logo{font-family:"Syne",sans-serif;font-size:22px;font-weight:800;margin-bottom:4px;}.l-logo span{color:var(--blue);}
+.l-ver{font-size:10px;font-weight:700;padding:2px 9px;border-radius:100px;background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.25);display:inline-block;margin-bottom:16px;}
+.mg{display:flex;flex-direction:column;gap:7px;}
+.mbtn{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;background:var(--s2);border:1px solid var(--b1);cursor:pointer;transition:all .15s;width:100%;font-family:"DM Sans",sans-serif;text-align:left;}
+.mbtn:hover{border-color:var(--blue);background:rgba(77,142,255,.06);}
 .mav{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
-.mav-info .mav-name{font-size:13px;font-weight:600;color:var(--text);}
-.mav-info .mav-role{font-size:10px;color:var(--t3);}
-#pin-screen{display:none;text-align:center;}
-.pin-title{font-size:13px;color:var(--t2);margin-bottom:10px;}
-.pin-input{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;text-align:center;font-size:22px;font-family:'DM Mono',monospace;color:var(--text);outline:none;letter-spacing:8px;}
-.pin-input:focus{border-color:var(--blue);}
+.mn{font-size:13px;font-weight:600;color:var(--text);}.mr{font-size:10px;color:var(--t3);}
+#pin-wrap{display:none;}.pin-lbl{font-size:13px;color:var(--t2);margin-bottom:10px;}
+.pin-in{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;text-align:center;font-size:22px;font-family:"DM Mono",monospace;color:var(--text);outline:none;letter-spacing:8px;}
+.pin-in:focus{border-color:var(--blue);}
 .pin-err{color:var(--red);font-size:12px;margin-top:7px;display:none;}
-.pin-back{background:none;border:none;color:var(--t2);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline;font-family:'DM Sans',sans-serif;}
+.pin-back{background:none;border:none;color:var(--t2);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline;font-family:"DM Sans",sans-serif;}
 
 /* APP SHELL */
-#app{display:none;min-height:100vh;display:none;}
-.shell{display:flex;min-height:100vh;}
-
-/* SIDEBAR */
-.sidebar{width:210px;min-width:210px;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.sb-brand{padding:16px 14px 12px;border-bottom:1px solid var(--b1);}
-.sb-logo{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;}
-.sb-logo span{color:var(--blue);}
+#app{display:none;}.shell{display:flex;min-height:100vh;}
+.sb{width:215px;min-width:215px;background:var(--s1);border-right:1px solid var(--b1);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sb-top{padding:16px 14px 12px;border-bottom:1px solid var(--b1);}
+.sb-logo{font-family:"Syne",sans-serif;font-size:15px;font-weight:800;}.sb-logo span{color:var(--blue);}
+.sb-ver{font-size:9px;font-weight:700;padding:1px 6px;border-radius:100px;background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.2);margin-top:3px;display:inline-block;}
 .sb-user{display:flex;align-items:center;gap:8px;margin-top:9px;padding:7px 9px;background:var(--s2);border-radius:8px;border:1px solid var(--b1);}
 .sb-av{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;color:#fff;flex-shrink:0;}
-.sb-uname{font-size:12px;font-weight:600;flex:1;}
-.sb-urole{font-size:9px;color:var(--t3);text-transform:uppercase;}
-.sb-logout{background:none;border:none;color:var(--t3);cursor:pointer;font-size:13px;padding:2px;}
-.sb-logout:hover{color:var(--red);}
+.sb-un{font-size:12px;font-weight:600;flex:1;}.sb-ur{font-size:9px;color:var(--t3);text-transform:uppercase;}
+.sb-lo{background:none;border:none;color:var(--t3);cursor:pointer;font-size:14px;padding:2px;}.sb-lo:hover{color:var(--red);}
 .sb-nav{padding:9px 7px;flex:1;}
-.sb-section{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:9px 8px 4px;}
-.nav-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:500;transition:all 0.15s;margin-bottom:1px;border:1px solid transparent;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif;}
-.nav-item:hover{background:var(--s2);color:var(--text);}
-.nav-item.active{background:rgba(77,142,255,0.08);border-color:rgba(77,142,255,0.2);color:var(--blue2);}
-.nav-icon{font-size:13px;width:17px;text-align:center;}
-.nav-badge{margin-left:auto;font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px;}
-.badge-red{background:var(--red);color:#fff;}
-.badge-gold{background:var(--gold);color:#000;}
-.sb-stats{padding:9px;border-top:1px solid var(--b1);}
-.stat-row{display:flex;justify-content:space-between;padding:4px 0;font-size:11px;border-bottom:1px solid var(--b1);}
-.stat-row:last-child{border:none;}
-.stat-label{color:var(--t3);}
-.stat-val{font-weight:700;font-size:13px;font-family:'Syne',sans-serif;}
-
-/* MAIN */
-.main-content{flex:1;overflow-y:auto;}
-.page{display:none;padding:24px;max-width:880px;}
-.page.active{display:block;}
-.page-header{margin-bottom:18px;}
-.page-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;margin-bottom:3px;}
-.page-title .accent{color:var(--blue);}
-.page-sub{color:var(--t2);font-size:12px;}
+.sb-sec{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:9px 8px 4px;}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;cursor:pointer;color:var(--t2);font-size:13px;font-weight:500;transition:all .15s;margin-bottom:1px;border:1px solid transparent;background:none;width:100%;text-align:left;font-family:"DM Sans",sans-serif;}
+.ni:hover{background:var(--s2);color:var(--text);}.ni.on{background:rgba(77,142,255,.08);border-color:rgba(77,142,255,.2);color:var(--b2l);}
+.ni-i{font-size:13px;width:17px;text-align:center;}
+.nbg{margin-left:auto;font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px;}
+.nbg-r{background:var(--red);color:#fff;}.nbg-g{background:var(--gold);color:#000;}
+.sb-kpi{padding:9px;border-top:1px solid var(--b1);}
+.kr{display:flex;justify-content:space-between;padding:4px 0;font-size:11px;border-bottom:1px solid var(--b1);}
+.kr:last-child{border:none;}.kl{color:var(--t3);}.kv{font-weight:700;font-size:13px;font-family:"Syne",sans-serif;}
+.main{flex:1;overflow-y:auto;}
+.pg{display:none;padding:24px;max-width:920px;}.pg.on{display:block;}
+.ph{margin-bottom:20px;}.pt{font-family:"Syne",sans-serif;font-size:20px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px;}.pt .hl{color:var(--blue);}
+.ps-sub{color:var(--t2);font-size:12px;}
 .card{background:var(--s1);border:1px solid var(--b1);border-radius:13px;padding:18px;margin-bottom:13px;}
-.card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
-.card-title::after{content:'';flex:1;height:1px;background:var(--b1);}
+.ct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--t3);margin-bottom:11px;display:flex;align-items:center;gap:8px;}
+.ct::after{content:"";flex:1;height:1px;background:var(--b1);}
 
-/* DASHBOARD */
-.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:13px;}
-.dash-stat{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:13px;text-align:center;}
-.dash-stat-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;}
-.dash-stat-label{font-size:10px;color:var(--t3);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
-.task-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;}
-.task-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:13px;cursor:pointer;transition:all 0.2s;}
-.task-card:hover{border-color:var(--blue);transform:translateY(-2px);}
-.task-card.overdue{border-color:rgba(255,68,102,0.2);}
-.task-name{font-weight:700;font-size:12px;margin-bottom:2px;}
-.task-sub{font-size:10px;color:var(--t3);margin-bottom:7px;}
-.task-badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;}
-.badge-today{background:rgba(77,142,255,0.12);color:var(--blue2);border:1px solid rgba(77,142,255,0.25);}
-.badge-overdue{background:rgba(255,68,102,0.1);color:var(--red);border:1px solid rgba(255,68,102,0.25);}
+/* DASH */
+.dsg{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:13px;}
+.dsc{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:13px;text-align:center;}
+.dsv{font-family:"Syne",sans-serif;font-size:24px;font-weight:800;}.dsl{font-size:10px;color:var(--t3);margin-top:2px;text-transform:uppercase;}
+.tgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px;}
+.tc{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:13px;cursor:pointer;transition:all .2s;}
+.tc:hover{border-color:var(--blue);transform:translateY(-2px);}.tc.ov{border-color:rgba(255,68,102,.2);}
+.tc-n{font-weight:700;font-size:12px;margin-bottom:2px;}.tc-s{font-size:10px;color:var(--t3);margin-bottom:7px;}
+.tbdg{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;}
+.tbdg-t{background:rgba(77,142,255,.12);color:var(--b2l);border:1px solid rgba(77,142,255,.25);}
+.tbdg-o{background:rgba(255,68,102,.1);color:var(--red);border:1px solid rgba(255,68,102,.25);}
 
-/* GENERATE */
-.url-bar{display:flex;gap:7px;background:var(--s2);border:1px solid var(--b1);border-radius:11px;padding:4px 4px 4px 14px;transition:all 0.2s;}
-.url-bar:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(77,142,255,0.08);}
-.url-input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:7px 0;}
-.url-input::placeholder{color:var(--t3);font-family:'DM Sans',sans-serif;}
-.scan-btn{background:linear-gradient(135deg,var(--blue),#3B6FD4);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
-.scan-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(77,142,255,0.3);}
-.scan-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none;}
-.pipeline{display:none;margin-top:12px;}
-.pipeline.show{display:block;}
-.pipe-step{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--b1);font-size:12px;margin-bottom:4px;transition:all 0.3s;}
-.pipe-step.running{border-color:rgba(77,142,255,0.3);}
-.pipe-step.done{border-color:rgba(0,229,160,0.2);}
-.pipe-step.failed{border-color:rgba(255,68,102,0.2);}
-.pipe-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
+/* URL BAR */
+.url-bar{display:flex;gap:7px;background:var(--s2);border:1px solid var(--b1);border-radius:11px;padding:4px 4px 4px 14px;transition:all .2s;}
+.url-bar:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(77,142,255,.08);}
+.url-in{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:"DM Mono",monospace;font-size:12px;padding:7px 0;}
+.url-in::placeholder{color:var(--t3);font-family:"DM Sans",sans-serif;}
+.scan-btn{background:linear-gradient(135deg,var(--blue),#3B6FD4);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:"Syne",sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.scan-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 20px rgba(77,142,255,.3);}
+.scan-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+/* PIPELINE */
+.pipe-wrap{display:none;margin-top:12px;}.pipe-wrap.show{display:block;}
+.psr{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--s2);border:1px solid var(--b1);font-size:12px;margin-bottom:4px;transition:all .3s;}
+.psr.run{border-color:rgba(77,142,255,.3);}.psr.ok{border-color:rgba(0,229,160,.2);}.psr.fail{border-color:rgba(255,68,102,.2);}
+.pico{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;}
 .pi-idle{background:var(--s3);color:var(--t3);}
-.pi-spin{background:rgba(77,142,255,0.15);color:var(--blue);animation:spin 0.8s linear infinite;}
-.pi-ok{background:rgba(0,229,160,0.15);color:var(--green);}
-.pi-fail{background:rgba(255,68,102,0.15);color:var(--red);}
-.pi-warn{background:rgba(255,184,0,0.15);color:var(--gold);}
-@keyframes spin{to{transform:rotate(360deg);}}
-.pipe-label{flex:1;color:var(--t2);}
-.pipe-val{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);}
-.detect-section{display:none;}.detect-section.show{display:block;}
-.detect-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:7px;margin-bottom:12px;}
-.detect-card{background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:10px 11px;}
-.dc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:3px;}
-.dc-val{font-size:12px;font-weight:700;}
+.pi-spin{background:rgba(77,142,255,.15);color:var(--blue);animation:spin .8s linear infinite;}
+.pi-ok{background:rgba(0,229,160,.15);color:var(--green);}
+.pi-fail{background:rgba(255,68,102,.15);color:var(--red);}
+.pi-warn{background:rgba(255,184,0,.15);color:var(--gold);}
+@keyframes spin{to{transform:rotate(360deg)}}
+.plbl{flex:1;color:var(--t2);}.pval{font-family:"DM Mono",monospace;font-size:10px;color:var(--t2);}
+
+/* DETECT */
+.det-sec{display:none;}.det-sec.show{display:block;}
+.dgrd{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:7px;margin-bottom:12px;}
+.dcard{background:var(--s2);border:1px solid var(--b1);border-radius:9px;padding:10px 11px;}
+.dcl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:3px;}
+.dcv{font-size:12px;font-weight:700;}
 .dc-ok{color:var(--green);}.dc-no{color:var(--red);}.dc-warn{color:var(--gold);}.dc-txt{color:var(--text);}
-.dc-sub{font-size:9px;color:var(--t3);margin-top:2px;font-family:'DM Mono',monospace;}
-.adlib-link{display:flex;align-items:center;gap:9px;background:rgba(255,184,0,0.05);border:1px solid rgba(255,184,0,0.2);border-radius:9px;padding:10px 14px;text-decoration:none;transition:all 0.2s;margin-bottom:12px;}
-.adlib-link:hover{background:rgba(255,184,0,0.09);}
-.adlib-title{font-size:12px;font-weight:700;color:var(--gold);}
-.adlib-sub{font-size:10px;color:var(--t3);margin-top:1px;}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
-.form-group{display:flex;flex-direction:column;gap:3px;}
-.form-group.full{grid-column:1/-1;}
-.form-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--t3);}
-.form-input,.form-select,.form-textarea{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px 11px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;outline:none;transition:border-color 0.15s;width:100%;}
-.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);}
-.form-select option{background:var(--s2);}
-.form-textarea{resize:vertical;min-height:56px;line-height:1.6;}
-.gen-btn{width:100%;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;border:none;border-radius:9px;padding:12px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.2s;}
-.gen-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,229,160,0.25);}
-.gen-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
-.ai-loading{display:none;text-align:center;padding:36px;}
-.ai-loading.show{display:block;}
-.ai-ring{width:38px;height:38px;border:3px solid var(--b2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 11px;}
-.ai-text{color:var(--t2);font-size:12px;}
-.output-section{display:none;}.output-section.show{display:block;}
-.platform-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
-.ptab{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.ptab:hover{border-color:var(--blue);color:var(--blue);}
-.ptab.active{background:var(--blue);border-color:var(--blue);color:#fff;}
-.msg-panel{display:none;}.msg-panel.active{display:block;}
-.msg-box{background:var(--s2);border:1px solid var(--b1);border-radius:9px;overflow:hidden;margin-bottom:7px;}
-.msg-head{padding:7px 12px;background:var(--s3);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;}
-.msg-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--t3);}
-.msg-subj{padding:7px 12px;background:rgba(77,142,255,0.04);border-bottom:1px solid var(--b1);font-size:11px;color:var(--t2);}
-.msg-subj b{color:var(--text);}
-.msg-body{padding:12px;font-size:12px;line-height:1.85;color:#7A90B5;white-space:pre-wrap;}
-.copy-btn{background:none;border:1px solid var(--b2);border-radius:5px;color:var(--t2);padding:3px 8px;font-size:10px;font-weight:600;cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.copy-btn:hover{border-color:var(--blue);color:var(--blue);}
-.copy-btn.copied{border-color:var(--green);color:var(--green);}
-.followup-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:7px;margin-bottom:12px;}
-.fu-card{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;}
-.fu-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;margin-bottom:4px;text-transform:uppercase;}
-.fu-name{font-size:11px;font-weight:600;color:var(--t2);}
-.fu-note{font-size:10px;color:var(--t3);margin-top:1px;}
-.plat-checker{margin-top:14px;padding:13px;background:rgba(0,229,160,0.04);border:1px solid rgba(0,229,160,0.15);border-radius:9px;}
-.plat-checker-title{font-size:11px;font-weight:600;color:var(--green);margin-bottom:8px;}
-.plat-options{display:flex;gap:6px;flex-wrap:wrap;}
-.plat-opt{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:100px;border:1px solid var(--b1);cursor:pointer;font-size:11px;font-weight:500;color:var(--t2);background:none;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.plat-opt:hover{border-color:var(--blue);}
-.plat-opt.selected{border-color:var(--green);color:var(--green);background:rgba(0,229,160,0.06);}
-.plat-opt input{display:none;}
-.action-row{display:flex;gap:7px;margin-top:13px;}
-.save-btn{flex:1;background:linear-gradient(135deg,var(--blue),#3B6FD4);color:#fff;border:none;border-radius:9px;padding:10px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
-.save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(77,142,255,0.3);}
-.reset-btn{background:none;border:1px solid var(--b1);border-radius:9px;color:var(--t2);padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;}
-.reset-btn:hover{border-color:var(--red);color:var(--red);}
+.dcs{font-size:9px;color:var(--t3);margin-top:2px;font-family:"DM Mono",monospace;}
+.adlib-link{display:flex;align-items:center;gap:9px;background:rgba(255,184,0,.05);border:1px solid rgba(255,184,0,.2);border-radius:9px;padding:10px 14px;text-decoration:none;transition:all .2s;margin-bottom:12px;}
+.adlib-link:hover{background:rgba(255,184,0,.09);}
+.adlib-t{font-size:12px;font-weight:700;color:var(--gold);}.adlib-s{font-size:10px;color:var(--t3);margin-top:1px;}
+
+/* FORM */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
+.fgrp{display:flex;flex-direction:column;gap:3px;}.fgrp.full{grid-column:1/-1;}
+.fl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--t3);}
+.fi,.fsel,.fta{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px 11px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:12px;outline:none;transition:border-color .15s;width:100%;}
+.fi:focus,.fsel:focus,.fta:focus{border-color:var(--blue);}
+.fsel option{background:var(--s2);}
+.fta{resize:vertical;min-height:56px;line-height:1.6;}
+
+/* ISSUE SELECTOR */
+.issue-box{background:rgba(77,142,255,.04);border:1px solid rgba(77,142,255,.15);border-radius:9px;padding:12px;margin-bottom:12px;}
+.issue-box-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--b2l);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.itags{display:flex;flex-wrap:wrap;gap:5px;}
+.itag{font-size:11px;font-weight:500;padding:4px 10px;border-radius:100px;cursor:pointer;border:1px solid var(--b1);background:var(--s2);color:var(--t2);transition:all .15s;user-select:none;}
+.itag:hover{border-color:var(--b2);color:var(--text);}
+.itag.sel-red{background:rgba(255,68,102,.1);border-color:rgba(255,68,102,.4);color:var(--red);}
+.itag.sel-blue{background:rgba(77,142,255,.1);border-color:rgba(77,142,255,.4);color:var(--b2l);}
+.itag.sel-green{background:rgba(0,229,160,.08);border-color:rgba(0,229,160,.3);color:var(--green);}
+
+.gen-btn{width:100%;background:linear-gradient(135deg,var(--green),var(--g2));color:#000;border:none;border-radius:9px;padding:12px;font-family:"Syne",sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;}
+.gen-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,229,160,.25);}
+.gen-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.ai-load{display:none;text-align:center;padding:36px;}.ai-load.show{display:block;}
+.ai-ring{width:38px;height:38px;border:3px solid var(--b2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 11px;}
+.ai-txt{color:var(--t2);font-size:12px;}
+
+/* OUTPUT */
+.out-wrap{display:none;}.out-wrap.show{display:block;}
+.ptabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
+.ptab{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.ptab:hover{border-color:var(--blue);color:var(--blue);}.ptab.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.pmsg{display:none;}.pmsg.on{display:block;}
+.mbox{background:var(--s2);border:1px solid var(--b1);border-radius:9px;overflow:hidden;margin-bottom:7px;}
+.mh{padding:7px 12px;background:var(--s3);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;}
+.ml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);}
+.msubj{padding:7px 12px;background:rgba(77,142,255,.04);border-bottom:1px solid var(--b1);font-size:11px;color:var(--t2);}.msubj b{color:var(--text);}
+.mbody{padding:12px;font-size:12px;line-height:1.9;color:#7A90B5;white-space:pre-wrap;}
+.cbtn{background:none;border:1px solid var(--b2);border-radius:5px;color:var(--t2);padding:3px 8px;font-size:10px;font-weight:600;cursor:pointer;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.cbtn:hover{border-color:var(--blue);color:var(--blue);}.cbtn.ok{border-color:var(--green);color:var(--green);}
+.fu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:7px;margin-bottom:12px;}
+.fu-c{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;}
+.fu-b{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:100px;margin-bottom:4px;text-transform:uppercase;}
+.fu-n{font-size:11px;font-weight:600;color:var(--t2);}.fu-s{font-size:10px;color:var(--t3);margin-top:1px;}
+.plat-check{margin-top:14px;padding:13px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.15);border-radius:9px;}
+.plat-check-t{font-size:11px;font-weight:600;color:var(--green);margin-bottom:8px;}
+.pc-opts{display:flex;gap:6px;flex-wrap:wrap;}
+.pco{display:flex;align-items:center;gap:5px;padding:5px 11px;border-radius:100px;border:1px solid var(--b1);cursor:pointer;font-size:11px;font-weight:500;color:var(--t2);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.pco:hover{border-color:var(--blue);}.pco.sel{border-color:var(--green);color:var(--green);background:rgba(0,229,160,.06);}
+.pco input{display:none;}
+.arow{display:flex;gap:7px;margin-top:13px;}
+.save-btn{flex:1;background:linear-gradient(135deg,var(--blue),#3B6FD4);color:#fff;border:none;border-radius:9px;padding:10px;font-family:"Syne",sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.save-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(77,142,255,.3);}
+.rst-btn{background:none;border:1px solid var(--b1);border-radius:9px;color:var(--t2);padding:10px 14px;font-family:"DM Sans",sans-serif;font-size:12px;cursor:pointer;}
+.rst-btn:hover{border-color:var(--red);color:var(--red);}
 
 /* TRACKER */
-.filter-tabs{display:flex;gap:4px;margin-bottom:13px;flex-wrap:wrap;}
-.filter-tab{padding:5px 11px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.filter-tab.active{background:var(--s2);border-color:var(--b2);color:var(--text);}
-.client-row{background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin-bottom:9px;overflow:hidden;transition:border-color 0.15s;}
-.client-row:hover{border-color:var(--b2);}
-.client-header{padding:12px 15px;display:flex;align-items:center;gap:9px;cursor:pointer;}
-.client-avatar{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
-.client-info{flex:1;min-width:0;}
-.client-name-row{display:flex;align-items:center;gap:5px;margin-bottom:1px;flex-wrap:wrap;}
-.client-name{font-weight:700;font-size:12px;}
-.niche-tag{font-size:9px;font-weight:700;padding:2px 5px;border-radius:100px;background:rgba(77,142,255,0.1);color:var(--blue2);border:1px solid rgba(77,142,255,0.15);text-transform:uppercase;}
-.owner-tag{font-size:9px;font-weight:600;padding:2px 5px;border-radius:100px;background:rgba(155,114,255,0.1);color:var(--purple);border:1px solid rgba(155,114,255,0.2);}
-.converted-tag{font-size:9px;font-weight:700;padding:2px 5px;border-radius:100px;background:rgba(0,229,160,0.1);color:var(--green);border:1px solid rgba(0,229,160,0.2);}
-.client-url{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;}
-.stage-dots{display:flex;align-items:center;gap:2px;}
-.stage-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border:2px solid var(--b2);color:var(--t3);background:var(--s2);transition:all 0.2s;cursor:pointer;}
-.stage-dot.done{background:var(--green);border-color:var(--green);color:#000;}
-.stage-dot.today{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 7px rgba(77,142,255,0.5);animation:pulse 2s infinite;}
-.stage-dot.overdue{background:var(--red);border-color:var(--red);color:#fff;animation:pulse 1.5s infinite;}
-.stage-connector{width:9px;height:2px;background:var(--b2);border-radius:1px;}
-.stage-connector.done{background:var(--green);}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
-.client-actions{display:flex;gap:4px;align-items:center;flex-shrink:0;}
-.client-expand{display:none;border-top:1px solid var(--b1);}
-.client-expand.open{display:block;}
-.stage-tabs-bar{display:flex;overflow-x:auto;padding:8px 13px;gap:3px;border-bottom:1px solid var(--b1);background:var(--s2);scrollbar-width:none;}
-.stage-tabs-bar::-webkit-scrollbar{display:none;}
-.stage-tab{padding:4px 9px;border-radius:100px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;white-space:nowrap;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.stage-tab:hover{border-color:var(--blue);color:var(--blue);}
-.stage-tab.active{background:var(--blue);border-color:var(--blue);color:#fff;}
-.stage-tab.tab-done{border-color:var(--green);color:var(--green);}
-.stage-tab.tab-overdue{border-color:var(--red);color:var(--red);}
-.stage-content{display:none;padding:14px;}
-.stage-content.active{display:block;}
-.stage-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;flex-wrap:wrap;gap:7px;}
-.stage-meta-left{display:flex;align-items:center;gap:9px;}
-.stage-num{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--blue);line-height:1;}
-.stage-name{font-weight:700;font-size:12px;}
-.stage-due{font-size:10px;color:var(--t2);margin-top:2px;}
-.stage-due.overdue{color:var(--red);font-weight:600;}
-.stage-due.today{color:var(--gold);font-weight:600;}
-.stage-actions{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
-.sent-plats{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:8px;}
-.sent-plat{font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2);color:var(--green);}
-.done-banner{background:rgba(0,229,160,0.05);border:1px solid rgba(0,229,160,0.15);border-radius:7px;padding:7px 11px;font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:9px;}
-.plat-tabs{display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap;}
-.plat-tab{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t3);background:none;transition:all 0.15s;font-family:'DM Sans',sans-serif;}
-.plat-tab:hover{border-color:var(--b2);color:var(--t2);}
-.plat-tab.active{background:var(--s3);border-color:var(--b2);color:var(--text);}
-.plat-panel{display:none;}.plat-panel.active{display:block;}
-.inner-msg-box{background:var(--s2);border:1px solid var(--b1);border-radius:8px;overflow:hidden;}
-.inner-msg-head{padding:6px 11px;background:var(--s3);border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center;}
-.inner-msg-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--t3);}
-.inner-msg-subj{padding:6px 11px;background:rgba(77,142,255,0.04);border-bottom:1px solid var(--b1);font-size:10px;color:var(--t2);}
-.inner-msg-body{padding:10px 11px;font-size:11px;line-height:1.85;color:#6A80A0;white-space:pre-wrap;}
-.fu-plat-picker{margin-bottom:9px;padding:10px 12px;background:rgba(0,229,160,0.04);border:1px solid rgba(0,229,160,0.12);border-radius:8px;}
-.fu-plat-title{font-size:10px;font-weight:600;color:var(--green);margin-bottom:6px;}
-.share-access{display:flex;align-items:center;gap:7px;margin-top:9px;padding:9px 11px;background:rgba(155,114,255,0.05);border:1px solid rgba(155,114,255,0.18);border-radius:8px;}
-.share-label{font-size:11px;color:var(--t2);flex:1;}
-.share-select{background:var(--s2);border:1px solid var(--b2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:11px;font-family:'DM Sans',sans-serif;outline:none;}
-.share-btn{background:var(--purple);color:#fff;border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.ftabs{display:flex;gap:4px;margin-bottom:13px;flex-wrap:wrap;}
+.ftab{padding:5px 11px;border-radius:100px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.ftab.on{background:var(--s2);border-color:var(--b2);color:var(--text);}
+.crow{background:var(--s1);border:1px solid var(--b1);border-radius:12px;margin-bottom:9px;overflow:hidden;transition:border-color .15s;}
+.crow:hover{border-color:var(--b2);}
+.ch{padding:12px 15px;display:flex;align-items:center;gap:9px;cursor:pointer;}
+.cav{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0;}
+.ci{flex:1;min-width:0;}
+.cnr{display:flex;align-items:center;gap:5px;margin-bottom:3px;flex-wrap:wrap;}
+.cname{font-weight:700;font-size:12px;}
+.ntag{font-size:9px;font-weight:700;padding:2px 5px;border-radius:100px;background:rgba(77,142,255,.1);color:var(--b2l);border:1px solid rgba(77,142,255,.15);text-transform:uppercase;}
+.otag{font-size:9px;font-weight:600;padding:2px 5px;border-radius:100px;background:rgba(155,114,255,.1);color:var(--purple);border:1px solid rgba(155,114,255,.2);}
+.pipe-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;text-transform:uppercase;}
+.pt-lead{background:rgba(77,142,255,.1);color:var(--b2l);border:1px solid rgba(77,142,255,.2);}
+.pt-interested{background:rgba(155,114,255,.1);color:var(--purple);border:1px solid rgba(155,114,255,.2);}
+.pt-call{background:rgba(255,184,0,.1);color:var(--gold);border:1px solid rgba(255,184,0,.2);}
+.pt-closed{background:rgba(0,229,160,.1);color:var(--green);border:1px solid rgba(0,229,160,.2);}
+.pt-lost{background:rgba(255,68,102,.1);color:var(--red);border:1px solid rgba(255,68,102,.2);}
+.curl{font-size:10px;color:var(--t3);font-family:"DM Mono",monospace;}
+.cval-tag{font-size:11px;font-weight:700;color:var(--green);}
+.sdots{display:flex;align-items:center;gap:2px;}
+.sdot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border:2px solid var(--b2);color:var(--t3);background:var(--s2);transition:all .2s;cursor:pointer;}
+.sdot.done{background:var(--green);border-color:var(--green);color:#000;}
+.sdot.today{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 7px rgba(77,142,255,.5);animation:pulse 2s infinite;}
+.sdot.ov{background:var(--red);border-color:var(--red);color:#fff;animation:pulse 1.5s infinite;}
+.sconn{width:9px;height:2px;background:var(--b2);border-radius:1px;}.sconn.done{background:var(--green);}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.ca{display:flex;gap:4px;align-items:center;flex-shrink:0;}
+.cx{display:none;border-top:1px solid var(--b1);}.cx.on{display:block;}
+.stbar{display:flex;overflow-x:auto;padding:8px 13px;gap:3px;border-bottom:1px solid var(--b1);background:var(--s2);scrollbar-width:none;}
+.stbar::-webkit-scrollbar{display:none;}
+.stab{padding:4px 9px;border-radius:100px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;white-space:nowrap;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.stab:hover{border-color:var(--blue);color:var(--blue);}
+.stab.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.stab.td{border-color:var(--green);color:var(--green);}
+.stab.ov{border-color:var(--red);color:var(--red);}
+.sc{display:none;padding:14px;}.sc.on{display:block;}
+.sm{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;flex-wrap:wrap;gap:7px;}
+.sml{display:flex;align-items:center;gap:9px;}
+.snum{font-family:"Syne",sans-serif;font-size:24px;font-weight:800;color:var(--blue);line-height:1;}
+.snm{font-weight:700;font-size:12px;}.sdue{font-size:10px;color:var(--t2);margin-top:2px;}
+.sdue.ov{color:var(--red);font-weight:600;}.sdue.td{color:var(--gold);font-weight:600;}
+.sacts{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
+.spb-wrap{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:8px;}
+.spb{font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.2);color:var(--green);}
+.done-bnr{background:rgba(0,229,160,.05);border:1px solid rgba(0,229,160,.15);border-radius:7px;padding:7px 11px;font-size:11px;color:var(--green);font-weight:600;display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin-bottom:9px;}
+.tptabs{display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap;}
+.tptab{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t3);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.tptab:hover{border-color:var(--b2);color:var(--t2);}.tptab.on{background:var(--s3);border-color:var(--b2);color:var(--text);}
+.tpp{display:none;}.tpp.on{display:block;}
+.tmbox{background:var(--s2);border:1px solid var(--b1);border-radius:8px;overflow:hidden;}
+.tmh{padding:6px 11px;background:var(--s3);border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center;}
+.tml{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);}
+.tmsub{padding:6px 11px;background:rgba(77,142,255,.04);border-bottom:1px solid var(--b1);font-size:10px;color:var(--t2);}
+.tmbody{padding:10px 11px;font-size:11px;line-height:1.9;color:#6A80A0;white-space:pre-wrap;}
+.fuplat{margin-bottom:9px;padding:10px 12px;background:rgba(0,229,160,.04);border:1px solid rgba(0,229,160,.12);border-radius:8px;}
+.fuplat-t{font-size:10px;font-weight:600;color:var(--green);margin-bottom:6px;}
+
+/* REPLY TRACKING */
+.reply-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center;}
+.rlbl{font-size:10px;color:var(--t3);margin-right:2px;}
+.rbtn{padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.rbtn:hover{border-color:var(--b2);}
+.rbtn.replied{background:rgba(0,229,160,.1);border-color:rgba(0,229,160,.3);color:var(--green);}
+.rbtn.no-rep{background:rgba(255,68,102,.08);border-color:rgba(255,68,102,.2);color:var(--red);}
+
+/* CLIENT DETAIL TABS */
+.cdet-tabs{display:flex;gap:4px;margin-top:10px;border-top:1px solid var(--b1);padding-top:10px;flex-wrap:wrap;}
+.cdt{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t3);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.cdt:hover{border-color:var(--b2);color:var(--t2);}.cdt.on{background:var(--s3);border-color:var(--b2);color:var(--text);}
+.cdpanel{display:none;padding:12px 0;}.cdpanel.on{display:block;}
+
+/* PIPELINE SELECTOR */
+.pipe-btns{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.pbtn{padding:5px 11px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:"DM Sans",sans-serif;}
+.pbtn:hover{border-color:var(--b2);}
+.pbtn.on-lead{background:var(--blue);border-color:var(--blue);color:#fff;}
+.pbtn.on-interested{background:var(--purple);border-color:var(--purple);color:#fff;}
+.pbtn.on-call{background:var(--gold);border-color:var(--gold);color:#000;}
+.pbtn.on-closed{background:var(--green);border-color:var(--green);color:#000;}
+.pbtn.on-lost{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* CONTRACT + NOTES */
+.contract-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.cv-in{background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px 11px;color:var(--text);font-family:"DM Mono",monospace;font-size:13px;font-weight:700;outline:none;width:160px;}
+.cv-in:focus{border-color:var(--green);}
+.cv-save{background:var(--green);color:#000;border:none;border-radius:7px;padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;font-family:"DM Sans",sans-serif;}
+.notes-ta{width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px 12px;color:var(--text);font-family:"DM Sans",sans-serif;font-size:12px;outline:none;resize:vertical;min-height:80px;line-height:1.6;}
+.notes-ta:focus{border-color:var(--blue);}
+.notes-save{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;margin-top:6px;}
+
+/* SHARE */
+.share-row{display:flex;align-items:center;gap:7px;margin-top:9px;padding:9px 11px;background:rgba(155,114,255,.05);border:1px solid rgba(155,114,255,.18);border-radius:8px;}
+.shr-lbl{font-size:11px;color:var(--t2);flex:1;}
+.shr-sel{background:var(--s2);border:1px solid var(--b2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:11px;font-family:"DM Sans",sans-serif;outline:none;}
+.shr-btn{background:var(--purple);color:#fff;border:none;border-radius:6px;padding:5px 11px;font-size:11px;font-weight:600;cursor:pointer;font-family:"DM Sans",sans-serif;}
 
 /* ANALYTICS */
-.anl-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px;}
-.anl-card{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:14px;}
-.anl-card-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--t3);margin-bottom:11px;}
-.member-stat-row{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--b1);}
-.member-stat-row:last-child{border:none;}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px;}
+.ac{background:var(--s1);border:1px solid var(--b1);border-radius:11px;padding:14px;}
+.act{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3);margin-bottom:11px;}
+.msr{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--b1);}
+.msr:last-child{border:none;}
 .msav{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#fff;flex-shrink:0;}
-.ms-name{font-size:12px;font-weight:600;flex:1;}
-.ms-nums{display:flex;gap:9px;}
-.ms-num{text-align:center;}
-.ms-num-val{font-size:13px;font-weight:700;font-family:'Syne',sans-serif;}
-.ms-num-label{font-size:9px;color:var(--t3);text-transform:uppercase;}
-.bar-wrap{margin-bottom:7px;}
-.bar-label-row{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:3px;}
-.bar-track{height:5px;background:var(--b1);border-radius:3px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:3px;transition:width 0.5s ease;}
+.msn{font-size:12px;font-weight:600;flex:1;}
+.msnums{display:flex;gap:9px;}
+.msnum{text-align:center;}
+.msnv{font-size:13px;font-weight:700;font-family:"Syne",sans-serif;}
+.msnl{font-size:9px;color:var(--t3);text-transform:uppercase;}
+.bwrap{margin-bottom:7px;}
+.blbl{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:3px;}
+.btrack{height:5px;background:var(--b1);border-radius:3px;overflow:hidden;}
+.bfill{height:100%;border-radius:3px;transition:width .5s ease;}
 
 /* TEAM */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px;}
-.team-card{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px;}
-.team-card-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
-.team-av{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;font-family:'Syne',sans-serif;}
-.team-name{font-weight:700;font-size:13px;}
-.team-role{font-size:9px;color:var(--t3);text-transform:uppercase;}
-.team-stats{display:flex;gap:7px;}
-.team-stat{text-align:center;flex:1;}
-.team-stat-val{font-size:15px;font-weight:800;font-family:'Syne',sans-serif;}
-.team-stat-label{font-size:9px;color:var(--t3);text-transform:uppercase;}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px;}
+.tcard{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:13px;}
+.tchead{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.tcav{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;font-family:"Syne",sans-serif;}
+.tcname{font-weight:700;font-size:13px;}.tcrole{font-size:9px;color:var(--t3);text-transform:uppercase;}
+.tcstats{display:flex;gap:7px;}
+.tcs{text-align:center;flex:1;}
+.tcsv{font-size:15px;font-weight:800;font-family:"Syne",sans-serif;}
+.tcsl{font-size:9px;color:var(--t3);text-transform:uppercase;}
 
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 13px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;border:none;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:6px 13px;border-radius:7px;font-family:"DM Sans",sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;border:none;}
 .btn-sm{padding:4px 10px;font-size:10px;border-radius:6px;}
-.btn-green{background:linear-gradient(135deg,var(--green),var(--green2));color:#000;font-weight:700;}
-.btn-green:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,229,160,0.25);}
-.btn-green:disabled{opacity:0.35;cursor:not-allowed;transform:none;}
+.btn-g{background:linear-gradient(135deg,var(--green),var(--g2));color:#000;font-weight:700;}
+.btn-g:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,229,160,.25);}
+.btn-g:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .btn-ghost{background:var(--s2);border:1px solid var(--b1);color:var(--t2);}
 .btn-ghost:hover{border-color:var(--b2);color:var(--text);}
-.btn-danger{background:rgba(255,68,102,0.08);border:1px solid rgba(255,68,102,0.2);color:var(--red);}
-.btn-danger:hover{background:rgba(255,68,102,0.15);}
-.btn-purple{background:rgba(155,114,255,0.1);border:1px solid rgba(155,114,255,0.22);color:var(--purple);}
-.btn-purple:hover{background:rgba(155,114,255,0.18);}
+.btn-danger{background:rgba(255,68,102,.08);border:1px solid rgba(255,68,102,.2);color:var(--red);}
+.btn-danger:hover{background:rgba(255,68,102,.15);}
+.btn-purple{background:rgba(155,114,255,.1);border:1px solid rgba(155,114,255,.22);color:var(--purple);}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center;}
-.modal-overlay.open{display:flex;}
-.modal-box{background:var(--s1);border:1px solid var(--b1);border-radius:15px;padding:26px;width:320px;}
-.modal-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;margin-bottom:16px;}
-.modal-actions{display:flex;gap:7px;margin-top:13px;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;}
+.modal-bg.on{display:flex;}
+.modal{background:var(--s1);border:1px solid var(--b1);border-radius:15px;padding:26px;width:320px;}
+.modal-title{font-family:"Syne",sans-serif;font-size:16px;font-weight:800;margin-bottom:16px;}
+.modal-row{display:flex;gap:7px;margin-top:13px;}
 
-.empty-state{text-align:center;padding:32px 20px;color:var(--t3);}
-.empty-icon{font-size:28px;display:block;margin-bottom:6px;}
-.empty-title{font-size:13px;color:var(--t2);margin-bottom:3px;}
-.empty-sub{font-size:11px;}
+.empty{text-align:center;padding:32px 20px;color:var(--t3);}
+.empty .ei{font-size:28px;display:block;margin-bottom:6px;}
+.empty h3{font-size:13px;color:var(--t2);margin-bottom:3px;}.empty p{font-size:11px;}
 
-/* TOAST */
-#toast{position:fixed;bottom:18px;right:18px;padding:9px 15px;border-radius:8px;font-size:12px;font-weight:600;transform:translateY(50px);opacity:0;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);z-index:9999;max-width:260px;font-family:'DM Sans',sans-serif;pointer-events:none;}
-#toast.show{transform:translateY(0);opacity:1;}
+#toast{position:fixed;bottom:18px;right:18px;padding:9px 15px;border-radius:8px;font-size:12px;font-weight:600;transform:translateY(50px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);z-index:9999;max-width:280px;font-family:"DM Sans",sans-serif;pointer-events:none;}
+#toast.on{transform:translateY(0);opacity:1;}
 
-/* MOBILE */
 @media(max-width:768px){
-  .sidebar{display:none;}
+  .sb{display:none;}
   #mobnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--s1);border-top:1px solid var(--b1);z-index:100;padding:4px;gap:2px;}
-  .mob-nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px;border-radius:7px;cursor:pointer;font-size:9px;color:var(--t3);font-family:'DM Sans',sans-serif;background:none;border:none;transition:all 0.15s;}
-  .mob-nav-btn.active{color:var(--blue);background:rgba(77,142,255,0.08);}
-  .mob-icon{font-size:16px;}
-  .dash-stats{grid-template-columns:repeat(2,1fr);}
-  .form-grid{grid-template-columns:1fr;}
-  .anl-grid{grid-template-columns:1fr;}
-  .page{padding:12px;padding-bottom:66px;}
+  .mnb{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px;border-radius:7px;cursor:pointer;font-size:9px;color:var(--t3);font-family:"DM Sans",sans-serif;background:none;border:none;transition:all .15s;}
+  .mnb.on{color:var(--blue);background:rgba(77,142,255,.08);}
+  .mni{font-size:16px;}
+  .dsg{grid-template-columns:repeat(2,1fr);}
+  .fg,.ag{grid-template-columns:1fr;}
+  .pg{padding:12px;padding-bottom:66px;}
 }
 @media(min-width:769px){#mobnav{display:none;}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="lbox">
-    <div class="llogo"><span>AK</span> Outreach Pro</div>
-    <div class="lsub">AK Technology — Team Portal</div>
-    <div id="member-screen">
-      <div class="member-grid" id="member-grid">
-        <div style="color:var(--t3);font-size:12px;padding:16px;text-align:center;">Connecting to database...</div>
-      </div>
-    </div>
-    <div id="pin-screen">
-      <div class="pin-title" id="pin-title">Enter your PIN</div>
-      <input type="password" class="pin-input" id="pin-input" maxlength="4" placeholder="••••" oninput="checkPin()" inputmode="numeric" autocomplete="off">
-      <div class="pin-err" id="pin-err">Wrong PIN. Try again.</div>
-      <br><button class="pin-back" onclick="showMemberScreen()">← Back</button>
+    <div class="l-logo"><span>AK</span> Outreach Pro</div>
+    <div class="l-ver">✦ Premium v5.0</div>
+    <div id="ms-wrap"><div class="mg" id="mg">
+      <div style="color:var(--t3);font-size:12px;padding:16px;text-align:center;">Connecting to database...</div>
+    </div></div>
+    <div id="pin-wrap">
+      <div class="pin-lbl" id="pin-lbl">Enter your PIN</div>
+      <input type="password" class="pin-in" id="pin-in" maxlength="4" placeholder="••••" oninput="chkPin()" inputmode="numeric" autocomplete="off">
+      <div class="pin-err" id="pin-err">❌ Wrong PIN. Try again.</div>
+      <br><button class="pin-back" onclick="bkMs()">← Back</button>
     </div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
-  <div class="shell">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sb-brand">
-        <div class="sb-logo"><span>AK</span> Outreach Pro</div>
-        <div class="sb-user">
-          <div class="sb-av" id="sb-avatar"></div>
-          <div>
-            <div class="sb-uname" id="sb-username"></div>
-            <div class="sb-urole" id="sb-userrole"></div>
-          </div>
-          <button class="sb-logout" onclick="logout()" title="Logout">⏻</button>
-        </div>
-      </div>
-      <nav class="sb-nav">
-        <div class="sb-section">Menu</div>
-        <button class="nav-item active" onclick="goTo('dash')"><span class="nav-icon">🏠</span>Dashboard</button>
-        <button class="nav-item" onclick="goTo('gen')"><span class="nav-icon">⚡</span>Generate <span class="nav-badge badge-gold" id="badge-today">0</span></button>
-        <button class="nav-item" onclick="goTo('track')"><span class="nav-icon">📋</span>Tracker <span class="nav-badge badge-red" id="badge-overdue">0</span></button>
-        <button class="nav-item" onclick="goTo('anl')"><span class="nav-icon">📊</span>Analytics</button>
-        <button class="nav-item" id="team-nav-btn" style="display:none" onclick="goTo('team')"><span class="nav-icon">👥</span>Team</button>
-      </nav>
-      <div class="sb-stats">
-        <div class="stat-row"><span class="stat-label">My Clients</span><span class="stat-val" id="stat-total">0</span></div>
-        <div class="stat-row"><span class="stat-label">Due Today</span><span class="stat-val" style="color:var(--gold)" id="stat-today">0</span></div>
-        <div class="stat-row"><span class="stat-label">Overdue</span><span class="stat-val" style="color:var(--red)" id="stat-overdue">0</span></div>
-        <div class="stat-row"><span class="stat-label">Done</span><span class="stat-val" style="color:var(--green)" id="stat-done">0</span></div>
-      </div>
-    </aside>
+<div class="shell">
 
-    <!-- MAIN -->
-    <main class="main-content">
+<!-- SIDEBAR -->
+<aside class="sb">
+  <div class="sb-top">
+    <div class="sb-logo"><span>AK</span> Outreach Pro</div>
+    <div class="sb-ver">✦ Premium v5.0</div>
+    <div class="sb-user">
+      <div class="sb-av" id="sb-av"></div>
+      <div><div class="sb-un" id="sb-un"></div><div class="sb-ur" id="sb-ur"></div></div>
+      <button class="sb-lo" onclick="logout()" title="Logout">⏻</button>
+    </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-sec">Menu</div>
+    <button class="ni on" onclick="go('dash')"><span class="ni-i">🏠</span>Dashboard</button>
+    <button class="ni" onclick="go('gen')"><span class="ni-i">⚡</span>Generate <span class="nbg nbg-g" id="nb-td">0</span></button>
+    <button class="ni" onclick="go('track')"><span class="ni-i">📋</span>Tracker <span class="nbg nbg-r" id="nb-ov">0</span></button>
+    <button class="ni" onclick="go('anl')"><span class="ni-i">📊</span>Analytics</button>
+    <button class="ni" id="tnav" style="display:none" onclick="go('team')"><span class="ni-i">👥</span>Team</button>
+  </nav>
+  <div class="sb-kpi">
+    <div class="kr"><span class="kl">My Clients</span><span class="kv" id="sk-tot">0</span></div>
+    <div class="kr"><span class="kl">Due Today</span><span class="kv" style="color:var(--gold)" id="sk-td">0</span></div>
+    <div class="kr"><span class="kl">Overdue</span><span class="kv" style="color:var(--red)" id="sk-ov">0</span></div>
+    <div class="kr"><span class="kl">Converted</span><span class="kv" style="color:var(--green)" id="sk-cv">0</span></div>
+  </div>
+</aside>
 
-      <!-- DASHBOARD -->
-      <div class="page active" id="page-dash">
-        <div class="page-header">
-          <div class="page-title" id="dash-greeting">Dashboard</div>
-          <div class="page-sub" id="dash-date"></div>
-        </div>
-        <div class="dash-stats">
-          <div class="dash-stat"><div class="dash-stat-val" style="color:var(--blue)" id="ds-clients">0</div><div class="dash-stat-label">Clients</div></div>
-          <div class="dash-stat"><div class="dash-stat-val" style="color:var(--gold)" id="ds-today">0</div><div class="dash-stat-label">Due Today</div></div>
-          <div class="dash-stat"><div class="dash-stat-val" style="color:var(--red)" id="ds-overdue">0</div><div class="dash-stat-label">Overdue</div></div>
-          <div class="dash-stat"><div class="dash-stat-val" style="color:var(--green)" id="ds-done">0</div><div class="dash-stat-label">Done</div></div>
-        </div>
-        <div class="card">
-          <div class="card-title">🔥 Today's Tasks</div>
-          <div id="dash-tasks"></div>
-        </div>
-      </div>
+<main class="main">
 
-      <!-- GENERATE -->
-      <div class="page" id="page-gen">
-        <div class="page-header">
-          <div class="page-title">⚡ <span class="accent">Smart</span> Generate</div>
-          <div class="page-sub">Paste a Shopify store URL — AI reads everything and writes personalized messages.</div>
-        </div>
-        <div class="card">
-          <div class="card-title">🔗 Step 1 — Store URL</div>
-          <div class="url-bar">
-            <input type="text" class="url-input" id="url-input" placeholder="https://storename.com" onkeydown="if(event.key==='Enter')startScan()">
-            <button class="scan-btn" id="scan-btn" onclick="startScan()">🔍 Scan Page</button>
-          </div>
-          <div class="pipeline" id="pipeline">
-            <div style="height:9px;"></div>
-            <div class="pipe-step" id="step-fetch"><div class="pipe-icon pi-idle" id="icon-fetch">⏳</div><span class="pipe-label">Fetching store via server...</span><span class="pipe-val" id="val-fetch"></span></div>
-            <div class="pipe-step" id="step-pixel"><div class="pipe-icon pi-idle" id="icon-pixel">⏳</div><span class="pipe-label">Scanning Facebook Pixel...</span><span class="pipe-val" id="val-pixel"></span></div>
-            <div class="pipe-step" id="step-ga"><div class="pipe-icon pi-idle" id="icon-ga">⏳</div><span class="pipe-label">Scanning Analytics / GTM...</span><span class="pipe-val" id="val-ga"></span></div>
-            <div class="pipe-step" id="step-ai"><div class="pipe-icon pi-idle" id="icon-ai">⏳</div><span class="pipe-label">AI reading full page...</span><span class="pipe-val" id="val-ai"></span></div>
-          </div>
-        </div>
+<!-- DASHBOARD -->
+<div class="pg on" id="page-dash">
+  <div class="ph"><div class="pt" id="dash-greet">Dashboard</div><div class="ps-sub" id="dash-date"></div></div>
+  <div class="dsg">
+    <div class="dsc"><div class="dsv" style="color:var(--blue)" id="ds-tot">0</div><div class="dsl">Clients</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--gold)" id="ds-td">0</div><div class="dsl">Due Today</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--red)" id="ds-ov">0</div><div class="dsl">Overdue</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--green)" id="ds-cv">0</div><div class="dsl">Converted</div></div>
+  </div>
+  <div class="card"><div class="ct">🔥 Today's Tasks</div><div id="dash-tasks"></div></div>
+</div>
 
-        <div class="detect-section card" id="detect-section">
-          <div class="card-title">🎯 Step 2 — Detected Info</div>
-          <div class="detect-grid" id="detect-grid"></div>
-          <a class="adlib-link" id="adlib-link" href="#" target="_blank" rel="noopener">
-            <span style="font-size:17px;">📢</span>
-            <div><div class="adlib-title">Check Facebook Ad Library</div><div class="adlib-sub">See if ads are running right now — 5 seconds</div></div>
-            <span style="color:var(--gold);margin-left:auto">→</span>
-          </a>
-          <div class="form-grid">
-            <div class="form-group"><label class="form-label">Brand / Owner Name</label><input type="text" class="form-input" id="f-name" placeholder="e.g. Sarah / Simply Lora"></div>
-            <div class="form-group"><label class="form-label">Niche</label>
-              <select class="form-select" id="f-niche">
-                <option>Fashion / Clothing</option><option>Shapewear / Lingerie</option><option>Beauty / Skincare</option><option>Health / Wellness</option><option>Home & Living</option><option>Food & Beverage</option><option>Gadgets / Electronics</option><option>Patriotic / Outdoor</option><option>Decals / Custom Print</option><option>Jewelry / Accessories</option><option>Pet Products</option><option>B2B / Industrial</option><option>Luxury / Premium</option><option>Cause / Mission Brand</option><option>Other</option>
-              </select>
-            </div>
-            <div class="form-group"><label class="form-label">Market</label>
-              <select class="form-select" id="f-country"><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Other</option></select>
-            </div>
-            <div class="form-group"><label class="form-label">Ads Running?</label>
-              <select class="form-select" id="f-ads"><option value="unknown">Check Ad Library first</option><option value="yes">Yes — running</option><option value="no">No ads found</option></select>
-            </div>
-            <div class="form-group full"><label class="form-label">Issues Detected</label><textarea class="form-textarea" id="f-issue"></textarea></div>
-          </div>
-          <button class="gen-btn" id="gen-btn" onclick="generateMessages()">✨ Generate All Messages with AI</button>
-        </div>
-
-        <div class="ai-loading" id="ai-loading"><div class="ai-ring"></div><div class="ai-text">AI crafting personalized messages...</div></div>
-
-        <div class="output-section card" id="output-section">
-          <div class="card-title">📨 Stage 1 — Send Now</div>
-          <div class="platform-tabs" id="s1-tabs">
-            <button class="ptab active" onclick="switchPTab('s1','email',this)">📧 Email</button>
-            <button class="ptab" onclick="switchPTab('s1','wa',this)">💬 WhatsApp</button>
-            <button class="ptab" onclick="switchPTab('s1','ig',this)">📸 Instagram</button>
-            <button class="ptab" onclick="switchPTab('s1','fb',this)">📘 Facebook</button>
-          </div>
-          <div id="s1-email" class="msg-panel active"><div class="msg-box"><div class="msg-subj" id="s1-subj-text"></div><div class="msg-head"><span class="msg-label">📧 Email</span><button class="copy-btn" onclick="copyMsg('s1-email-body',this)">📋 Copy</button></div><div class="msg-body" id="s1-email-body"></div></div></div>
-          <div id="s1-wa" class="msg-panel"><div class="msg-box"><div class="msg-head"><span class="msg-label">💬 WhatsApp</span><button class="copy-btn" onclick="copyMsg('s1-wa-body',this)">📋 Copy</button></div><div class="msg-body" id="s1-wa-body"></div></div></div>
-          <div id="s1-ig" class="msg-panel"><div class="msg-box"><div class="msg-head"><span class="msg-label">📸 Instagram</span><button class="copy-btn" onclick="copyMsg('s1-ig-body',this)">📋 Copy</button></div><div class="msg-body" id="s1-ig-body"></div></div></div>
-          <div id="s1-fb" class="msg-panel"><div class="msg-box"><div class="msg-head"><span class="msg-label">📘 Facebook</span><button class="copy-btn" onclick="copyMsg('s1-fb-body',this)">📋 Copy</button></div><div class="msg-body" id="s1-fb-body"></div></div></div>
-          <div style="margin-top:14px;">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:9px;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--purple);color:#fff;">STAGES 2–5</span>Follow-Up Emails (auto-saved)
-            </div>
-            <div class="followup-grid" id="followup-grid"></div>
-          </div>
-          <div class="plat-checker">
-            <div class="plat-checker-title">✅ কোন platform-এ Stage 1 পাঠিয়েছো?</div>
-            <div class="plat-options">
-              <label class="plat-opt" id="po-email"><input type="checkbox" value="email" onchange="togglePlatform(this)">📧 Email</label>
-              <label class="plat-opt" id="po-wa"><input type="checkbox" value="whatsapp" onchange="togglePlatform(this)">💬 WhatsApp</label>
-              <label class="plat-opt" id="po-ig"><input type="checkbox" value="instagram" onchange="togglePlatform(this)">📸 Instagram</label>
-              <label class="plat-opt" id="po-fb"><input type="checkbox" value="facebook" onchange="togglePlatform(this)">📘 Facebook</label>
-            </div>
-          </div>
-          <div class="action-row">
-            <button class="save-btn" onclick="saveClient()">💾 Save to Tracker</button>
-            <button class="reset-btn" onclick="resetGenerate()">✕ Reset</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- TRACKER -->
-      <div class="page" id="page-track">
-        <div class="page-header">
-          <div class="page-title">📋 Client <span class="accent">Tracker</span></div>
-          <div class="page-sub">Your clients + clients shared with you.</div>
-        </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" onclick="setFilter('all',this)">All</button>
-          <button class="filter-tab" onclick="setFilter('due',this)">🔥 Due Today</button>
-          <button class="filter-tab" onclick="setFilter('overdue',this)">⚠️ Overdue</button>
-          <button class="filter-tab" onclick="setFilter('active',this)">🟢 Active</button>
-          <button class="filter-tab" onclick="setFilter('converted',this)">🏆 Converted</button>
-        </div>
-        <div id="client-list"></div>
-      </div>
-
-      <!-- ANALYTICS -->
-      <div class="page" id="page-anl">
-        <div class="page-header">
-          <div class="page-title">📊 <span class="accent">Analytics</span></div>
-          <div class="page-sub" id="anl-subtitle">Performance overview</div>
-        </div>
-        <div class="anl-grid" id="anl-content"></div>
-      </div>
-
-      <!-- TEAM -->
-      <div class="page" id="page-team">
-        <div class="page-header">
-          <div class="page-title">👥 <span class="accent">Team</span></div>
-          <div class="page-sub">Add members, reset PINs, view performance.</div>
-        </div>
-        <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-          <button class="btn btn-green" onclick="openAddMember()">+ Add Member</button>
-        </div>
-        <div class="team-grid" id="team-grid"></div>
-      </div>
-
-    </main>
+<!-- GENERATE -->
+<div class="pg" id="page-gen">
+  <div class="ph">
+    <div class="pt">⚡ <span class="hl">Smart</span> Generate</div>
+    <div class="ps-sub">AI reads the full store, detects tracking, niche & issues — then writes personalized multi-angle outreach.</div>
+  </div>
+  <div class="card">
+    <div class="ct">🔗 Step 1 — Store URL</div>
+    <div class="url-bar">
+      <input type="text" class="url-in" id="url-in" placeholder="https://storename.com" onkeydown="if(event.key==='Enter')doScan()">
+      <button class="scan-btn" id="scan-btn" onclick="doScan()">🔍 Scan Store</button>
+    </div>
+    <div class="pipe-wrap" id="pipe-wrap">
+      <div style="height:9px;"></div>
+      <div class="psr" id="psr-fetch"><div class="pico pi-idle" id="pi-fetch">⏳</div><span class="plbl">Fetching store via server...</span><span class="pval" id="pv-fetch"></span></div>
+      <div class="psr" id="psr-pixel"><div class="pico pi-idle" id="pi-pixel">⏳</div><span class="plbl">Deep scanning Facebook Pixel (25+ methods)...</span><span class="pval" id="pv-pixel"></span></div>
+      <div class="psr" id="psr-ga"><div class="pico pi-idle" id="pi-ga">⏳</div><span class="plbl">Scanning Analytics / GTM / TikTok Pixel...</span><span class="pval" id="pv-ga"></span></div>
+      <div class="psr" id="psr-ai"><div class="pico pi-idle" id="pi-ai">⏳</div><span class="plbl">AI analyzing niche, audience & growth gaps...</span><span class="pval" id="pv-ai"></span></div>
+    </div>
   </div>
 
-  <!-- MOBILE NAV -->
-  <div id="mobnav">
-    <button class="mob-nav-btn active" onclick="goTo('dash')"><span class="mob-icon">🏠</span>Home</button>
-    <button class="mob-nav-btn" onclick="goTo('gen')"><span class="mob-icon">⚡</span>Generate</button>
-    <button class="mob-nav-btn" onclick="goTo('track')"><span class="mob-icon">📋</span>Tracker</button>
-    <button class="mob-nav-btn" onclick="goTo('anl')"><span class="mob-icon">📊</span>Stats</button>
+  <div class="det-sec card" id="det-sec">
+    <div class="ct">🎯 Step 2 — AI-Detected Info</div>
+    <div class="dgrd" id="det-grid"></div>
+    <a class="adlib-link" id="adlib" href="#" target="_blank" rel="noopener">
+      <span style="font-size:17px;">📢</span>
+      <div><div class="adlib-t">Check Facebook Ad Library — 5 sec</div><div class="adlib-s">Verify ads before generating — more accurate messages</div></div>
+      <span style="color:var(--gold);margin-left:auto;">→</span>
+    </a>
+    <div class="fg">
+      <div class="fgrp"><label class="fl">Brand / Owner Name</label><input type="text" class="fi" id="e-name" placeholder="e.g. Sarah / Simply Lora"></div>
+      <div class="fgrp">
+        <label class="fl">Niche <span style="color:var(--green);font-weight:700;">(AI Auto-Selected ✓)</span></label>
+        <select class="fsel" id="e-niche">
+          <option>Fashion / Clothing</option><option>Shapewear / Lingerie</option><option>Beauty / Skincare</option>
+          <option>Health / Wellness</option><option>Home & Living</option><option>Food & Beverage</option>
+          <option>Gadgets / Electronics</option><option>Patriotic / Outdoor</option><option>Decals / Custom Print</option>
+          <option>Jewelry / Accessories</option><option>Pet Products</option><option>B2B / Industrial</option>
+          <option>Luxury / Premium</option><option>Cause / Mission Brand</option><option>Sports & Fitness</option>
+          <option>Baby & Kids</option><option>Automotive</option><option>Art & Craft</option><option>Other</option>
+        </select>
+      </div>
+      <div class="fgrp"><label class="fl">Market</label>
+        <select class="fsel" id="e-country"><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Other</option></select>
+      </div>
+      <div class="fgrp"><label class="fl">Ads Running? (Check Ad Library)</label>
+        <select class="fsel" id="e-ads">
+          <option value="unknown">🔍 Check Ad Library above</option>
+          <option value="yes">✅ Yes — Confirmed running</option>
+          <option value="no">❌ No — None found</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ISSUE SELECTOR -->
+    <div class="issue-box" id="issue-box">
+      <div class="issue-box-title">🔍 Issues Detected — Select focus areas for outreach</div>
+      <div class="itags" id="itags"></div>
+    </div>
+
+    <button class="gen-btn" id="gen-btn" onclick="doGenerate()">✨ Generate Personalized Messages — All 5 Stages</button>
+  </div>
+
+  <div class="ai-load" id="ai-load">
+    <div class="ai-ring"></div>
+    <div class="ai-txt">AI writing personalized, multi-angle outreach messages...</div>
+  </div>
+
+  <div class="out-wrap card" id="out-wrap">
+    <div class="ct">📨 Stage 1 — Initial Outreach</div>
+    <div class="ptabs" id="ptabs1">
+      <button class="ptab on" onclick="swPT(1,'email',this)">📧 Email</button>
+      <button class="ptab" onclick="swPT(1,'wa',this)">💬 WhatsApp</button>
+      <button class="ptab" onclick="swPT(1,'ig',this)">📸 Instagram</button>
+      <button class="ptab" onclick="swPT(1,'fb',this)">📘 Facebook</button>
+    </div>
+    <div id="p1-email" class="pmsg on"><div class="mbox"><div class="msubj" id="s1-subj"></div><div class="mh"><span class="ml">📧 Email</span><button class="cbtn" onclick="cp('s1-email',this)">📋 Copy</button></div><div class="mbody" id="s1-email"></div></div></div>
+    <div id="p1-wa" class="pmsg"><div class="mbox"><div class="mh"><span class="ml">💬 WhatsApp</span><button class="cbtn" onclick="cp('s1-wa',this)">📋 Copy</button></div><div class="mbody" id="s1-wa"></div></div></div>
+    <div id="p1-ig" class="pmsg"><div class="mbox"><div class="mh"><span class="ml">📸 Instagram</span><button class="cbtn" onclick="cp('s1-ig',this)">📋 Copy</button></div><div class="mbody" id="s1-ig"></div></div></div>
+    <div id="p1-fb" class="pmsg"><div class="mbox"><div class="mh"><span class="ml">📘 Facebook</span><button class="cbtn" onclick="cp('s1-fb',this)">📋 Copy</button></div><div class="mbody" id="s1-fb"></div></div></div>
+    <div style="margin-top:14px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:9px;display:flex;align-items:center;gap:6px;">
+        <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--purple);color:#fff;">STAGES 2–5</span>
+        Follow-Up Emails (auto-saved with client)
+      </div>
+      <div class="fu-grid" id="fu-grid"></div>
+    </div>
+    <div class="plat-check">
+      <div class="plat-check-t">✅ Stage 1 কোন platform-এ পাঠিয়েছো?</div>
+      <div class="pc-opts">
+        <label class="pco"><input type="checkbox" value="email" onchange="togPlat(this)">📧 Email</label>
+        <label class="pco"><input type="checkbox" value="whatsapp" onchange="togPlat(this)">💬 WhatsApp</label>
+        <label class="pco"><input type="checkbox" value="instagram" onchange="togPlat(this)">📸 Instagram</label>
+        <label class="pco"><input type="checkbox" value="facebook" onchange="togPlat(this)">📘 Facebook</label>
+      </div>
+    </div>
+    <div class="arow">
+      <button class="save-btn" onclick="saveClient()">💾 Save Client to Tracker</button>
+      <button class="rst-btn" onclick="resetGen()">✕ Reset</button>
+    </div>
   </div>
 </div>
 
+<!-- TRACKER -->
+<div class="pg" id="page-track">
+  <div class="ph"><div class="pt">📋 Client <span class="hl">Tracker</span></div><div class="ps-sub">Lead → Interested → Call Booked → Closed</div></div>
+  <div class="ftabs">
+    <button class="ftab on" onclick="setF('all',this)">All</button>
+    <button class="ftab" onclick="setF('due',this)">🔥 Due</button>
+    <button class="ftab" onclick="setF('ov',this)">⚠️ Overdue</button>
+    <button class="ftab" onclick="setF('lead',this)">🔵 Lead</button>
+    <button class="ftab" onclick="setF('interested',this)">💜 Interested</button>
+    <button class="ftab" onclick="setF('call',this)">📞 Call</button>
+    <button class="ftab" onclick="setF('closed',this)">🏆 Closed</button>
+  </div>
+  <div id="tlist"></div>
+</div>
+
+<!-- ANALYTICS -->
+<div class="pg" id="page-anl">
+  <div class="ph"><div class="pt">📊 <span class="hl">Analytics</span></div><div class="ps-sub" id="anl-sub">Performance overview</div></div>
+  <div class="ag" id="anl-cont"></div>
+</div>
+
+<!-- TEAM -->
+<div class="pg" id="page-team">
+  <div class="ph"><div class="pt">👥 <span class="hl">Team</span></div><div class="ps-sub">Add members, reset PINs, view performance.</div></div>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px;"><button class="btn btn-g" onclick="openM()">+ Add Member</button></div>
+  <div class="tgrid" id="team-grid"></div>
+</div>
+
+</main>
+</div>
+<div id="mobnav">
+  <button class="mnb on" onclick="go('dash')"><span class="mni">🏠</span>Home</button>
+  <button class="mnb" onclick="go('gen')"><span class="mni">⚡</span>Generate</button>
+  <button class="mnb" onclick="go('track')"><span class="mni">📋</span>Tracker</button>
+  <button class="mnb" onclick="go('anl')"><span class="mni">📊</span>Stats</button>
+</div>
+</div>
+
 <!-- ADD MEMBER MODAL -->
-<div class="modal-overlay" id="add-member-modal">
-  <div class="modal-box">
+<div class="modal-bg" id="add-modal">
+  <div class="modal">
     <div class="modal-title">Add Team Member</div>
-    <div class="form-group" style="margin-bottom:9px;"><label class="form-label">Name</label><input type="text" class="form-input" id="new-member-name" placeholder="e.g. Rahim"></div>
-    <div class="form-group" style="margin-bottom:9px;"><label class="form-label">PIN (4 digits)</label><input type="text" class="form-input" id="new-member-pin" placeholder="1234" maxlength="4" inputmode="numeric"></div>
-    <div class="form-group"><label class="form-label">Color</label>
-      <select class="form-select" id="new-member-color">
-        <option value="#4D8EFF">Blue</option><option value="#00E5A0">Green</option>
-        <option value="#9B72FF">Purple</option><option value="#FF7B3B">Orange</option>
-        <option value="#FFB800">Gold</option><option value="#FF4466">Red</option>
-      </select>
+    <div class="fgrp" style="margin-bottom:9px;"><label class="fl">Name</label><input type="text" class="fi" id="nm-n" placeholder="e.g. Rahim"></div>
+    <div class="fgrp" style="margin-bottom:9px;"><label class="fl">PIN (4 digits)</label><input type="text" class="fi" id="nm-p" placeholder="1234" maxlength="4" inputmode="numeric"></div>
+    <div class="fgrp"><label class="fl">Color</label>
+      <select class="fsel" id="nm-c"><option value="#4D8EFF">Blue</option><option value="#00E5A0">Green</option><option value="#9B72FF">Purple</option><option value="#FF7B3B">Orange</option><option value="#FFB800">Gold</option><option value="#FF4466">Red</option></select>
     </div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-green" style="flex:1" onclick="addMember()">Add Member</button>
-    </div>
+    <div class="modal-row"><button class="btn btn-ghost" style="flex:1" onclick="closeM()">Cancel</button><button class="btn btn-g" style="flex:1" onclick="addMember()">Add Member</button></div>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-// ============================================================
-// SUPABASE SETUP
-// ============================================================
-const SB_URL = 'https://lfkahfpxezvouwzdbkzz.supabase.co';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxma2FoZnB4ZXp2b3V3emRia3p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5OTgyMjYsImV4cCI6MjA4ODU3NDIyNn0.afg8sFNKuS595XVhQDW57c5O_EXGTE2UW9kaU31sNX4';
-const db = supabase.createClient(SB_URL, SB_KEY);
+const SB_URL='https://lfkahfpxezvouwzdbkzz.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxma2FoZnB4ZXp2b3V3emRia3p6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5OTgyMjYsImV4cCI6MjA4ODU3NDIyNn0.afg8sFNKuS595XVhQDW57c5O_EXGTE2UW9kaU31sNX4';
+const db=supabase.createClient(SB_URL,SB_KEY);
+let ME=null,ALL_M=[],MY_C=[],PEND=null,CFILT='all',GEN=null,SCAN={},selPlats=[],stgPlats={};
 
-// ============================================================
-// APP STATE
-// ============================================================
-let currentUser = null;
-let allMembers = [];
-let myClients = [];
-let pendingMember = null;
-let currentFilter = 'all';
-let generatedData = null;
-let scannedData = {};
-let chosenPlatforms = [];
-let stagePlatformMap = {};
-
-const STAGES = [
-  { name: 'Initial Outreach', day: 0 },
-  { name: 'Value Follow-Up',  day: 3 },
-  { name: 'Case Study',       day: 7 },
-  { name: 'New Angle',        day: 14 },
-  { name: 'Break-Up Email',   day: 21 },
+const STAGES=[
+  {name:'Initial Outreach',day:0},
+  {name:'Value Follow-Up',day:3},
+  {name:'Case Study',day:7},
+  {name:'New Angle',day:14},
+  {name:'Break-Up Email',day:21}
 ];
-const COLORS = ['#4D8EFF','#00E5A0','#9B72FF','#FF7B3B','#FFB800','#FF4466'];
+const COLORS=['#4D8EFF','#00E5A0','#9B72FF','#FF7B3B','#FFB800','#FF4466'];
 
-// ============================================================
+// All possible issues — will be filtered by what AI detects
+const ISSUE_LIB=[
+  {id:'fb_pixel',cat:'tracking',label:'❌ No Facebook Pixel',desc:'Cannot retarget visitors or track ad conversions — losing sales daily',color:'sel-red'},
+  {id:'tiktok_px',cat:'tracking',label:'❌ No TikTok Pixel',desc:'Missing TikTok retargeting — biggest growing traffic source',color:'sel-red'},
+  {id:'no_ga',cat:'tracking',label:'❌ No Google Analytics',desc:'Zero visibility into traffic sources and user behavior',color:'sel-red'},
+  {id:'ads_blind',cat:'ads',label:'💸 Ads without tracking',desc:'Spending ad budget without knowing what converts — ROI unknown',color:'sel-red'},
+  {id:'no_ads',cat:'ads',label:'📢 No Paid Ads Running',desc:'Missing biggest revenue channel — competitors capturing their market',color:'sel-red'},
+  {id:'no_email',cat:'email',label:'📧 No Email Marketing',desc:'No Klaviyo/email flows — losing 30-40% recoverable revenue',color:'sel-red'},
+  {id:'cro',cat:'conversion',label:'📉 CRO Opportunities',desc:'Product pages, checkout, and UX can be optimized for more sales',color:'sel-blue'},
+  {id:'seo',cat:'seo',label:'🔍 SEO Not Optimized',desc:'Not ranking for key product terms — missing free organic traffic',color:'sel-blue'},
+  {id:'social',cat:'social',label:'📱 Weak Social Presence',desc:'Low engagement on social — not building audience or trust',color:'sel-blue'},
+  {id:'no_reviews',cat:'trust',label:'⭐ No Review System',desc:'Missing social proof hurts conversion rate significantly',color:'sel-blue'},
+  {id:'no_chat',cat:'ux',label:'💬 No Live Chat',desc:'Visitors with questions bounce — live chat lifts conversions 20%+',color:'sel-blue'},
+  {id:'speed',cat:'technical',label:'⚡ Site Speed Issues',desc:'Slow loading = high bounce rate, bad for ads quality score',color:'sel-blue'},
+];
+
+// ══════════════════════════════════════════
 // LOGIN
-// ============================================================
-async function loadMembers() {
-  const { data, error } = await db.from('members').select('*').order('created_at');
-  if (error) {
-    document.getElementById('member-grid').innerHTML = `<div style="color:var(--red);font-size:12px;text-align:center;padding:10px">DB Error: ${error.message}<br><small>Run the SQL setup in Supabase first!</small></div>`;
+// ══════════════════════════════════════════
+async function loadMembers(){
+  const{data,error}=await db.from('members').select('*').order('created_at');
+  if(error){
+    document.getElementById('mg').innerHTML=`<div style="color:var(--red);font-size:12px;padding:10px;text-align:center">DB Error: ${error.message}<br><small style="color:var(--t3)">Run migration SQL in Supabase first!</small></div>`;
     return;
   }
-  allMembers = data || [];
-  renderMemberGrid();
+  ALL_M=data||[];
+  document.getElementById('mg').innerHTML=ALL_M.map(m=>`<button class="mbtn" onclick="selM('${m.id}')"><div class="mav" style="background:${m.color}">${m.name[0]}</div><div><div class="mn">${m.name}</div><div class="mr">${m.role}</div></div></button>`).join('');
 }
 
-function renderMemberGrid() {
-  document.getElementById('member-grid').innerHTML = allMembers.map(m => `
-    <button class="mbtn" onclick="selectMember('${m.id}')">
-      <div class="mav" style="background:${m.color}">${m.name[0]}</div>
-      <div class="mav-info">
-        <div class="mav-name">${m.name}</div>
-        <div class="mav-role">${m.role}</div>
-      </div>
-    </button>`).join('');
+function selM(id){
+  PEND=ALL_M.find(m=>m.id===id);
+  document.getElementById('ms-wrap').style.display='none';
+  document.getElementById('pin-wrap').style.display='block';
+  document.getElementById('pin-lbl').textContent=`Hi ${PEND.name}! Enter your PIN`;
+  document.getElementById('pin-in').value='';
+  document.getElementById('pin-err').style.display='none';
+  setTimeout(()=>document.getElementById('pin-in').focus(),100);
 }
-
-function selectMember(id) {
-  pendingMember = allMembers.find(m => m.id === id);
-  document.getElementById('member-screen').style.display = 'none';
-  document.getElementById('pin-screen').style.display = 'block';
-  document.getElementById('pin-title').textContent = `Hi ${pendingMember.name}! Enter your PIN`;
-  document.getElementById('pin-input').value = '';
-  document.getElementById('pin-err').style.display = 'none';
-  setTimeout(() => document.getElementById('pin-input').focus(), 100);
-}
-
-function showMemberScreen() {
-  pendingMember = null;
-  document.getElementById('pin-screen').style.display = 'none';
-  document.getElementById('member-screen').style.display = 'block';
-}
-
-function checkPin() {
-  const pin = document.getElementById('pin-input').value;
-  if (pin.length === 4) {
-    if (pin === pendingMember.pin) {
-      currentUser = pendingMember;
-      document.getElementById('login-screen').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      initApp();
-    } else {
-      document.getElementById('pin-err').style.display = 'block';
-      document.getElementById('pin-input').value = '';
-    }
+function bkMs(){PEND=null;document.getElementById('pin-wrap').style.display='none';document.getElementById('ms-wrap').style.display='block';}
+function chkPin(){
+  const p=document.getElementById('pin-in').value;
+  if(p.length===4){
+    if(p===PEND.pin){ME=PEND;document.getElementById('login-screen').style.display='none';document.getElementById('app').style.display='block';initApp();}
+    else{document.getElementById('pin-err').style.display='block';document.getElementById('pin-in').value='';}
   }
 }
+function logout(){ME=null;MY_C=[];document.getElementById('app').style.display='none';document.getElementById('login-screen').style.display='flex';bkMs();}
 
-function logout() {
-  currentUser = null; myClients = [];
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  showMemberScreen();
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+async function initApp(){
+  document.getElementById('sb-av').textContent=ME.name[0];document.getElementById('sb-av').style.background=ME.color;
+  document.getElementById('sb-un').textContent=ME.name;document.getElementById('sb-ur').textContent=ME.role==='admin'?'Admin':'Member';
+  if(ME.role==='admin')document.getElementById('tnav').style.display='flex';
+  await loadClients();renderDash();updStats();
 }
-
-// ============================================================
-// APP INIT
-// ============================================================
-async function initApp() {
-  document.getElementById('sb-avatar').textContent = currentUser.name[0];
-  document.getElementById('sb-avatar').style.background = currentUser.color;
-  document.getElementById('sb-username').textContent = currentUser.name;
-  document.getElementById('sb-userrole').textContent = currentUser.role === 'admin' ? 'Admin' : 'Member';
-  if (currentUser.role === 'admin') document.getElementById('team-nav-btn').style.display = 'flex';
-  await fetchClients();
-  renderDashboard();
-  updateStats();
-}
-
-async function fetchClients() {
-  if (currentUser.role === 'admin') {
-    const { data } = await db.from('clients').select('*,stages(*),members(name,color)').order('added_at', { ascending: false });
-    myClients = data || [];
+async function loadClients(){
+  if(ME.role==='admin'){
+    const{data}=await db.from('clients').select('*,stages(*),members(name,color)').order('added_at',{ascending:false});
+    MY_C=data||[];
   } else {
-    const { data: own } = await db.from('clients').select('*,stages(*),members(name,color)').eq('member_id', currentUser.id).order('added_at', { ascending: false });
-    const { data: grants } = await db.from('access_grants').select('client_id').eq('granted_to', currentUser.id);
-    let shared = [];
-    if (grants && grants.length) {
-      const ids = grants.map(g => g.client_id);
-      const { data: sd } = await db.from('clients').select('*,stages(*),members(name,color)').in('id', ids);
-      shared = sd || [];
-    }
-    myClients = [...(own || []), ...shared];
+    const{data:own}=await db.from('clients').select('*,stages(*),members(name,color)').eq('member_id',ME.id).order('added_at',{ascending:false});
+    const{data:grants}=await db.from('access_grants').select('client_id').eq('granted_to',ME.id);
+    let shared=[];
+    if(grants?.length){const ids=grants.map(g=>g.client_id);const{data:sd}=await db.from('clients').select('*,stages(*),members(name,color)').in('id',ids);shared=sd||[];}
+    MY_C=[...(own||[]),...shared];
   }
 }
 
-// ============================================================
-// NAVIGATION
-// ============================================================
-function goTo(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.mob-nav-btn').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  const idx = { dash: 0, gen: 1, track: 2, anl: 3, team: 4 }[page];
-  document.querySelectorAll('.nav-item')[idx]?.classList.add('active');
-  document.querySelectorAll('.mob-nav-btn')[idx]?.classList.add('active');
-  if (page === 'dash') renderDashboard();
-  if (page === 'track') renderTracker();
-  if (page === 'anl') renderAnalytics();
-  if (page === 'team') renderTeam();
+// ══════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════
+function go(v){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(n=>n.classList.remove('on'));
+  document.getElementById('page-'+v).classList.add('on');
+  const idx={dash:0,gen:1,track:2,anl:3,team:4}[v]||0;
+  document.querySelectorAll('.ni')[idx]?.classList.add('on');
+  document.querySelectorAll('.mnb')[idx]?.classList.add('on');
+  if(v==='dash')renderDash();
+  if(v==='track')renderTracker();
+  if(v==='anl')renderAnl();
+  if(v==='team')renderTeam();
 }
 
-// ============================================================
+// ══════════════════════════════════════════
 // HELPERS
-// ============================================================
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-function addDays(ds, d) { const x = new Date(ds); x.setDate(x.getDate() + d); return x; }
-function fmtDate(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
-function isToday(d) { const t = new Date(); return d.getFullYear()===t.getFullYear() && d.getMonth()===t.getMonth() && d.getDate()===t.getDate(); }
-function isPast(d) { const t = new Date(); t.setHours(0,0,0,0); return d < t; }
-function daysLeft(d) { const t = new Date(); t.setHours(0,0,0,0); return Math.round((d - t) / 86400000); }
-function getStage(c, n) { return c.stages?.find(s => s.stage_num === n) || null; }
-function clientColor(name) { return COLORS[Math.abs(name.charCodeAt(0)) % COLORS.length]; }
-
-function getTasks() {
-  const tasks = [];
-  myClients.forEach(c => {
-    if (c.status === 'converted' || c.status === 'lost') return;
-    STAGES.forEach((s, i) => {
-      const st = getStage(c, i + 1);
-      if (!st || !st.is_done) {
-        const due = addDays(c.start_date, s.day);
-        if (isToday(due) || isPast(due)) tasks.push({ c, i, due, overdue: isPast(due) && !isToday(due) });
-      }
+// ══════════════════════════════════════════
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function addDays(ds,d){const x=new Date(ds);x.setDate(x.getDate()+d);return x;}
+function fmt(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
+function isToday(d){const t=new Date();return d.getFullYear()===t.getFullYear()&&d.getMonth()===t.getMonth()&&d.getDate()===t.getDate();}
+function isPast(d){const t=new Date();t.setHours(0,0,0,0);return d<t;}
+function dL(d){const t=new Date();t.setHours(0,0,0,0);return Math.round((d-t)/86400000);}
+function gSt(c,n){return c.stages?.find(s=>s.stage_num===n)||null;}
+function cColor(n){return COLORS[Math.abs(n.charCodeAt(0))%COLORS.length];}
+function getTasks(){
+  const t=[];
+  MY_C.forEach(c=>{
+    if(c.pipeline_status==='closed'||c.pipeline_status==='lost')return;
+    STAGES.forEach((s,i)=>{
+      const st=gSt(c,i+1);
+      if(!st||!st.is_done){const due=addDays(c.start_date,s.day);if(isToday(due)||isPast(due))t.push({c,i,due,ov:isPast(due)&&!isToday(due)});}
     });
   });
-  return tasks;
+  return t;
 }
 
-// ============================================================
+// ══════════════════════════════════════════
 // DASHBOARD
-// ============================================================
-function renderDashboard() {
-  const hr = new Date().getHours();
-  const g = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('dash-greeting').textContent = `${g}, ${currentUser.name} 👋`;
-  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-  updateStats();
-  const tasks = getTasks();
-  const el = document.getElementById('dash-tasks');
-  if (!tasks.length) { el.innerHTML = '<div class="empty-state"><span class="empty-icon">✅</span><div class="empty-title">All clear!</div><div class="empty-sub">No follow-ups due today. Keep hunting!</div></div>'; return; }
-  el.innerHTML = `<div class="task-grid">${tasks.map(t => `<div class="task-card ${t.overdue ? 'overdue' : ''}" onclick="goTo('track')"><div class="task-name">${t.c.name}</div><div class="task-sub">${t.c.niche} · Stage ${t.i + 1}: ${STAGES[t.i].name}</div><span class="task-badge ${t.overdue ? 'badge-overdue' : 'badge-today'}">${t.overdue ? '⚠️ Overdue' : '🔥 Due Today'}</span></div>`).join('')}</div>`;
+// ══════════════════════════════════════════
+function renderDash(){
+  const hr=new Date().getHours();const g=hr<12?'Good morning':hr<17?'Good afternoon':'Good evening';
+  document.getElementById('dash-greet').textContent=`${g}, ${ME.name} 👋`;
+  document.getElementById('dash-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  updStats();
+  const tasks=getTasks();const el=document.getElementById('dash-tasks');
+  if(!tasks.length){el.innerHTML='<div class="empty"><span class="ei">✅</span><h3>All clear! No follow-ups due today.</h3><p>Keep hunting new clients! 🚀</p></div>';return;}
+  el.innerHTML=`<div class="tgrd">${tasks.slice(0,8).map(t=>`<div class="tc ${t.ov?'ov':''}" onclick="go('track')"><div class="tc-n">${t.c.name}</div><div class="tc-s">${t.c.niche} · Stage ${t.i+1}: ${STAGES[t.i].name}</div><span class="tbdg ${t.ov?'tbdg-o':'tbdg-t'}">${t.ov?'⚠️ Overdue':'🔥 Due Today'}</span></div>`).join('')}</div>`;
 }
-
-function updateStats() {
-  const tasks = getTasks();
-  const td = tasks.filter(t => !t.overdue).length;
-  const ov = tasks.filter(t => t.overdue).length;
-  const done = myClients.reduce((a, c) => a + (c.stages?.filter(s => s.is_done).length || 0), 0);
-  const tot = myClients.length;
-  [['stat-total','ds-clients'], ['stat-today','ds-today'], ['stat-overdue','ds-overdue'], ['stat-done','ds-done']].forEach(([a,b], i) => {
-    const vals = [tot, td+ov, ov, done];
-    document.getElementById(a) && (document.getElementById(a).textContent = vals[i]);
-    document.getElementById(b) && (document.getElementById(b).textContent = vals[i]);
+function updStats(){
+  const tasks=getTasks();const td=tasks.filter(t=>!t.ov).length;const ov=tasks.filter(t=>t.ov).length;
+  const cv=MY_C.filter(c=>c.pipeline_status==='closed').length;const tot=MY_C.length;
+  [['sk-tot','ds-tot',tot],['sk-td','ds-td',td+ov],['sk-ov','ds-ov',ov],['sk-cv','ds-cv',cv]].forEach(([a,b,v])=>{
+    document.getElementById(a)&&(document.getElementById(a).textContent=v);
+    document.getElementById(b)&&(document.getElementById(b).textContent=v);
   });
-  document.getElementById('badge-today').textContent = td + ov;
-  document.getElementById('badge-overdue').textContent = ov;
+  document.getElementById('nb-td').textContent=td+ov;document.getElementById('nb-ov').textContent=ov;
 }
 
-// ============================================================
+// ══════════════════════════════════════════
 // SCAN
-// ============================================================
-function setStep(id, state, val = '') {
-  const step = document.getElementById('step-' + id);
-  const icon = document.getElementById('icon-' + id);
-  const valEl = document.getElementById('val-' + id);
-  if (!step) return;
-  step.className = 'pipe-step' + (state === 'ok' ? ' done' : state === 'spin' ? ' running' : state === 'fail' ? ' failed' : '');
-  icon.className = 'pipe-icon ' + (state === 'spin' ? 'pi-spin' : state === 'ok' ? 'pi-ok' : state === 'fail' ? 'pi-fail' : state === 'warn' ? 'pi-warn' : 'pi-idle');
-  icon.textContent = state === 'spin' ? '◌' : state === 'ok' ? '✓' : state === 'fail' ? '✗' : state === 'warn' ? '⚠' : '⏳';
-  if (valEl) valEl.textContent = val;
+// ══════════════════════════════════════════
+function setPS(id,state,val=''){
+  const row=document.getElementById('psr-'+id);const ico=document.getElementById('pi-'+id);const vel=document.getElementById('pv-'+id);
+  if(!row)return;
+  row.className='psr '+(state==='ok'?'ok':state==='spin'?'run':state==='fail'?'fail':'');
+  ico.className='pico '+(state==='spin'?'pi-spin':state==='ok'?'pi-ok':state==='fail'?'pi-fail':state==='warn'?'pi-warn':'pi-idle');
+  ico.textContent=state==='spin'?'◌':state==='ok'?'✓':state==='fail'?'✗':state==='warn'?'⚠':'⏳';
+  if(vel)vel.textContent=val;
 }
 
-async function startScan() {
-  const raw = document.getElementById('url-input').value.trim();
-  if (!raw) { showToast('⚠️ Paste a URL first', '#FF4466'); return; }
-  let url = raw.startsWith('http') ? raw : 'https://' + raw;
-  let domain = '';
-  try { domain = new URL(url).hostname.replace('www.', ''); } catch(e) { domain = raw; }
-  document.getElementById('scan-btn').disabled = true;
-  document.getElementById('pipeline').classList.add('show');
-  document.getElementById('detect-section').classList.remove('show');
-  document.getElementById('output-section').classList.remove('show');
-  document.getElementById('ai-loading').classList.remove('show');
-  setStep('fetch','spin'); setStep('pixel','idle'); setStep('ga','idle'); setStep('ai','idle');
-  document.getElementById('adlib-link').href = `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(domain)}&search_type=keyword_unordered`;
+async function doScan(){
+  const raw=document.getElementById('url-in').value.trim();
+  if(!raw){toast('⚠️ Paste a URL first','#FF4466');return;}
+  let url=raw.startsWith('http')?raw:'https://'+raw;
+  let domain='';try{domain=new URL(url).hostname.replace('www.','');}catch(e){domain=raw;}
+  document.getElementById('scan-btn').disabled=true;
+  document.getElementById('pipe-wrap').classList.add('show');
+  document.getElementById('det-sec').classList.remove('show');
+  document.getElementById('out-wrap').classList.remove('show');
+  document.getElementById('ai-load').classList.remove('show');
+  setPS('fetch','spin');setPS('pixel','idle');setPS('ga','idle');setPS('ai','idle');
+  document.getElementById('adlib').href=`https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=${encodeURIComponent(domain)}&search_type=keyword_unordered`;
 
-  let content = null;
-  try {
-    const res = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
-    const data = await res.json();
-    if (data.success && data.content) { content = data.content; setStep('fetch','ok',domain); }
-    else setStep('fetch','warn','Partial');
-  } catch(e) { setStep('fetch','warn','AI only mode'); }
+  let content=null;
+  try{
+    const res=await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+    const data=await res.json();
+    if(data.success&&data.content){content=data.content;setPS('fetch','ok',domain);}
+    else setPS('fetch','warn','Partial');
+  }catch(e){setPS('fetch','warn','AI only mode');}
 
-  await sleep(250); setStep('pixel','spin'); await sleep(300);
-  const hasPixel = content?.tracking?.hasPixel || false;
-  const pixelId = content?.tracking?.pixelId || '';
-  setStep('pixel', hasPixel ? 'ok' : 'fail', hasPixel ? (pixelId ? `ID: ${pixelId}` : 'Found') : 'Not found');
+  await sleep(300);setPS('pixel','spin');await sleep(500);
+  const T=content?.tracking||{};
+  const hasPixel=T.hasPixel||false;const pixelId=T.pixelId||'';
+  const hasTikTok=T.hasTikTok||false;const hasKlaviyo=T.hasKlaviyo||false;
+  const hasReviews=T.hasReviews||false;const hasChat=T.hasChat||false;
+  setPS('pixel',hasPixel?'ok':'fail',hasPixel?(pixelId?`ID: ${pixelId}`:'Found — No ID extracted'):'Not detected');
 
-  await sleep(250); setStep('ga','spin'); await sleep(300);
-  const hasGA = content?.tracking?.hasAnalytics || false;
-  const gaType = content?.tracking?.hasGTM ? 'GTM' : content?.tracking?.hasGA4 ? 'GA4' : '';
-  setStep('ga', hasGA ? 'ok' : 'fail', hasGA ? (gaType || 'Found') : 'Not found');
+  await sleep(200);setPS('ga','spin');await sleep(400);
+  const hasGA=T.hasAnalytics||false;const hasGA4=T.hasGA4||false;const hasGTM=T.hasGTM||false;
+  const gaType=hasGTM?`GTM (${T.gtmId||'?'})`:hasGA4?`GA4 (${T.ga4Id||'?'})`:'UA';
+  setPS('ga',hasGA?'ok':'fail',hasGA?gaType:'Not detected');
 
-  await sleep(250); setStep('ai','spin');
-  const pageText = content ? [content.ogSiteName||content.title||'', content.ogDesc||content.metaDesc||'', content.text||''].filter(Boolean).join('\n') : '';
+  await sleep(200);setPS('ai','spin');
+  const pageText=content?[content.ogSiteName||content.title||'',content.ogDesc||content.metaDesc||'',content.text||''].filter(Boolean).join('\n'):'';
 
-  let extracted = {};
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 500, messages: [{ role: 'user', content: `Analyze this e-commerce store. Respond ONLY in valid JSON (no backticks).\nURL: ${url}\nCONTENT:\n${pageText.substring(0,3000)||'Not available.'}\n\nJSON:\n{"brandName":"...","ownerName":"first name if clearly found else empty string","niche":"Fashion / Clothing|Shapewear / Lingerie|Beauty / Skincare|Health / Wellness|Home & Living|Food & Beverage|Gadgets / Electronics|Patriotic / Outdoor|Decals / Custom Print|Jewelry / Accessories|Pet Products|B2B / Industrial|Luxury / Premium|Cause / Mission Brand|Other","country":"USA|UK|Canada|Australia|Other","issues":"2-3 specific issues. Mention missing pixel/analytics if confirmed. Do NOT mention ads.","storeSummary":"1 sentence what they sell"}` }] })
+  let ext={};
+  try{
+    const aiRes=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:`Analyze this e-commerce store for outreach. Respond ONLY in valid JSON (no backticks, no preamble).
+
+URL: ${url}
+PAGE CONTENT (first 4000 chars):
+${pageText.substring(0,4000)||'Not available — infer from URL.'}
+
+JSON response:
+{
+  "brandName": "exact brand/store name",
+  "ownerName": "owner first name if clearly visible, else empty string",
+  "niche": "pick EXACT match from: Fashion / Clothing | Shapewear / Lingerie | Beauty / Skincare | Health / Wellness | Home & Living | Food & Beverage | Gadgets / Electronics | Patriotic / Outdoor | Decals / Custom Print | Jewelry / Accessories | Pet Products | B2B / Industrial | Luxury / Premium | Cause / Mission Brand | Sports & Fitness | Baby & Kids | Automotive | Art & Craft | Other",
+  "country": "USA | UK | Canada | Australia | Other",
+  "storeSummary": "1-2 sentences: what they sell and who their customer is",
+  "mainProduct": "their primary product type e.g. women's activewear, organic skincare serums",
+  "targetAudience": "describe ideal buyer e.g. women 25-40 into fitness, eco-conscious moms",
+  "strengths": "1 sentence what they do well or is notable about the store",
+  "issues": ["specific issue 1", "specific issue 2", "specific issue 3"]
+}`}]})
     });
-    const d = await r.json();
-    const txt = d.content?.map(x => x.text || '').join('') || '';
-    extracted = JSON.parse(txt.replace(/```json|```/g,'').trim());
-  } catch(e) { extracted = { brandName: content?.ogSiteName||domain, ownerName: '', niche: 'Other', country: 'USA', issues: 'Review store manually.', storeSummary: 'E-commerce store' }; }
+    const d=await aiRes.json();
+    const txt=d.content?.map(x=>x.text||'').join('')||'';
+    ext=JSON.parse(txt.replace(/```json|```/g,'').trim());
+  }catch(e){
+    ext={brandName:content?.ogSiteName||domain,ownerName:'',niche:'Other',country:'USA',storeSummary:'E-commerce store',mainProduct:'products',targetAudience:'online shoppers',strengths:'',issues:['Needs growth audit']};
+  }
 
-  setStep('ai','ok','Done ✓');
-  scannedData = { url, domain, content, hasPixel, hasGA, pixelId, gaType, extracted };
+  setPS('ai','ok','Niche detected ✓');
+  SCAN={url,domain,content,T,hasPixel,pixelId,hasTikTok,hasGA,hasGA4,hasGTM,hasKlaviyo,hasReviews,hasChat,ext};
 
-  const displayName = extracted.ownerName ? `${extracted.ownerName} / ${extracted.brandName}` : extracted.brandName || domain;
-  document.getElementById('f-name').value = displayName;
-  document.getElementById('f-niche').value = extracted.niche || 'Other';
-  document.getElementById('f-country').value = extracted.country || 'USA';
-  document.getElementById('f-issue').value = extracted.issues || '';
-  document.getElementById('f-ads').value = 'unknown';
+  // Populate form
+  document.getElementById('e-name').value=ext.ownerName?`${ext.ownerName} / ${ext.brandName}`:ext.brandName||domain;
+  document.getElementById('e-niche').value=ext.niche||'Other';
+  document.getElementById('e-country').value=ext.country||'USA';
+  document.getElementById('e-ads').value='unknown';
 
-  document.getElementById('detect-grid').innerHTML = [
-    { l: 'Brand', v: extracted.brandName||domain, c: 'dc-txt' },
-    { l: 'Owner', v: extracted.ownerName||'Not found', c: extracted.ownerName ? 'dc-ok' : 'dc-warn' },
-    { l: 'Niche', v: extracted.niche||'?', c: 'dc-txt' },
-    { l: 'Market', v: extracted.country||'?', c: 'dc-txt' },
-    { l: 'Pixel', v: hasPixel ? '✅ Found' : '❌ Missing', c: hasPixel ? 'dc-ok' : 'dc-no', sub: pixelId ? `ID: ${pixelId}` : '' },
-    { l: 'Analytics', v: hasGA ? '✅ Found' : '❌ Missing', c: hasGA ? 'dc-ok' : 'dc-no', sub: gaType || '' },
-  ].map(x => `<div class="detect-card"><div class="dc-label">${x.l}</div><div class="dc-val ${x.c}">${x.v}</div>${x.sub ? `<div class="dc-sub">${x.sub}</div>` : ''}</div>`).join('');
+  // Build issue tags — combine detected + AI-found + library
+  const detectedIds=[];
+  if(!hasPixel)detectedIds.push('fb_pixel');
+  if(!hasTikTok)detectedIds.push('tiktok_px');
+  if(!hasGA)detectedIds.push('no_ga');
+  if(!hasKlaviyo)detectedIds.push('no_email');
+  if(!hasReviews)detectedIds.push('no_reviews');
+  if(!hasChat)detectedIds.push('no_chat');
 
-  document.getElementById('detect-section').classList.add('show');
-  document.getElementById('scan-btn').disabled = false;
-  document.getElementById('detect-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const allTags=[];
+  // Detected issues first (auto-selected)
+  detectedIds.forEach(id=>{const lib=ISSUE_LIB.find(x=>x.id===id);if(lib)allTags.push({...lib,sel:true});});
+  // AI-found custom issues
+  (ext.issues||[]).forEach((iss,i)=>allTags.push({id:`ai_${i}`,cat:'ai',label:`⚠️ ${iss}`,desc:iss,color:'sel-red',sel:true,custom:iss}));
+  // Add remaining library options (not yet in list)
+  ISSUE_LIB.filter(x=>!detectedIds.includes(x.id)).forEach(x=>allTags.push({...x,sel:false}));
+
+  document.getElementById('itags').innerHTML=allTags.map(t=>`<span class="itag ${t.sel?t.color:''}" data-id="${t.id}" data-desc="${t.desc||''}" onclick="togTag(this)">${t.label}</span>`).join('');
+
+  // Detection grid
+  document.getElementById('det-grid').innerHTML=[
+    {l:'Brand',v:ext.brandName||domain,c:'dc-txt'},
+    {l:'Owner',v:ext.ownerName||'Not found',c:ext.ownerName?'dc-ok':'dc-warn'},
+    {l:'Niche',v:ext.niche||'?',c:'dc-ok'},
+    {l:'Market',v:ext.country||'?',c:'dc-txt'},
+    {l:'FB Pixel',v:hasPixel?'✅ Found':'❌ Missing',c:hasPixel?'dc-ok':'dc-no',s:pixelId?`ID: ${pixelId}`:''},
+    {l:'Analytics',v:hasGA?`✅ ${gaType}`:'❌ Missing',c:hasGA?'dc-ok':'dc-no'},
+    {l:'TikTok Px',v:hasTikTok?'✅ Found':'❌ Missing',c:hasTikTok?'dc-ok':'dc-no'},
+    {l:'Klaviyo',v:hasKlaviyo?'✅ Found':'❌ Missing',c:hasKlaviyo?'dc-ok':'dc-no'},
+  ].map(x=>`<div class="dcard"><div class="dcl">${x.l}</div><div class="dcv ${x.c}">${x.v}</div>${x.s?`<div class="dcs">${x.s}</div>`:''}</div>`).join('');
+
+  document.getElementById('det-sec').classList.add('show');
+  document.getElementById('scan-btn').disabled=false;
+  document.getElementById('det-sec').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// ============================================================
+function togTag(el){
+  const c=el.getAttribute('data-id');
+  const lib=ISSUE_LIB.find(x=>x.id===c)||{color:'sel-red'};
+  if(el.classList.contains('sel-red')||el.classList.contains('sel-blue')||el.classList.contains('sel-green')){
+    el.classList.remove('sel-red','sel-blue','sel-green');
+  } else {
+    el.classList.add(lib.color||'sel-red');
+  }
+}
+
+// ══════════════════════════════════════════
 // GENERATE MESSAGES
-// ============================================================
-async function generateMessages() {
-  const name = document.getElementById('f-name').value.trim();
-  const niche = document.getElementById('f-niche').value;
-  const country = document.getElementById('f-country').value;
-  const issue = document.getElementById('f-issue').value.trim();
-  const ads = document.getElementById('f-ads').value;
-  const { url, domain, hasPixel, hasGA, extracted } = scannedData;
-  if (!name) { showToast('⚠️ Enter brand name', '#FF4466'); return; }
+// ══════════════════════════════════════════
+async function doGenerate(){
+  const name=document.getElementById('e-name').value.trim();
+  const niche=document.getElementById('e-niche').value;
+  const country=document.getElementById('e-country').value;
+  const ads=document.getElementById('e-ads').value;
+  if(!name){toast('⚠️ Enter brand name first','#FF4466');return;}
 
-  document.getElementById('gen-btn').disabled = true;
-  document.getElementById('output-section').classList.remove('show');
-  document.getElementById('ai-loading').classList.add('show');
+  document.getElementById('gen-btn').disabled=true;
+  document.getElementById('out-wrap').classList.remove('show');
+  document.getElementById('ai-load').classList.add('show');
 
-  const techIssues = [];
-  if (!hasPixel) techIssues.push('No Facebook Pixel — cannot retarget or track conversions');
-  if (!hasGA) techIssues.push('No Google Analytics/GTM — zero traffic visibility');
-  if (ads === 'no') techIssues.push('No Facebook/Instagram ads — missing biggest revenue channel');
-  if (ads === 'yes') techIssues.push('Ads running without pixel tracking — spending blind');
-  const combined = [...techIssues, issue].filter(Boolean).join('. ');
+  // Collect selected issue tags
+  const selIssues=[];
+  document.querySelectorAll('.itag').forEach(tag=>{
+    if(tag.classList.contains('sel-red')||tag.classList.contains('sel-blue')||tag.classList.contains('sel-green')){
+      const desc=tag.getAttribute('data-desc');
+      if(desc&&desc.length>3)selIssues.push(desc);
+    }
+  });
 
-  const RESULTS = { 'Fashion / Clothing': `a fashion brand in ${country} go from $1.8K to $24K/month in 75 days`, 'Shapewear / Lingerie': `a shapewear brand reach $19K/month in 60 days`, 'Beauty / Skincare': `a skincare brand go from $2.5K to $31K/month in 90 days`, 'Food & Beverage': `a beverage brand grow from $1.5K to $18K/month in 60 days`, 'B2B / Industrial': `a B2B brand grow orders by 340% in 90 days`, 'Luxury / Premium': `a luxury brand increase conversions 280% in 60 days` };
-  const res = RESULTS[niche] || `a ${niche} brand scale from $2K to $25K/month in 90 days`;
+  const {url,domain,ext}=SCAN;
+  const issueStr=selIssues.slice(0,4).join('. ')||'General growth opportunities';
+  const storeSummary=ext?.storeSummary||`${niche} e-commerce store`;
+  const mainProduct=ext?.mainProduct||niche.toLowerCase()+' products';
+  const audience=ext?.targetAudience||'online shoppers';
+  const strengths=ext?.strengths||'';
 
-  const prompt = `You are Obaydul (AK Technology), Shopify growth specialist.\nCLIENT: ${name} | ${url||domain} | ${niche} | ${country}\nSUMMARY: ${extracted?.storeSummary||''}\nISSUES: ${combined||'Growth gaps.'}\nADS STATUS: ${ads==='yes'?'CONFIRMED RUNNING — NEVER say no ads':'Unknown — do not mention ads'}\nRESULT TO CITE: Helped ${res}\n\nGenerate 5 stages. EXACT output format:\nS1_EMAIL_SUB: [subject line]\nS1_EMAIL: [body]\nS1_WA: [body]\nS1_IG: [body]\nS1_FB: [body]\nS2_SUB: [subject]\nS2_EMAIL: [body]\nS3_SUB: [subject]\nS3_EMAIL: [body]\nS4_SUB: [subject]\nS4_EMAIL: [body]\nS5_SUB: [subject]\nS5_EMAIL: [body]\n\nRULES:\n- Stage 1: Lead with specific issue. Max 90 words. End each with appropriate CTA then newline newline — Obaydul (AK Technology)\n- Stage 5: Break-up urgency. CTA: Reply "Let's talk"\n- S2-S5: Email only. Max 100 words. Different angle each time.`;
+  const RESULTS={
+    'Fashion / Clothing':['$1.8K to $24K/month in 75 days','3.1x ROAS on Meta'],
+    'Shapewear / Lingerie':['$4K to $19K/month in 60 days','2.8x ROAS'],
+    'Beauty / Skincare':['$2.5K to $31K/month in 90 days','4.2x ROAS on Meta+TikTok'],
+    'Health / Wellness':['$3K to $28K/month in 80 days','2.9x ROAS'],
+    'Pet Products':['$3K to $22K/month in 75 days','3.5x ROAS'],
+    'Jewelry / Accessories':['$2K to $15K/month in 60 days','3.8x ROAS'],
+    'Home & Living':['$2K to $18K/month in 70 days','2.7x ROAS'],
+    'Sports & Fitness':['$2K to $20K/month in 60 days','3.2x ROAS'],
+    'Food & Beverage':['$1.5K to $18K/month in 60 days','3.0x ROAS'],
+    'B2B / Industrial':['340% order growth in 90 days','$45K new pipeline'],
+    'Luxury / Premium':['280% conversion increase in 60 days','4.8x ROAS'],
+    'Baby & Kids':['$3K to $21K/month in 75 days','3.3x ROAS'],
+  };
+  const [res1,res2]=RESULTS[niche]||[`$2K to $25K/month in 90 days`,'3.5x ROAS'];
 
-  let msgs = {};
-  try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: prompt }] }) });
-    const d = await r.json();
-    const txt = d.content?.map(x => x.text || '').join('') || '';
-    msgs = parseMsgs(txt);
-  } catch(e) {}
-  msgs = fillFallbacks(msgs, { name, niche, country, issue: combined, url: url||domain, ads, res });
+  // Determine primary outreach angle based on selected issues
+  const hasPixelIssue=selIssues.some(s=>s.includes('retarget')||s.includes('Pixel')||s.includes('pixel')||s.includes('conversion'));
+  const hasSEO=selIssues.some(s=>s.includes('SEO')||s.includes('organic')||s.includes('ranking'));
+  const hasEmail=selIssues.some(s=>s.includes('email')||s.includes('Klaviyo')||s.includes('recover'));
+  const hasAds=selIssues.some(s=>s.includes('ad')||s.includes('paid')||s.includes('ROAS'));
 
-  generatedData = { msgs, meta: { name, niche, country, url: url||domain, hasPixel, hasGA, ads, issue: combined, extracted } };
-  chosenPlatforms = [];
-  document.querySelectorAll('.plat-opt').forEach(l => { l.classList.remove('selected'); l.querySelector('input').checked = false; });
+  const prompt=`You are Obaydul, founder of AK Technology — Shopify growth agency that scales e-commerce brands.
 
-  showOutput(msgs);
-  document.getElementById('ai-loading').classList.remove('show');
-  document.getElementById('gen-btn').disabled = false;
+STORE: ${name} | ${url||domain}
+NICHE: ${niche} | MARKET: ${country}
+WHAT THEY SELL: ${storeSummary}
+MAIN PRODUCT: ${mainProduct}
+TARGET CUSTOMER: ${audience}
+STORE STRENGTHS: ${strengths||'Standard e-commerce store'}
+ISSUES TO ADDRESS: ${issueStr}
+ADS STATUS: ${ads==='yes'?'CONFIRMED ads running — NEVER say no ads, angle could be "improve ROAS" or "add tracking to ads"':ads==='no'?'No ads running — can mention this opportunity':'Status unknown — do NOT mention ads status'}
+PROOF: Helped a similar brand go from ${res1} | ${res2}
+
+Generate 5 outreach stages. STRICT RULES:
+1. ROTATE the main issue angle — do NOT repeat pixel issue in every stage
+   - Stage 1: Focus on most impactful detected issue (could be pixel, email, CRO, SEO, or social — choose the STRONGEST one)
+   - Stage 2: Different angle — email marketing / cart abandonment / revenue leaks
+   - Stage 3: Case study / social proof angle with specific numbers
+   - Stage 4: Competition / urgency angle — what competitors are doing
+   - Stage 5: Break-up email — scarcity + final CTA
+2. Reference ${name} and their actual product (${mainProduct}) in Stage 1
+3. Sound HUMAN and conversational — not robotic or generic
+4. Max 90 words for Stage 1. Max 100 words for Stages 2-5
+5. End EVERY message with blank line then: — Obaydul (AK Technology)
+6. Stage 5 CTA: Reply "Let's talk"
+7. WhatsApp/IG/FB = casual, emoji-friendly. Email = professional but warm
+
+OUTPUT FORMAT (exact — no extra text):
+S1_SUB: [subject]
+S1_EMAIL: [body]
+S1_WA: [body]
+S1_IG: [body]
+S1_FB: [body]
+S2_SUB: [subject]
+S2_EMAIL: [body]
+S3_SUB: [subject]
+S3_EMAIL: [body]
+S4_SUB: [subject]
+S4_EMAIL: [body]
+S5_SUB: [subject]
+S5_EMAIL: [body]`;
+
+  let msgs={};
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1400,messages:[{role:'user',content:prompt}]})
+    });
+    const d=await r.json();
+    const txt=d.content?.map(x=>x.text||'').join('')||'';
+    msgs=parseMsgs(txt);
+  }catch(e){}
+
+  msgs=applyFallbacks(msgs,{name,niche,country,issueStr,url:url||domain,ads,res1,mainProduct,storeSummary});
+  GEN={msgs,meta:{name,niche,country,url:url||domain,hasPixel:SCAN.hasPixel,hasGA:SCAN.hasGA,ads,issue:issueStr,ext}};
+  selPlats=[];
+  document.querySelectorAll('.pco').forEach(l=>{l.classList.remove('sel');l.querySelector('input').checked=false;});
+  showOut(msgs);
+  document.getElementById('ai-load').classList.remove('show');
+  document.getElementById('gen-btn').disabled=false;
 }
 
-function parseMsgs(txt) {
-  const g = k => { const m = txt.match(new RegExp(`${k}:\\s*([\\s\\S]*?)(?=\\n[A-Z0-9_]+:|$)`, 'i')); return m ? m[1].trim() : ''; };
-  return { s1_sub: g('S1_EMAIL_SUB'), s1_email: g('S1_EMAIL'), s1_wa: g('S1_WA'), s1_ig: g('S1_IG'), s1_fb: g('S1_FB'), s2_sub: g('S2_SUB'), s2_email: g('S2_EMAIL'), s3_sub: g('S3_SUB'), s3_email: g('S3_EMAIL'), s4_sub: g('S4_SUB'), s4_email: g('S4_EMAIL'), s5_sub: g('S5_SUB'), s5_email: g('S5_EMAIL') };
+function parseMsgs(txt){
+  const g=k=>{const m=txt.match(new RegExp(`${k}:\\s*([\\s\\S]*?)(?=\\nS\\d_[A-Z]+:|$)`,'i'));return m?m[1].trim():'';};
+  return{
+    s1_sub:g('S1_SUB'),s1_email:g('S1_EMAIL'),s1_wa:g('S1_WA'),s1_ig:g('S1_IG'),s1_fb:g('S1_FB'),
+    s2_sub:g('S2_SUB'),s2_email:g('S2_EMAIL'),s3_sub:g('S3_SUB'),s3_email:g('S3_EMAIL'),
+    s4_sub:g('S4_SUB'),s4_email:g('S4_EMAIL'),s5_sub:g('S5_SUB'),s5_email:g('S5_EMAIL')
+  };
 }
 
-function fillFallbacks(m, { name, niche, country, issue, url, ads, res }) {
-  const n = name || 'Team'; const iss = issue || 'Missing growth infrastructure';
-  const al = ads === 'yes' ? 'Ads running without proper tracking — spending blind.' : '';
-  if (!m.s1_sub) m.s1_sub = `${url} — spotted something hurting your growth`;
-  if (!m.s1_email) m.s1_email = `Hi ${n},\n\n${iss.split('.')[0]}.\n${al}\n\nHelped ${res}.\n\nReply "Interested" and I'll send 3 quick wins.\n\n— Obaydul (AK Technology)`;
-  if (!m.s1_wa) m.s1_wa = `Hi ${n}! 👋\n\n${iss.split('.')[0]}.\n\nHelped ${res}.\n\nReply "Interested" 🚀\n\n— Obaydul (AK Technology)`;
-  if (!m.s1_ig) m.s1_ig = `Hi ${n}! ✨\n\n${iss.split('.')[0]}.\n\nHelped ${res}.\n\nReply "Interested" 👇\n\n— Obaydul (AK Technology)`;
-  if (!m.s1_fb) m.s1_fb = `Hi ${n}! 👋\n\n${iss.split('.')[0]}.\n\nHelped ${res}.\n\nReply "Interested" 🤝\n\n— Obaydul (AK Technology)`;
-  if (!m.s2_sub) m.s2_sub = `One quick win for ${url}`;
-  if (!m.s2_email) m.s2_email = `Hi ${n},\n\nMost ${niche} stores lose 60-70% of visitors with no email flows or retargeting.\n\nFixing this = $5K-$15K extra monthly.\n\n15-min audit call?\n\nReply "Interested"\n\n— Obaydul (AK Technology)`;
-  if (!m.s3_sub) m.s3_sub = `How we scaled a ${niche} brand`;
-  if (!m.s3_email) m.s3_email = `Hi ${n},\n\nHere's how we helped ${res}:\n→ Pixel + tracking setup\n→ Meta + TikTok ads (ROAS 4.2x)\n→ AI content (800K+ views)\n\nSame playbook for you?\n\nReply "Interested"\n\n— Obaydul (AK Technology)`;
-  if (!m.s4_sub) m.s4_sub = `Quick question, ${n}`;
-  if (!m.s4_email) m.s4_email = `Hi ${n},\n\nAre you happy with ${url}'s monthly revenue?\n\nSimilar ${niche} stores hit $20K-$50K/month with the right setup.\n\nShow you the gap in 15 min?\n\nReply "Interested"\n\n— Obaydul (AK Technology)`;
-  if (!m.s5_sub) m.s5_sub = `Closing your file, ${n}`;
-  if (!m.s5_email) m.s5_email = `Hi ${n},\n\nClosing your file today — moving to other ${niche} brands in your market.\n\nIf you're ready, reply "Let's talk" and I'll prioritize you immediately. 🙏\n\n— Obaydul (AK Technology)`;
+function applyFallbacks(m,{name,niche,country,issueStr,url,ads,res1,mainProduct,storeSummary}){
+  const n=name||'Team';const iss=issueStr.split('.')[0];
+  if(!m.s1_sub)m.s1_sub=`Quick observation about ${url}`;
+  if(!m.s1_email)m.s1_email=`Hi ${n},\n\nSpent some time looking at ${url} — love the ${mainProduct}.\n\nOne thing standing out: ${iss}. This is likely costing you $5K-$10K/month in missed revenue.\n\nWe helped a similar brand go from ${res1}.\n\nReply "Interested" and I'll send 3 specific wins for your store.\n\n— Obaydul (AK Technology)`;
+  if(!m.s1_wa)m.s1_wa=`Hi ${n}! 👋\n\nChecked out ${url} — great ${mainProduct}!\n\nSpotted: ${iss}.\n\nHelped a similar ${niche} brand: ${res1}.\n\nReply "Interested" for 3 quick wins 🚀\n\n— Obaydul (AK Technology)`;
+  if(!m.s1_ig)m.s1_ig=`Hi ${n}! ✨\n\nLove the ${mainProduct}! Noticed ${iss}.\n\nHelped a ${niche} brand go ${res1}.\n\nReply "Interested" for store-specific wins 👇\n\n— Obaydul (AK Technology)`;
+  if(!m.s1_fb)m.s1_fb=`Hi ${n}!\n\nChecked ${url} — impressive ${mainProduct}!\n\nSpotted: ${iss}.\n\nHelped similar brand: ${res1}.\n\nReply "Interested" 🤝\n\n— Obaydul (AK Technology)`;
+  if(!m.s2_sub)m.s2_sub=`The revenue leak costing ${niche} stores $8K/month`;
+  if(!m.s2_email)m.s2_email=`Hi ${n},\n\nMost ${niche} stores in ${country} silently lose 60-70% of recoverable revenue through:\n→ No email welcome sequence (30% of revenue)\n→ No cart abandonment flow (15% recovery rate)\n→ No post-purchase upsell\n\nFixing these = $8K-$15K extra/month WITHOUT more traffic.\n\n15-min audit call? Reply "Interested"\n\n— Obaydul (AK Technology)`;
+  if(!m.s3_sub)m.s3_sub=`How we scaled a ${niche} brand from scratch`;
+  if(!m.s3_email)m.s3_email=`Hi ${n},\n\nExact playbook that took a ${niche} brand to ${res1}:\n\n→ Full pixel + tracking setup (day 1)\n→ Meta + TikTok ads → 3.8x ROAS in 30 days\n→ Klaviyo email flows → 32% of total revenue\n→ CRO tweaks → +18% conversion rate\n\nSame system available for ${url}.\n\nReply "Interested"\n\n— Obaydul (AK Technology)`;
+  if(!m.s4_sub)m.s4_sub=`Your ${niche} competitors just scaled up...`;
+  if(!m.s4_email)m.s4_email=`Hi ${n},\n\nI looked at 3 competing ${niche} brands in ${country}.\n\nThey're running retargeting, have Klaviyo email flows, and scaling fast.\n\nEvery week without this = market share moving to them.\n\n15 minutes to show you exactly what they're doing?\n\nReply "Interested"\n\n— Obaydul (AK Technology)`;
+  if(!m.s5_sub)m.s5_sub=`Closing your file today — ${n}`;
+  if(!m.s5_email)m.s5_email=`Hi ${n},\n\nThis is my last follow-up on this.\n\nI'm onboarding a ${niche} brand in ${country} this week — potentially a direct competitor to ${url}.\n\nIf you want to move first and lock in our current pricing before that:\n\nReply "Let's talk" 🙏\n\n— Obaydul (AK Technology)`;
   return m;
 }
 
-function showOutput(msgs) {
-  document.getElementById('s1-subj-text').innerHTML = `<b>Subject:</b> ${msgs.s1_sub || ''}`;
-  document.getElementById('s1-email-body').textContent = msgs.s1_email || '';
-  document.getElementById('s1-wa-body').textContent = msgs.s1_wa || '';
-  document.getElementById('s1-ig-body').textContent = msgs.s1_ig || '';
-  document.getElementById('s1-fb-body').textContent = msgs.s1_fb || '';
-  document.getElementById('followup-grid').innerHTML = [
-    { label: 'Day 3', name: 'Value Follow-Up', color: 'var(--green)' },
-    { label: 'Day 7', name: 'Case Study', color: 'var(--gold)' },
-    { label: 'Day 14', name: 'New Angle', color: 'var(--orange)' },
-    { label: 'Day 21', name: 'Break-Up', color: 'var(--red)' },
-  ].map(s => `<div class="fu-card"><span class="fu-badge" style="background:${s.color};color:#000">${s.label}</span><div class="fu-name">${s.name}</div><div class="fu-note">Email ready · auto-saved</div></div>`).join('');
-  document.getElementById('output-section').classList.add('show');
-  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+function showOut(msgs){
+  document.getElementById('s1-subj').innerHTML=`<b>Subject:</b> ${msgs.s1_sub||''}`;
+  document.getElementById('s1-email').textContent=msgs.s1_email||'';
+  document.getElementById('s1-wa').textContent=msgs.s1_wa||'';
+  document.getElementById('s1-ig').textContent=msgs.s1_ig||'';
+  document.getElementById('s1-fb').textContent=msgs.s1_fb||'';
+  document.getElementById('fu-grid').innerHTML=[
+    {d:'Day 3',n:'Value Follow-Up',c:'var(--green)'},
+    {d:'Day 7',n:'Case Study',c:'var(--gold)'},
+    {d:'Day 14',n:'New Angle',c:'var(--orange)'},
+    {d:'Day 21',n:'Break-Up',c:'var(--red)'}
+  ].map(s=>`<div class="fu-c"><span class="fu-b" style="background:${s.c};color:#000">${s.d}</span><div class="fu-n">${s.n}</div><div class="fu-s">Email ready ✓</div></div>`).join('');
+  document.getElementById('out-wrap').classList.add('show');
+  document.getElementById('out-wrap').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function switchPTab(group, platform, btn) {
-  document.querySelectorAll(`#${group}-tabs .ptab`).forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  ['email','wa','ig','fb'].forEach(p => document.getElementById(`${group}-${p}`)?.classList.toggle('active', p === platform));
+function swPT(n,p,btn){
+  document.querySelectorAll(`#ptabs${n} .ptab`).forEach(t=>t.classList.remove('on'));btn.classList.add('on');
+  ['email','wa','ig','fb'].forEach(x=>document.getElementById(`p${n}-${x}`)?.classList.toggle('on',x===p));
+}
+function cp(id,btn){
+  const el=document.getElementById(id);if(!el)return;
+  navigator.clipboard.writeText(el.textContent).then(()=>{btn.textContent='✅';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('ok');},2000);toast('📋 Copied!');});
+}
+function togPlat(cb){
+  const l=cb.closest('.pco');
+  if(cb.checked){l.classList.add('sel');if(!selPlats.includes(cb.value))selPlats.push(cb.value);}
+  else{l.classList.remove('sel');selPlats=selPlats.filter(p=>p!==cb.value);}
+}
+function resetGen(){
+  GEN=null;SCAN={};selPlats=[];
+  document.getElementById('url-in').value='';
+  document.getElementById('pipe-wrap').classList.remove('show');
+  document.getElementById('det-sec').classList.remove('show');
+  document.getElementById('out-wrap').classList.remove('show');
+  document.getElementById('ai-load').classList.remove('show');
+  document.getElementById('scan-btn').disabled=false;
 }
 
-function togglePlatform(cb) {
-  const lbl = cb.closest('.plat-opt');
-  if (cb.checked) { lbl.classList.add('selected'); if (!chosenPlatforms.includes(cb.value)) chosenPlatforms.push(cb.value); }
-  else { lbl.classList.remove('selected'); chosenPlatforms = chosenPlatforms.filter(p => p !== cb.value); }
-}
-
-function copyMsg(id, btn) {
-  const el = document.getElementById(id); if (!el) return;
-  navigator.clipboard.writeText(el.textContent).then(() => { btn.textContent = '✅'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000); showToast('📋 Copied!'); });
-}
-
-// ============================================================
+// ══════════════════════════════════════════
 // SAVE CLIENT
-// ============================================================
-async function saveClient() {
-  if (!generatedData) { showToast('Generate messages first', '#FF4466'); return; }
-  const { msgs, meta } = generatedData;
-  const { data: client, error } = await db.from('clients').insert({
-    member_id: currentUser.id, name: meta.name, url: meta.url, niche: meta.niche,
-    country: meta.country, has_pixel: meta.hasPixel, has_analytics: meta.hasGA,
-    start_date: new Date().toISOString().split('T')[0], status: 'active'
+// ══════════════════════════════════════════
+async function saveClient(){
+  if(!GEN){toast('Generate messages first','#FF4466');return;}
+  const{msgs,meta}=GEN;
+  const{data:c,error}=await db.from('clients').insert({
+    member_id:ME.id,name:meta.name,url:meta.url,niche:meta.niche,country:meta.country,
+    has_pixel:meta.hasPixel,has_analytics:meta.hasGA,
+    start_date:new Date().toISOString().split('T')[0],
+    pipeline_status:'lead',contract_value:0,notes:'',status:'active'
   }).select().single();
-  if (error) { showToast('❌ Save failed: ' + error.message, '#FF4466'); return; }
-  await db.from('stages').insert(STAGES.map((s, i) => ({
-    client_id: client.id, stage_num: i + 1, is_done: false,
-    platforms_used: i === 0 ? chosenPlatforms : [],
-    msgs: i === 0 ? msgs : { s1_sub: msgs[`s${i+1}_sub`]||'', s1_email: msgs[`s${i+1}_email`]||'' }
+  if(error){toast('❌ Save failed: '+error.message,'#FF4466');return;}
+  await db.from('stages').insert(STAGES.map((s,i)=>({
+    client_id:c.id,stage_num:i+1,is_done:false,reply_received:null,
+    platforms_used:i===0?selPlats:[],
+    msgs:i===0?msgs:{s1_sub:msgs[`s${i+1}_sub`]||'',s1_email:msgs[`s${i+1}_email`]||''}
   })));
-  if (chosenPlatforms.length) await db.from('outreach_log').insert(chosenPlatforms.map(p => ({ member_id: currentUser.id, client_id: client.id, stage_num: 1, platform: p })));
-  await fetchClients(); updateStats(); showToast(`✅ ${meta.name} saved!`); resetGenerate(); goTo('track');
+  if(selPlats.length)await db.from('outreach_log').insert(selPlats.map(p=>({member_id:ME.id,client_id:c.id,stage_num:1,platform:p})));
+  await loadClients();updStats();toast(`✅ ${meta.name} saved to tracker!`);resetGen();go('track');
 }
 
-function resetGenerate() {
-  generatedData = null; scannedData = {}; chosenPlatforms = [];
-  document.getElementById('url-input').value = '';
-  document.getElementById('pipeline').classList.remove('show');
-  document.getElementById('detect-section').classList.remove('show');
-  document.getElementById('output-section').classList.remove('show');
-  document.getElementById('ai-loading').classList.remove('show');
-  document.getElementById('scan-btn').disabled = false;
-}
-
-// ============================================================
+// ══════════════════════════════════════════
 // TRACKER
-// ============================================================
-function setFilter(f, btn) { currentFilter = f; document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTracker(); }
-
-function renderTracker() {
-  updateStats();
-  const tasks = getTasks();
-  let list = [...myClients];
-  if (currentFilter === 'due') { const ids = new Set(tasks.filter(t => !t.overdue).map(t => t.c.id)); list = list.filter(c => ids.has(c.id)); }
-  else if (currentFilter === 'overdue') { const ids = new Set(tasks.filter(t => t.overdue).map(t => t.c.id)); list = list.filter(c => ids.has(c.id)); }
-  else if (currentFilter === 'active') { list = list.filter(c => c.status==='active' && c.stages?.some(s=>s.is_done) && c.stages?.some(s=>!s.is_done)); }
-  else if (currentFilter === 'converted') { list = list.filter(c => c.status === 'converted'); }
-  const el = document.getElementById('client-list');
-  if (!list.length) { el.innerHTML = '<div class="empty-state"><span class="empty-icon">🚀</span><div class="empty-title">No clients here</div><div class="empty-sub">Use Smart Generate to add clients.</div></div>'; return; }
-  el.innerHTML = list.map(buildClientRow).join('');
+// ══════════════════════════════════════════
+function setF(f,btn){CFILT=f;document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderTracker();}
+function renderTracker(){
+  updStats();const tasks=getTasks();let list=[...MY_C];
+  const ovIds=new Set(tasks.filter(t=>t.ov).map(t=>t.c.id));const tdIds=new Set(tasks.filter(t=>!t.ov).map(t=>t.c.id));
+  if(CFILT==='due')list=list.filter(c=>tdIds.has(c.id)||ovIds.has(c.id));
+  else if(CFILT==='ov')list=list.filter(c=>ovIds.has(c.id));
+  else if(['lead','interested','call','closed','lost'].includes(CFILT))list=list.filter(c=>c.pipeline_status===CFILT);
+  const el=document.getElementById('tlist');
+  if(!list.length){el.innerHTML='<div class="empty"><span class="ei">🚀</span><h3>No clients here yet</h3><p>Use Smart Generate to add clients.</p></div>';return;}
+  el.innerHTML=list.map(buildRow).join('');
 }
 
-function buildClientRow(c) {
-  const isOwner = c.member_id === currentUser.id;
-  const ownerName = c.members?.name || '';
-  const color = clientColor(c.name);
+function pipTag(ps){
+  const m={lead:'pt-lead 🔵 Lead',interested:'pt-interested 💜 Interested',call:'pt-call 📞 Call Booked',closed:'pt-closed 🏆 Closed',lost:'pt-lost ❌ Lost'};
+  const v=(m[ps]||'pt-lead 🔵 Lead').split(' ');const cls=v[0];const lbl=v.slice(1).join(' ');
+  return`<span class="pipe-tag ${cls}">${lbl}</span>`;
+}
 
-  const dots = STAGES.map((s, i) => {
-    const st = getStage(c, i + 1); const d = st?.is_done;
-    const due = addDays(c.start_date, s.day);
-    let cls = d ? 'done' : isToday(due) ? 'today' : isPast(due) ? 'overdue' : '';
-    const conn = i < 4 ? `<div class="stage-connector ${d ? 'done' : ''}"></div>` : '';
-    return `<div class="stage-dot ${cls}" title="${s.name}" onclick="event.stopPropagation();quickMark('${c.id}',${i})">${d ? '✓' : i+1}</div>${conn}`;
+function buildRow(c){
+  const isOwner=c.member_id===ME.id;const color=cColor(c.name);const ps=c.pipeline_status||'lead';
+  const cval=c.contract_value>0?`<span class="cval-tag">$${Number(c.contract_value).toLocaleString()}</span>`:'';
+  const oName=c.members?.name||'';
+
+  const dots=STAGES.map((s,i)=>{
+    const st=gSt(c,i+1);const d=st?.is_done;const due=addDays(c.start_date,s.day);
+    let cls=d?'done':isToday(due)?'today':isPast(due)?'ov':'';
+    return`<div class="sdot ${cls}" title="${s.name}" onclick="event.stopPropagation();qMark('${c.id}',${i})">${d?'✓':i+1}</div>${i<4?`<div class="sconn ${d?'done':''}"></div>`:''}`;
   }).join('');
 
-  const stageTabs = STAGES.map((s, i) => {
-    const st = getStage(c, i + 1); const d = st?.is_done;
-    const due = addDays(c.start_date, s.day); const ov = !d && isPast(due) && !isToday(due);
-    return `<button class="stage-tab ${d?'tab-done':ov?'tab-overdue':''} ${i===0?'active':''}" id="stab-${c.id.replace(/-/g,'')}-${i}" onclick="switchStageTab('${c.id}',${i})">D${s.day||1} · ${s.name}</button>`;
+  const stabs=STAGES.map((s,i)=>{
+    const st=gSt(c,i+1);const d=st?.is_done;const due=addDays(c.start_date,s.day);const ov=!d&&isPast(due)&&!isToday(due);
+    return`<button class="stab ${d?'td':ov?'ov':''} ${i===0?'on':''}" id="stb-${c.id.replace(/-/g,'')}-${i}" onclick="swStab('${c.id}',${i})">${s.day===0?'D1':'D'+s.day} · ${s.name}</button>`;
   }).join('');
 
-  const stageContents = STAGES.map((s, i) => {
-    const st = getStage(c, i + 1); const d = st?.is_done;
-    const due = addDays(c.start_date, s.day); const dl = daysLeft(due);
-    let dstr = '', dcls = '';
-    if (d) dstr = '✅ Sent';
-    else if (isToday(due)) { dstr = '🔥 Due TODAY'; dcls = 'today'; }
-    else if (isPast(due)) { dstr = `⚠️ Overdue ${Math.abs(dl)}d`; dcls = 'overdue'; }
-    else dstr = `📅 Due in ${dl}d — ${fmtDate(due)}`;
+  const scs=STAGES.map((s,i)=>{
+    const st=gSt(c,i+1);const d=st?.is_done;const due=addDays(c.start_date,s.day);const dl=dL(due);
+    let dstr='',dcls='';
+    if(d){dstr='✅ Sent '+fmt(due);}
+    else if(isToday(due)){dstr='🔥 Due TODAY';dcls='td';}
+    else if(isPast(due)){dstr=`⚠️ Overdue ${Math.abs(dl)}d ago`;dcls='ov';}
+    else dstr=`📅 Due in ${dl}d — ${fmt(due)}`;
 
-    const plats = st?.platforms_used || [];
-    const platBadges = plats.length ? `<div class="sent-plats">${plats.map(p => `<span class="sent-plat">${p==='email'?'📧 Email':p==='whatsapp'?'💬 WhatsApp':p==='instagram'?'📸 IG':'📘 FB'}</span>`).join('')}</div>` : '';
+    const plats=st?.platforms_used||[];
+    const platB=plats.length?`<div class="spb-wrap">${plats.map(p=>`<span class="spb">${p==='email'?'📧 Email':p==='whatsapp'?'💬 WA':p==='instagram'?'📸 IG':'📘 FB'}</span>`).join('')}</div>`:'';
+    const allMsgs=gSt(c,1)?.msgs||{};
+    const pls=i===0?[
+      {k:'email',lbl:'📧 Email',sub:allMsgs.s1_sub,body:allMsgs.s1_email},
+      {k:'wa',lbl:'💬 WA',body:allMsgs.s1_wa},
+      {k:'ig',lbl:'📸 IG',body:allMsgs.s1_ig},
+      {k:'fb',lbl:'📘 FB',body:allMsgs.s1_fb}
+    ]:[{k:'email',lbl:'📧 Email',sub:gSt(c,i+1)?.msgs?.s1_sub||allMsgs[`s${i+1}_sub`],body:gSt(c,i+1)?.msgs?.s1_email||allMsgs[`s${i+1}_email`]}];
 
-    const allMsgs = getStage(c, 1)?.msgs || {};
-    let platforms = i === 0
-      ? [{ k:'email', lbl:'📧 Email', sub: allMsgs.s1_sub, body: allMsgs.s1_email },
-         { k:'wa', lbl:'💬 WhatsApp', body: allMsgs.s1_wa },
-         { k:'ig', lbl:'📸 Instagram', body: allMsgs.s1_ig },
-         { k:'fb', lbl:'📘 Facebook', body: allMsgs.s1_fb }]
-      : [{ k:'email', lbl:'📧 Email', sub: getStage(c,i+1)?.msgs?.s1_sub || allMsgs[`s${i+1}_sub`], body: getStage(c,i+1)?.msgs?.s1_email || allMsgs[`s${i+1}_email`] }];
+    const ptabs=i===0?`<div class="tptabs" id="tpt-${c.id.replace(/-/g,'')}-${i}">${pls.map((p,pi)=>`<button class="tptab ${pi===0?'on':''}" onclick="swTpt('${c.id}',${i},'${p.k}',this)">${p.lbl}</button>`).join('')}</div>`:'';
+    const panels=pls.map((p,pi)=>`<div class="tpp ${pi===0?'on':''}" id="tpp-${c.id.replace(/-/g,'')}-${i}-${p.k}"><div class="tmbox">${p.sub?`<div class="tmsub"><b>Subject:</b> ${p.sub}</div>`:''}<div class="tmh"><span class="tml">${p.lbl}</span><button class="cbtn" onclick="cpT('${c.id}',${i},'${p.k}',this)">📋 Copy</button></div><div class="tmbody" id="tb-${c.id.replace(/-/g,'')}-${i}-${p.k}">${p.body||'—'}</div></div></div>`).join('');
 
-    const platTabs = i === 0 ? `<div class="plat-tabs" id="ptabs-${c.id.replace(/-/g,'')}-${i}">${platforms.map((p,pi) => `<button class="plat-tab ${pi===0?'active':''}" onclick="switchPlatTab('${c.id}',${i},'${p.k}',this)">${p.lbl}</button>`).join('')}</div>` : '';
-    const platPanels = platforms.map((p, pi) => `<div class="plat-panel ${pi===0?'active':''}" id="ppanel-${c.id.replace(/-/g,'')}-${i}-${p.k}"><div class="inner-msg-box">${p.sub?`<div class="inner-msg-subj"><b>Subject:</b> ${p.sub}</div>`:''}<div class="inner-msg-head"><span class="inner-msg-label">${p.lbl}</span><button class="copy-btn" onclick="copyInner('${c.id}',${i},'${p.k}',this)">📋 Copy</button></div><div class="inner-msg-body" id="imb-${c.id.replace(/-/g,'')}-${i}-${p.k}">${p.body||'—'}</div></div></div>`).join('');
+    const fuPP=i>0&&!d?`<div class="fuplat"><div class="fuplat-t">Mark platform sent:</div><div class="pc-opts"><label class="pco"><input type="checkbox" value="email" onchange="setStgP(this,'${c.id}',${i})">📧 Email</label><label class="pco"><input type="checkbox" value="whatsapp" onchange="setStgP(this,'${c.id}',${i})">💬 WA</label><label class="pco"><input type="checkbox" value="instagram" onchange="setStgP(this,'${c.id}',${i})">📸 IG</label><label class="pco"><input type="checkbox" value="facebook" onchange="setStgP(this,'${c.id}',${i})">📘 FB</label></div></div>`:'';
 
-    const fuPlatPicker = i > 0 && !d ? `<div class="fu-plat-picker"><div class="fu-plat-title">Mark platform sent:</div><div class="plat-options"><label class="plat-opt"><input type="checkbox" value="email" onchange="setStgPlat(this,'${c.id}',${i})">📧 Email</label><label class="plat-opt"><input type="checkbox" value="whatsapp" onchange="setStgPlat(this,'${c.id}',${i})">💬 WhatsApp</label><label class="plat-opt"><input type="checkbox" value="instagram" onchange="setStgPlat(this,'${c.id}',${i})">📸 Instagram</label><label class="plat-opt"><input type="checkbox" value="facebook" onchange="setStgPlat(this,'${c.id}',${i})">📘 Facebook</label></div></div>` : '';
+    const rep=st?.reply_received;
+    const replyRow=`<div class="reply-row"><span class="rlbl">Reply?</span><button class="rbtn ${rep===true?'replied':''}" onclick="markRep('${c.id}',${i},true)">✅ Replied</button><button class="rbtn ${rep===false?'no-rep':''}" onclick="markRep('${c.id}',${i},false)">❌ No Reply</button></div>`;
 
-    const others = allMembers.filter(m => m.id !== currentUser.id && m.role !== 'admin');
-    const shareRow = isOwner && currentUser.role !== 'admin' && others.length ? `<div class="share-access"><span class="share-label">🔗 Share with:</span><select class="share-select" id="shr-${c.id.replace(/-/g,'')}">${others.map(m=>`<option value="${m.id}">${m.name}</option>`).join('')}</select><button class="share-btn" onclick="shareWith('${c.id}')">Share</button></div>` : '';
-
-    const convBtn = (isOwner || currentUser.role === 'admin') && c.status === 'active' ? `<button class="btn btn-purple btn-sm" onclick="markConverted('${c.id}')">🏆 Converted</button>` : '';
-
-    return `<div class="stage-content ${i===0?'active':''}" id="sc-${c.id.replace(/-/g,'')}-${i}">
-      <div class="stage-meta">
-        <div class="stage-meta-left"><div class="stage-num">0${i+1}</div><div><div class="stage-name">${s.name}</div><div class="stage-due ${dcls}">${dstr}</div></div></div>
-        <div class="stage-actions">${convBtn}<button class="btn btn-green btn-sm" onclick="markSent('${c.id}',${i})" ${d?'disabled':''}>${d?'✅ Sent':'✅ Mark Sent'}</button><button class="btn btn-ghost btn-sm" onclick="skipStage('${c.id}',${i})">Skip</button></div>
+    return`<div class="sc ${i===0?'on':''}" id="sc-${c.id.replace(/-/g,'')}-${i}">
+      <div class="sm">
+        <div class="sml"><div class="snum">0${i+1}</div><div><div class="snm">${s.name}</div><div class="sdue ${dcls}">${dstr}</div></div></div>
+        <div class="sacts">
+          <button class="btn btn-g btn-sm" onclick="markSent('${c.id}',${i})" ${d?'disabled':''}>${d?'✅ Sent':'✅ Mark Sent'}</button>
+          <button class="btn btn-ghost btn-sm" onclick="skipSt('${c.id}',${i})">Skip</button>
+        </div>
       </div>
-      ${d ? `<div class="done-banner">✅ Sent ${fmtDate(due)} ${platBadges}</div>` : platBadges}
-      ${fuPlatPicker}${platTabs}${platPanels}${shareRow}
+      ${d?`<div class="done-bnr">✅ Sent on ${fmt(due)} ${platB}</div>`:platB}
+      ${replyRow}${fuPP}${ptabs}${panels}
     </div>`;
   }).join('');
 
-  const convTag = c.status === 'converted' ? '<span class="converted-tag">🏆 Converted</span>' : '';
-  const ownerTag = !isOwner ? `<span class="owner-tag">by ${ownerName}</span>` : '';
+  // Client detail tabs
+  const shrOthers=ALL_M.filter(m=>m.id!==ME.id&&m.role!=='admin');
+  const shrRow=isOwner&&ME.role!=='admin'&&shrOthers.length?`<div class="share-row"><span class="shr-lbl">🔗 Share with:</span><select class="shr-sel" id="shr-${c.id.replace(/-/g,'')}">${shrOthers.map(m=>`<option value="${m.id}">${m.name}</option>`).join('')}</select><button class="shr-btn" onclick="shareC('${c.id}')">Share</button></div>`:'';
 
-  return `<div class="client-row" id="crow-${c.id.replace(/-/g,'')}">
-    <div class="client-header" onclick="toggleExpand('${c.id}')">
-      <div class="client-avatar" style="background:${color}">${c.name[0]}</div>
-      <div class="client-info">
-        <div class="client-name-row"><span class="client-name">${c.name}</span><span class="niche-tag">${c.niche}</span>${ownerTag}${convTag}</div>
-        <div class="client-url">${c.url||'—'} · ${fmtDate(new Date(c.added_at))}</div>
-      </div>
-      <div class="stage-dots">${dots}</div>
-      <div class="client-actions">
-        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();toggleExpand('${c.id}')">View ▾</button>
-        ${isOwner||currentUser.role==='admin' ? `<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteClient('${c.id}')">🗑</button>` : ''}
-      </div>
-    </div>
-    <div class="client-expand" id="cexp-${c.id.replace(/-/g,'')}">
-      <div class="stage-tabs-bar">${stageTabs}</div>
-      ${stageContents}
-    </div>
-  </div>`;
+  const detTabs=`
+<div class="cdet-tabs">
+  <button class="cdt on" id="cdt-${c.id.replace(/-/g,'')}-pipe" onclick="swCdt('${c.id}','pipe')">🔄 Pipeline</button>
+  <button class="cdt" id="cdt-${c.id.replace(/-/g,'')}-contract" onclick="swCdt('${c.id}','contract')">💰 Contract</button>
+  <button class="cdt" id="cdt-${c.id.replace(/-/g,'')}-notes" onclick="swCdt('${c.id}','notes')">📝 Notes</button>
+</div>
+<div class="cdpanel on" id="cdp-${c.id.replace(/-/g,'')}-pipe">
+  <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Client pipeline status:</div>
+  <div class="pipe-btns">
+    ${['lead','interested','call','closed','lost'].map(p=>`<button class="pbtn ${ps===p?'on-'+p:''}" onclick="setPipe('${c.id}','${p}')">${p==='lead'?'🔵 Lead':p==='interested'?'💜 Interested':p==='call'?'📞 Call Booked':p==='closed'?'🏆 Closed':'❌ Lost'}</button>`).join('')}
+  </div>
+  ${shrRow}
+</div>
+<div class="cdpanel" id="cdp-${c.id.replace(/-/g,'')}-contract">
+  <div style="font-size:11px;color:var(--t2);margin-bottom:8px;">Contract value (USD):</div>
+  <div class="contract-row">
+    <input type="number" class="cv-in" id="cv-${c.id.replace(/-/g,'')}" value="${c.contract_value||0}" placeholder="0">
+    <button class="cv-save" onclick="saveCv('${c.id}')">💾 Save</button>
+  </div>
+  ${c.contract_value>0?`<div style="margin-top:9px;font-size:13px;font-weight:700;color:var(--green)">💰 Deal value: $${Number(c.contract_value).toLocaleString()}</div>`:''}
+</div>
+<div class="cdpanel" id="cdp-${c.id.replace(/-/g,'')}-notes">
+  <textarea class="notes-ta" id="note-${c.id.replace(/-/g,'')}" placeholder="Call notes, client preferences, objections, next steps...">${c.notes||''}</textarea>
+  <button class="notes-save" onclick="saveNote('${c.id}')">💾 Save Notes</button>
+</div>`;
+
+  return`<div class="crow" id="crow-${c.id.replace(/-/g,'')}">
+<div class="ch" onclick="exp('${c.id}')">
+  <div class="cav" style="background:${color}">${c.name[0]}</div>
+  <div class="ci">
+    <div class="cnr"><span class="cname">${c.name}</span><span class="ntag">${c.niche}</span>${!isOwner?`<span class="otag">by ${oName}</span>`:''}</div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">${pipTag(ps)}${cval}<span class="curl">${c.url||'—'}</span></div>
+  </div>
+  <div class="sdots">${dots}</div>
+  <div class="ca">
+    <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();exp('${c.id}')">▾</button>
+    ${isOwner||ME.role==='admin'?`<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();delC('${c.id}')">🗑</button>`:''}
+  </div>
+</div>
+<div class="cx" id="cx-${c.id.replace(/-/g,'')}">
+  <div class="stbar">${stabs}</div>
+  ${scs}
+  <div style="padding:0 14px 14px;">${detTabs}</div>
+</div>
+</div>`;
 }
 
-function setStgPlat(cb, cid, si) {
-  const key = `${cid}-${si}`; if (!stagePlatformMap[key]) stagePlatformMap[key] = [];
-  const lbl = cb.closest('.plat-opt');
-  if (cb.checked) { lbl.classList.add('selected'); if (!stagePlatformMap[key].includes(cb.value)) stagePlatformMap[key].push(cb.value); }
-  else { lbl.classList.remove('selected'); stagePlatformMap[key] = stagePlatformMap[key].filter(p => p !== cb.value); }
+function setStgP(cb,cid,si){const k=`${cid}-${si}`;if(!stgPlats[k])stgPlats[k]=[];const l=cb.closest('.pco');if(cb.checked){l.classList.add('sel');if(!stgPlats[k].includes(cb.value))stgPlats[k].push(cb.value);}else{l.classList.remove('sel');stgPlats[k]=stgPlats[k].filter(p=>p!==cb.value);}}
+function exp(id){document.getElementById(`cx-${id.replace(/-/g,'')}`)?.classList.toggle('on');}
+function swStab(cid,si){const ci=cid.replace(/-/g,'');STAGES.forEach((_,i)=>{document.getElementById(`stb-${ci}-${i}`)?.classList.remove('on');document.getElementById(`sc-${ci}-${i}`)?.classList.remove('on');});document.getElementById(`stb-${ci}-${si}`)?.classList.add('on');document.getElementById(`sc-${ci}-${si}`)?.classList.add('on');}
+function swTpt(cid,si,p,btn){const ci=cid.replace(/-/g,'');document.querySelectorAll(`#tpt-${ci}-${si} .tptab`).forEach(t=>t.classList.remove('on'));btn.classList.add('on');['email','wa','ig','fb'].forEach(k=>document.getElementById(`tpp-${ci}-${si}-${k}`)?.classList.toggle('on',k===p));}
+function cpT(cid,si,p,btn){const el=document.getElementById(`tb-${cid.replace(/-/g,'')}-${si}-${p}`);if(!el)return;navigator.clipboard.writeText(el.textContent).then(()=>{btn.textContent='✅';btn.classList.add('ok');setTimeout(()=>{btn.textContent='📋 Copy';btn.classList.remove('ok');},2000);toast('📋 Copied!');});}
+function swCdt(cid,tab){const ci=cid.replace(/-/g,'');['pipe','contract','notes'].forEach(t=>{document.getElementById(`cdt-${ci}-${t}`)?.classList.remove('on');document.getElementById(`cdp-${ci}-${t}`)?.classList.remove('on');});document.getElementById(`cdt-${ci}-${tab}`)?.classList.add('on');document.getElementById(`cdp-${ci}-${tab}`)?.classList.add('on');}
+
+async function markSent(cid,si){const plats=stgPlats[`${cid}-${si}`]||[];await db.from('stages').update({is_done:true,done_at:new Date().toISOString(),platforms_used:plats}).eq('client_id',cid).eq('stage_num',si+1);if(plats.length)await db.from('outreach_log').insert(plats.map(p=>({member_id:ME.id,client_id:cid,stage_num:si+1,platform:p})));delete stgPlats[`${cid}-${si}`];await loadClients();renderTracker();toast(`✅ Stage ${si+1} marked sent!`);}
+async function qMark(cid,si){const c=MY_C.find(x=>x.id===cid);const st=gSt(c,si+1);if(!c||st?.is_done)return;if(!confirm(`Mark Stage ${si+1} sent for ${c.name}?`))return;await markSent(cid,si);}
+async function skipSt(cid,si){await db.from('stages').update({is_done:true,done_at:new Date().toISOString()}).eq('client_id',cid).eq('stage_num',si+1);await loadClients();renderTracker();toast('⏭ Skipped','#FF7B3B');}
+async function markRep(cid,si,r){await db.from('stages').update({reply_received:r,reply_date:r?new Date().toISOString():null}).eq('client_id',cid).eq('stage_num',si+1);await loadClients();renderTracker();toast(r?'💬 Reply logged!':'📭 No reply noted');}
+async function setPipe(cid,ps){await db.from('clients').update({pipeline_status:ps}).eq('id',cid);await loadClients();renderTracker();const l={lead:'🔵 Lead',interested:'💜 Interested!',call:'📞 Call Booked!',closed:'🏆 Closed!!',lost:'❌ Lost'};toast(l[ps]||ps,ps==='closed'?'#00E5A0':ps==='lost'?'#FF4466':'#4D8EFF');}
+async function saveCv(cid){const v=document.getElementById(`cv-${cid.replace(/-/g,'')}`).value;await db.from('clients').update({contract_value:parseFloat(v)||0}).eq('id',cid);await loadClients();renderTracker();toast('💰 Contract value saved!');}
+async function saveNote(cid){const n=document.getElementById(`note-${cid.replace(/-/g,'')}`).value;await db.from('clients').update({notes:n}).eq('id',cid);toast('📝 Notes saved!');}
+async function delC(cid){if(!confirm('Delete this client?'))return;await db.from('clients').delete().eq('id',cid);await loadClients();renderTracker();updStats();toast('🗑 Deleted','#FF4466');}
+async function shareC(cid){const sel=document.getElementById(`shr-${cid.replace(/-/g,'')}`);if(!sel)return;const{error}=await db.from('access_grants').upsert({client_id:cid,granted_by:ME.id,granted_to:sel.value});if(error)toast('❌ Share failed','#FF4466');else toast('✅ Access shared!');}
+
+// ══════════════════════════════════════════
+// ANALYTICS — PREMIUM
+// ══════════════════════════════════════════
+async function renderAnl(){
+  document.getElementById('anl-sub').textContent=ME.role==='admin'?'Full team performance':'Your performance dashboard';
+  let lQ=db.from('outreach_log').select('*');if(ME.role!=='admin')lQ=lQ.eq('member_id',ME.id);
+  const{data:logs}=await lQ;
+  const ms={};ALL_M.forEach(m=>{ms[m.id]={name:m.name,color:m.color,clients:0,outreach:0,replies:0,converted:0,revenue:0};});
+  MY_C.forEach(c=>{if(ms[c.member_id]){ms[c.member_id].clients++;if(c.pipeline_status==='closed'){ms[c.member_id].converted++;ms[c.member_id].revenue+=(c.contract_value||0);}ms[c.member_id].replies+=(c.stages?.filter(s=>s.reply_received===true).length||0);}});
+  (logs||[]).forEach(l=>{if(ms[l.member_id])ms[l.member_id].outreach++;});
+  const pc={email:0,whatsapp:0,instagram:0,facebook:0};(logs||[]).forEach(l=>{if(pc[l.platform]!==undefined)pc[l.platform]++;});
+  const tp=Math.max(Object.values(pc).reduce((a,b)=>a+b,0),1);
+  const today=new Date().toISOString().split('T')[0];const tl=(logs||[]).filter(l=>l.sent_at?.startsWith(today));
+  const arr=ME.role==='admin'?Object.values(ms):[ms[ME.id]].filter(Boolean);const maxC=Math.max(...arr.map(s=>s.clients),1);
+  const totClients=MY_C.length;const totClosed=MY_C.filter(c=>c.pipeline_status==='closed').length;
+  const totReplies=MY_C.reduce((a,c)=>a+(c.stages?.filter(s=>s.reply_received===true).length||0),0);
+  const totRev=MY_C.filter(c=>c.pipeline_status==='closed').reduce((a,c)=>a+(c.contract_value||0),0);
+  const convRate=totClients>0?((totClosed/totClients)*100).toFixed(1):0;
+  const repRate=totClients>0?((totReplies/totClients)*100).toFixed(1):0;
+  const outreach1=totClients>0?(totClosed>0?Math.round(totClients/totClosed):totClients):0;
+  const nm={};MY_C.forEach(c=>{if(!nm[c.niche])nm[c.niche]={t:0,c:0};nm[c.niche].t++;if(c.pipeline_status==='closed')nm[c.niche].c++;});
+  const topN=Object.entries(nm).sort((a,b)=>b[1].c-a[1].c).slice(0,5);
+  const maxNc=Math.max(...topN.map(x=>x[1].c),1);
+  const bestPlat=Object.entries(pc).sort((a,b)=>b[1]-a[1])[0];
+
+  document.getElementById('anl-cont').innerHTML=`
+<div class="ac" style="grid-column:1/-1">
+  <div class="act">💰 Revenue & Conversion KPIs</div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:0">
+    <div class="dsc"><div class="dsv" style="font-size:18px;color:var(--green)">$${totRev.toLocaleString()}</div><div class="dsl">Total Revenue</div></div>
+    <div class="dsc"><div class="dsv" style="font-size:18px;color:var(--blue)">${convRate}%</div><div class="dsl">Conversion Rate</div></div>
+    <div class="dsc"><div class="dsv" style="font-size:18px;color:var(--gold)">${repRate}%</div><div class="dsl">Reply Rate</div></div>
+    <div class="dsc"><div class="dsv" style="font-size:18px;color:var(--purple)">${outreach1>0?`1 : ${outreach1}`:'-'}</div><div class="dsl">Outreach → Close</div></div>
+  </div>
+</div>
+
+<div class="ac" style="grid-column:1/-1">
+  <div class="act">👥 ${ME.role==='admin'?'Team':'My'} Performance</div>
+  ${arr.map(s=>`<div class="msr"><div class="msav" style="background:${s.color}">${s.name[0]}</div><div style="flex:1"><div class="msn">${s.name}</div><div class="btrack"><div class="bfill" style="width:${(s.clients/maxC*100).toFixed(0)}%;background:${s.color}"></div></div></div><div class="msnums"><div class="msnum"><div class="msnv" style="color:var(--blue)">${s.clients}</div><div class="msnl">Clients</div></div><div class="msnum"><div class="msnv" style="color:var(--gold)">${s.replies}</div><div class="msnl">Replies</div></div><div class="msnum"><div class="msnv" style="color:var(--green)">${s.converted}</div><div class="msnl">Closed</div></div><div class="msnum"><div class="msnv" style="color:var(--t2)">${s.revenue>0?'$'+s.revenue.toLocaleString():'$0'}</div><div class="msnl">Revenue</div></div></div></div>`).join('')}
+</div>
+
+<div class="ac">
+  <div class="act">📢 Best Platform ${bestPlat?`— ${bestPlat[0]} wins 🏆`:''}</div>
+  ${[['📧 Email','email','#4D8EFF'],['💬 WhatsApp','whatsapp','#00E5A0'],['📸 Instagram','instagram','#9B72FF'],['📘 Facebook','facebook','#FF7B3B']].map(([lbl,k,clr])=>`<div class="bwrap"><div class="blbl"><span>${lbl}</span><span style="color:${k===bestPlat?.[0]?'var(--gold)':'var(--t2)'}">${pc[k]} sent ${k===bestPlat?.[0]?'🥇':''}</span></div><div class="btrack"><div class="bfill" style="width:${((pc[k]/tp)*100).toFixed(0)}%;background:${clr}"></div></div></div>`).join('')}
+</div>
+
+<div class="ac">
+  <div class="act">🏆 Best Performing Niche</div>
+  ${topN.length?topN.map(([niche,d])=>`<div class="bwrap"><div class="blbl"><span style="font-size:10px">${niche}</span><span>${d.c}/${d.t} closed</span></div><div class="btrack"><div class="bfill" style="width:${((d.c/maxNc)*100).toFixed(0)}%;background:var(--green)"></div></div></div>`).join(''):'<div style="color:var(--t3);font-size:12px">No closed deals yet</div>'}
+</div>
+
+<div class="ac" style="grid-column:1/-1">
+  <div class="act">🔄 Pipeline Overview</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    ${['lead','interested','call','closed','lost'].map(ps=>{const cnt=MY_C.filter(c=>c.pipeline_status===ps).length;const clr=ps==='lead'?'var(--blue)':ps==='interested'?'var(--purple)':ps==='call'?'var(--gold)':ps==='closed'?'var(--green)':'var(--red)';return`<div class="dsc" style="flex:1;min-width:80px"><div class="dsv" style="font-size:22px;color:${clr}">${cnt}</div><div class="dsl">${ps==='lead'?'Lead':ps==='interested'?'Interested':ps==='call'?'Call Booked':ps==='closed'?'Closed':'Lost'}</div></div>`;}).join('')}
+  </div>
+  <div style="margin-top:12px;padding:10px 12px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;font-size:12px;color:var(--t2);">
+    💡 <b style="color:var(--text)">Insight:</b> You need to outreach <b style="color:var(--blue)">${outreach1>0?outreach1:'?'} clients</b> to close 1 deal. Reply rate: <b style="color:var(--gold)">${repRate}%</b> ${bestPlat?`· Best platform: <b style="color:var(--green)">${bestPlat[0]}</b>`:''}
+  </div>
+</div>
+
+<div class="ac" style="grid-column:1/-1">
+  <div class="act">📅 Today's Activity</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
+    <div class="dsc"><div class="dsv" style="font-size:20px;color:var(--blue)">${tl.length}</div><div class="dsl">Msgs Sent Today</div></div>
+    <div class="dsc"><div class="dsv" style="font-size:20px;color:var(--gold)">${getTasks().filter(t=>!t.ov).length}</div><div class="dsl">Due Today</div></div>
+    <div class="dsc"><div class="dsv" style="font-size:20px;color:var(--red)">${getTasks().filter(t=>t.ov).length}</div><div class="dsl">Overdue</div></div>
+  </div>
+</div>`;
 }
 
-function toggleExpand(id) { document.getElementById(`cexp-${id.replace(/-/g,'')}`)?.classList.toggle('open'); }
-function switchStageTab(cid, si) { const ci = cid.replace(/-/g,''); STAGES.forEach((_,i) => { document.getElementById(`stab-${ci}-${i}`)?.classList.remove('active'); document.getElementById(`sc-${ci}-${i}`)?.classList.remove('active'); }); document.getElementById(`stab-${ci}-${si}`)?.classList.add('active'); document.getElementById(`sc-${ci}-${si}`)?.classList.add('active'); }
-function switchPlatTab(cid, si, p, btn) { const ci = cid.replace(/-/g,''); document.querySelectorAll(`#ptabs-${ci}-${si} .plat-tab`).forEach(t => t.classList.remove('active')); btn.classList.add('active'); ['email','wa','ig','fb'].forEach(k => document.getElementById(`ppanel-${ci}-${si}-${k}`)?.classList.toggle('active', k === p)); }
-function copyInner(cid, si, p, btn) { const el = document.getElementById(`imb-${cid.replace(/-/g,'')}-${si}-${p}`); if (!el) return; navigator.clipboard.writeText(el.textContent).then(() => { btn.textContent = '✅'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000); showToast('📋 Copied!'); }); }
-
-async function markSent(cid, si) {
-  const plats = stagePlatformMap[`${cid}-${si}`] || [];
-  await db.from('stages').update({ is_done: true, done_at: new Date().toISOString(), platforms_used: plats }).eq('client_id', cid).eq('stage_num', si + 1);
-  if (plats.length) await db.from('outreach_log').insert(plats.map(p => ({ member_id: currentUser.id, client_id: cid, stage_num: si + 1, platform: p })));
-  delete stagePlatformMap[`${cid}-${si}`];
-  await fetchClients(); renderTracker(); showToast(`✅ Stage ${si+1} marked sent!`);
-}
-
-async function quickMark(cid, si) {
-  const c = myClients.find(x => x.id === cid); const st = getStage(c, si + 1);
-  if (!c || st?.is_done) return;
-  if (!confirm(`Mark Stage ${si+1} sent for ${c.name}?`)) return;
-  await markSent(cid, si);
-}
-
-async function skipStage(cid, si) { await db.from('stages').update({ is_done: true, done_at: new Date().toISOString() }).eq('client_id', cid).eq('stage_num', si + 1); await fetchClients(); renderTracker(); showToast('⏭ Skipped', '#FF7B3B'); }
-async function markConverted(cid) { await db.from('clients').update({ status: 'converted' }).eq('id', cid); await fetchClients(); renderTracker(); showToast('🏆 Client Converted!', '#00E5A0'); }
-async function deleteClient(cid) { if (!confirm('Delete this client?')) return; await db.from('clients').delete().eq('id', cid); await fetchClients(); renderTracker(); updateStats(); showToast('🗑 Deleted', '#FF4466'); }
-async function shareWith(cid) { const sel = document.getElementById(`shr-${cid.replace(/-/g,'')}`); if (!sel) return; const { error } = await db.from('access_grants').upsert({ client_id: cid, granted_by: currentUser.id, granted_to: sel.value }); if (error) showToast('❌ Share failed', '#FF4466'); else showToast('✅ Access shared!'); }
-
-// ============================================================
-// ANALYTICS
-// ============================================================
-async function renderAnalytics() {
-  const isAdmin = currentUser.role === 'admin';
-  document.getElementById('anl-subtitle').textContent = isAdmin ? 'Full team performance' : 'Your personal stats';
-  let logQ = db.from('outreach_log').select('*'); if (!isAdmin) logQ = logQ.eq('member_id', currentUser.id);
-  const { data: logs } = await logQ;
-  const ms = {}; allMembers.forEach(m => { ms[m.id] = { name: m.name, color: m.color, clients: 0, stages: 0, outreach: 0, converted: 0 }; });
-  myClients.forEach(c => { if (ms[c.member_id]) { ms[c.member_id].clients++; ms[c.member_id].stages += (c.stages?.filter(s=>s.is_done).length||0); if (c.status==='converted') ms[c.member_id].converted++; } });
-  (logs||[]).forEach(l => { if (ms[l.member_id]) ms[l.member_id].outreach++; });
-  const pc = { email:0, whatsapp:0, instagram:0, facebook:0 }; (logs||[]).forEach(l => { if (pc[l.platform] !== undefined) pc[l.platform]++; });
-  const tp = Object.values(pc).reduce((a,b)=>a+b,0)||1;
-  const today = new Date().toISOString().split('T')[0]; const tl = (logs||[]).filter(l=>l.sent_at?.startsWith(today));
-  const arr = isAdmin ? Object.values(ms) : [ms[currentUser.id]].filter(Boolean); const maxC = Math.max(...arr.map(s=>s.clients),1);
-  document.getElementById('anl-content').innerHTML = `
-    <div class="anl-card" style="grid-column:1/-1"><div class="anl-card-title">👥 ${isAdmin?'Team':'My'} Performance</div>${arr.map(s=>`<div class="member-stat-row"><div class="msav" style="background:${s.color}">${s.name[0]}</div><div style="flex:1"><div class="ms-name">${s.name}</div><div class="bar-track"><div class="bar-fill" style="width:${(s.clients/maxC*100)}%;background:${s.color}"></div></div></div><div class="ms-nums"><div class="ms-num"><div class="ms-num-val" style="color:var(--blue)">${s.clients}</div><div class="ms-num-label">Clients</div></div><div class="ms-num"><div class="ms-num-val" style="color:var(--green)">${s.converted}</div><div class="ms-num-label">Closed</div></div><div class="ms-num"><div class="ms-num-val" style="color:var(--gold)">${s.outreach}</div><div class="ms-num-label">Msgs</div></div></div></div>`).join('')}</div>
-    <div class="anl-card"><div class="anl-card-title">📢 Platform Breakdown</div>${[['📧 Email','email','#4D8EFF'],['💬 WhatsApp','whatsapp','#00E5A0'],['📸 Instagram','instagram','#9B72FF'],['📘 Facebook','facebook','#FF7B3B']].map(([lbl,k,clr])=>`<div class="bar-wrap"><div class="bar-label-row"><span>${lbl}</span><span>${pc[k]}</span></div><div class="bar-track"><div class="bar-fill" style="width:${(pc[k]/tp*100).toFixed(0)}%;background:${clr}"></div></div></div>`).join('')}</div>
-    <div class="anl-card"><div class="anl-card-title">📅 Today</div><div style="text-align:center;padding:12px 0"><div style="font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--blue)">${tl.length}</div><div style="font-size:11px;color:var(--t3);margin-top:3px">messages sent today</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px"><div class="dash-stat" style="padding:9px"><div class="dash-stat-val" style="font-size:16px;color:var(--green)">${myClients.filter(c=>c.status==='converted').length}</div><div class="dash-stat-label">Converted</div></div><div class="dash-stat" style="padding:9px"><div class="dash-stat-val" style="font-size:16px;color:var(--gold)">${myClients.filter(c=>c.status==='active').length}</div><div class="dash-stat-label">Active</div></div></div></div>`;
-}
-
-// ============================================================
+// ══════════════════════════════════════════
 // TEAM
-// ============================================================
-async function renderTeam() {
-  document.getElementById('team-grid').innerHTML = allMembers.map(m => {
-    const mc = myClients.filter(c => c.member_id === m.id);
-    const cv = mc.filter(c=>c.status==='converted').length;
-    const st = mc.reduce((a,c)=>a+(c.stages?.filter(s=>s.is_done).length||0),0);
-    return `<div class="team-card"><div class="team-card-head"><div class="team-av" style="background:${m.color}">${m.name[0]}</div><div><div class="team-name">${m.name}</div><div class="team-role">${m.role}</div></div></div><div class="team-stats"><div class="team-stat"><div class="team-stat-val" style="color:var(--blue)">${mc.length}</div><div class="team-stat-label">Clients</div></div><div class="team-stat"><div class="team-stat-val" style="color:var(--green)">${cv}</div><div class="team-stat-label">Closed</div></div><div class="team-stat"><div class="team-stat-val" style="color:var(--gold)">${st}</div><div class="team-stat-label">Stages</div></div></div>${m.role!=='admin'?`<div style="margin-top:9px;display:flex;gap:5px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="resetMemberPin('${m.id}','${m.name}')">Reset PIN</button><button class="btn btn-danger btn-sm" onclick="removeMember('${m.id}','${m.name}')">🗑</button></div>`:''}</div>`;
+// ══════════════════════════════════════════
+async function renderTeam(){
+  document.getElementById('team-grid').innerHTML=ALL_M.map(m=>{
+    const mc=MY_C.filter(c=>c.member_id===m.id);
+    const cv=mc.filter(c=>c.pipeline_status==='closed').length;
+    const rev=mc.filter(c=>c.pipeline_status==='closed').reduce((a,c)=>a+(c.contract_value||0),0);
+    const rep=mc.reduce((a,c)=>a+(c.stages?.filter(s=>s.reply_received===true).length||0),0);
+    return`<div class="tcard"><div class="tchead"><div class="tcav" style="background:${m.color}">${m.name[0]}</div><div><div class="tcname">${m.name}</div><div class="tcrole">${m.role}</div></div></div><div class="tcstats"><div class="tcs"><div class="tcsv" style="color:var(--blue)">${mc.length}</div><div class="tcsl">Clients</div></div><div class="tcs"><div class="tcsv" style="color:var(--gold)">${rep}</div><div class="tcsl">Replies</div></div><div class="tcs"><div class="tcsv" style="color:var(--green)">${cv}</div><div class="tcsl">Closed</div></div></div><div style="font-size:11px;font-weight:700;color:${rev>0?'var(--green)':'var(--t3)'};margin-top:7px;text-align:center">${rev>0?'$'+rev.toLocaleString():'No revenue yet'}</div>${m.role!=='admin'?`<div style="margin-top:9px;display:flex;gap:5px"><button class="btn btn-ghost btn-sm" style="flex:1" onclick="resetPIN('${m.id}','${m.name}')">Reset PIN</button><button class="btn btn-danger btn-sm" onclick="delMem('${m.id}','${m.name}')">🗑</button></div>`:''}</div>`;
   }).join('');
 }
-
-function openAddMember() { document.getElementById('add-member-modal').classList.add('open'); }
-function closeModal() { document.getElementById('add-member-modal').classList.remove('open'); }
-
-async function addMember() {
-  const name = document.getElementById('new-member-name').value.trim();
-  const pin = document.getElementById('new-member-pin').value.trim();
-  const color = document.getElementById('new-member-color').value;
-  if (!name || pin.length !== 4) { showToast('Name + 4-digit PIN required', '#FF4466'); return; }
-  const { error } = await db.from('members').insert({ name, pin, color, role: 'member' });
-  if (error) { showToast('❌ ' + error.message, '#FF4466'); return; }
-  await loadMembers(); closeModal(); renderTeam();
-  showToast(`✅ ${name} added!`);
-  document.getElementById('new-member-name').value = '';
-  document.getElementById('new-member-pin').value = '';
+function openM(){document.getElementById('add-modal').classList.add('on');}
+function closeM(){document.getElementById('add-modal').classList.remove('on');}
+async function addMember(){
+  const n=document.getElementById('nm-n').value.trim();const p=document.getElementById('nm-p').value.trim();const color=document.getElementById('nm-c').value;
+  if(!n||p.length!==4){toast('Name + 4-digit PIN required','#FF4466');return;}
+  const{error}=await db.from('members').insert({name:n,pin:p,color,role:'member'});
+  if(error){toast('❌ '+error.message,'#FF4466');return;}
+  await loadMembers();closeM();renderTeam();toast(`✅ ${n} added!`);
+  document.getElementById('nm-n').value='';document.getElementById('nm-p').value='';
 }
+async function resetPIN(id,name){const np=prompt(`New PIN for ${name} (4 digits):`);if(!np||np.length!==4){toast('4 digits required','#FF4466');return;}await db.from('members').update({pin:np}).eq('id',id);await loadMembers();toast(`✅ PIN reset for ${name}`);}
+async function delMem(id,name){if(!confirm(`Delete ${name}?`))return;await db.from('members').delete().eq('id',id);await loadMembers();await loadClients();renderTeam();updStats();toast(`🗑 ${name} removed`,'#FF4466');}
 
-async function resetMemberPin(id, name) {
-  const np = prompt(`New PIN for ${name} (4 digits):`);
-  if (!np || np.length !== 4) { showToast('4 digits required', '#FF4466'); return; }
-  await db.from('members').update({ pin: np }).eq('id', id);
-  await loadMembers(); showToast(`✅ PIN reset for ${name}`);
-}
-
-async function removeMember(id, name) {
-  if (!confirm(`Delete ${name} and all their data?`)) return;
-  await db.from('members').delete().eq('id', id);
-  await loadMembers(); await fetchClients(); renderTeam(); updateStats();
-  showToast(`🗑 ${name} removed`, '#FF4466');
-}
-
-// ============================================================
+// ══════════════════════════════════════════
 // TOAST
-// ============================================================
-function showToast(msg, color = '#00E5A0') {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.background = color; t.style.color = color === '#00E5A0' ? '#000' : '#fff';
-  t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2800);
+// ══════════════════════════════════════════
+function toast(msg,color='#00E5A0'){
+  const t=document.getElementById('toast');t.textContent=msg;
+  t.style.background=color;t.style.color=color==='#00E5A0'||color==='#FFB800'?'#000':'#fff';
+  t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2800);
 }
 
-// ============================================================
 // START
-// ============================================================
 loadMembers();
 </script>
 </body>
