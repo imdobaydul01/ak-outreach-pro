@@ -1062,13 +1062,15 @@ async function doHunt(){
     let storeText = '';
     try {
       const r = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+      if(!r.ok) throw new Error(`Function error: HTTP ${r.status}`);
       const d = await r.json();
-      // handle both string and array content
-      if(typeof d.content === 'string') storeText = d.content;
-      else if(Array.isArray(d.content)) storeText = d.content.map(x=>x.text||'').join('');
-      else if(typeof d.text === 'string') storeText = d.text;
-      else storeText = '';
-    } catch(e){ storeText = ''; }
+      if(!d.success && d.error) throw new Error(d.error);
+      storeText = d.text || d.content?.text || [d.ogTitle,d.ogDesc,d.title].filter(Boolean).join(' ') || '';
+    } catch(e){
+      storeText = '';
+      status.textContent = '⚠️ Store fetch failed — analyzing from URL only...';
+      await new Promise(r=>setTimeout(r,1000));
+    }
 
     status.textContent = '🤖 AI analyzing...';
 
@@ -1377,10 +1379,9 @@ async function genPartnerOutreach(){
   let partnerText = '';
   try {
     const r = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+    if(!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
-    if(typeof d.content === 'string') partnerText = d.content;
-    else if(Array.isArray(d.content)) partnerText = d.content.map(x=>x.text||'').join('');
-    else if(typeof d.text === 'string') partnerText = d.text;
+    partnerText = d.text || d.content?.text || [d.ogTitle,d.ogDesc,d.title].filter(Boolean).join(' ') || '';
   } catch(e){ partnerText = ''; }
 
   status.textContent = '🤖 AI crafting outreach...';
@@ -2539,4 +2540,4 @@ function toast(msg,color='#00E5A0'){
 loadMembers();
 </script>
 </body>
-  </html>
+                                                                                      </html>
