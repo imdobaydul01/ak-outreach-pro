@@ -13,6 +13,64 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;min
 body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 10% 0%,rgba(77,142,255,0.07) 0%,transparent 70%),radial-gradient(ellipse 50% 50% at 90% 100%,rgba(155,114,255,0.06) 0%,transparent 70%);}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
 
+/* PARTNERS */
+.ptab-f{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.ptab-f:hover{border-color:var(--purple);color:var(--purple);}
+.ptab-f.on{background:var(--purple);border-color:var(--purple);color:#fff;}
+.pcard{background:var(--s1);border:1px solid var(--b1);border-radius:14px;padding:14px 16px;transition:all .15s;}
+.pcard:hover{border-color:var(--purple);}
+.pcard-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.pav{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff;flex-shrink:0;}
+.pname{font-weight:700;font-size:14px;color:var(--text);}
+.ptype-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;border:1px solid;}
+.ptype-developer{background:rgba(77,142,255,.1);color:var(--blue);border-color:rgba(77,142,255,.3);}
+.ptype-agency{background:rgba(155,114,255,.1);color:var(--purple);border-color:rgba(155,114,255,.3);}
+.ptype-freelancer{background:rgba(0,229,160,.1);color:var(--green);border-color:rgba(0,229,160,.3);}
+.pstatus-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+.pstatus-prospect{background:rgba(77,142,255,.15);color:var(--blue);}
+.pstatus-contacted{background:rgba(255,184,0,.15);color:var(--gold);}
+.pstatus-talking{background:rgba(155,114,255,.15);color:var(--purple);}
+.pstatus-active{background:rgba(0,229,160,.15);color:var(--green);}
+.pstatus-paused{background:rgba(74,90,120,.2);color:var(--t2);}
+.pstatus-lost{background:rgba(255,68,102,.1);color:var(--red);}
+.pinfo-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+.pinfo-item{font-size:11px;color:var(--t2);}
+.pinfo-item b{color:var(--text);}
+.pcard-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--b1);}
+/* HOT SCORE */
+.hot-score{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;border:1px solid;}
+.hot-fire{background:rgba(255,75,75,0.12);color:#FF4B4B;border-color:rgba(255,75,75,0.3);}
+.hot-warm{background:rgba(255,184,0,0.12);color:var(--gold);border-color:rgba(255,184,0,0.3);}
+.hot-cold{background:rgba(77,142,255,0.10);color:var(--blue);border-color:rgba(77,142,255,0.25);}
+.hot-bar{height:4px;border-radius:2px;background:var(--b1);overflow:hidden;width:80px;display:inline-block;vertical-align:middle;margin-left:4px;}
+.hot-bar-fill{height:100%;border-radius:2px;transition:width .4s;}
+/* FOLLOW-UP REMINDER */
+.fu-alert{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:10px;cursor:pointer;transition:all .15s;}
+.fu-alert:hover{border-color:var(--blue);}
+.fu-alert.urgent{border-color:rgba(255,68,102,0.4);background:rgba(255,68,102,0.05);}
+.fu-alert.today{border-color:rgba(255,184,0,0.4);background:rgba(255,184,0,0.05);}
+.fu-day-badge{padding:3px 9px;border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap;}
+.fu-alert-name{font-size:13px;font-weight:600;color:var(--text);flex:1;}
+.fu-alert-sub{font-size:11px;color:var(--t2);}
+/* HUNT */
+.hunt-tpl-btn{padding:6px 14px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.hunt-tpl-btn:hover{border-color:var(--blue);color:var(--blue);}
+.hunt-tpl-btn.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.hunt-plat-btn{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--b1);color:var(--t2);background:none;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.hunt-plat-btn:hover{border-color:var(--blue);color:var(--blue);}
+.hunt-plat-btn.on{background:var(--blue);border-color:var(--blue);color:#fff;}
+.hunt-arow{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;}
+.hunt-albl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);}
+.hunt-aval{font-size:12px;color:var(--text);font-weight:500;}
+.hunt-fu{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:12px;}
+.hunt-fu-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.hunt-fu-day{font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;}
+.hunt-hi{background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;}
+.hunt-hi:hover{border-color:var(--blue);}
+.hunt-hi-url{font-size:12px;font-weight:600;color:var(--text);flex:1;}
+.hunt-hi-niche{font-size:10px;color:var(--t3);}
+.hunt-hi-time{font-size:10px;color:var(--t3);}
+
 /* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;}
 .lbox{background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:32px;width:320px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.4);}
@@ -349,7 +407,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:ra
 <aside class="sb">
   <div class="sb-top">
     <div class="sb-logo"><span>AK</span> Outreach Pro</div>
-    <div class="sb-ver">✦ Premium v5.0</div>
+    <div class="sb-ver">✦ Premium v6.0</div>
     <div class="sb-user">
       <div class="sb-av" id="sb-av"></div>
       <div><div class="sb-un" id="sb-un"></div><div class="sb-ur" id="sb-ur"></div></div>
@@ -362,6 +420,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:ra
     <button class="ni" onclick="go('gen')"><span class="ni-i">⚡</span>Generate <span class="nbg nbg-g" id="nb-td">0</span></button>
     <button class="ni" onclick="go('track')"><span class="ni-i">📋</span>Tracker <span class="nbg nbg-r" id="nb-ov">0</span></button>
     <button class="ni" onclick="go('anl')"><span class="ni-i">📊</span>Analytics</button>
+    <button class="ni" onclick="go('hunt')"><span class="ni-i">🎯</span>Hunt</button>
+    <button class="ni" onclick="go('partners')"><span class="ni-i">🤝</span>Partners <span class="nbg" id="nb-partners" style="background:var(--purple);color:#fff;display:none">0</span></button>
     <button class="ni" id="tnav" style="display:none" onclick="go('team')"><span class="ni-i">👥</span>Team</button>
   </nav>
   <div class="sb-kpi">
@@ -384,6 +444,10 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:ra
     <div class="dsc"><div class="dsv" style="color:var(--green)" id="ds-cv">0</div><div class="dsl">Converted</div></div>
   </div>
   <div class="card"><div class="ct">🔥 Today's Tasks</div><div id="dash-tasks"></div></div>
+  <div id="dash-fu-alerts" style="margin-top:14px;display:none;">
+    <div class="ct" style="margin-bottom:10px;">🔔 Follow-up Reminders</div>
+    <div id="dash-fu-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+  </div>
 </div>
 
 <!-- GENERATE -->
@@ -508,6 +572,221 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background:ra
 <div class="pg" id="page-anl">
   <div class="ph"><div class="pt">📊 <span class="hl">Analytics</span></div><div class="ps-sub" id="anl-sub">Performance overview</div></div>
   <div class="ag" id="anl-cont"></div>
+</div>
+
+<!-- HUNT -->
+<div class="pg" id="page-hunt">
+  <div class="ph">
+    <div class="pt">🎯 <span class="hl">Client Hunt</span></div>
+    <div class="ps-sub">Store URL দাও → Auto-analyze → Outreach + Follow-ups ready</div>
+  </div>
+
+  <!-- Offer Template Switcher -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="ct" style="margin-bottom:10px;">⚡ Active Offer Template</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="hunt-tpl-btn on" id="tpl-113k" onclick="setTpl('113k',this)">🎉 113K Celebration</button>
+      <button class="hunt-tpl-btn" id="tpl-ramadan" onclick="setTpl('ramadan',this)">🌙 Ramadan Special</button>
+      <button class="hunt-tpl-btn" id="tpl-eid" onclick="setTpl('eid',this)">🎊 Eid Special</button>
+      <button class="hunt-tpl-btn" id="tpl-generic" onclick="setTpl('generic',this)">📢 Generic Offer</button>
+    </div>
+    <div id="tpl-preview" style="margin-top:10px;padding:10px;background:var(--s2);border-radius:8px;border:1px solid var(--b1);font-size:12px;color:var(--t2);line-height:1.6;"></div>
+  </div>
+
+  <!-- URL Input -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="ct" style="margin-bottom:10px;">🔍 Analyze Store</div>
+    <div style="display:flex;gap:8px;">
+      <input id="hunt-url" type="url" placeholder="https://storename.com" style="flex:1;background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;" oninput="this.style.borderColor='var(--b2)'" />
+      <button onclick="doHunt()" id="hunt-btn" style="padding:10px 20px;background:var(--blue);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;">Analyze →</button>
+    </div>
+    <div id="hunt-status" style="margin-top:8px;font-size:12px;color:var(--t3);display:none;"></div>
+  </div>
+
+  <!-- Results -->
+  <div id="hunt-results" style="display:none;">
+
+    <!-- Analysis Card -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="ct">📊 Store Analysis</div>
+        <button onclick="saveHuntToTracker()" style="padding:6px 14px;background:var(--green);border:none;border-radius:8px;color:#000;font-weight:700;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">+ Add to Tracker</button>
+      </div>
+      <div id="hunt-analysis-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+    </div>
+
+    <!-- Outreach Message -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div class="ct">💬 Outreach Message</div>
+        <div style="display:flex;gap:6px;">
+          <button class="hunt-plat-btn on" id="hp-fb" onclick="setPlatform('fb',this)">📘 FB</button>
+          <button class="hunt-plat-btn" id="hp-ig" onclick="setPlatform('ig',this)">📸 IG</button>
+          <button class="hunt-plat-btn" id="hp-wa" onclick="setPlatform('wa',this)">💬 WA</button>
+          <button class="hunt-plat-btn" id="hp-email" onclick="setPlatform('email',this)">📧 Email</button>
+        </div>
+      </div>
+      <div id="hunt-email-subject" style="display:none;margin-bottom:8px;background:var(--s2);border:1px solid var(--blue);border-radius:10px;padding:10px 14px;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">📧 Subject Line</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <div id="hunt-subject-text" style="font-size:13px;font-weight:600;color:var(--text);flex:1;"></div>
+          <button onclick="copySubject()" style="padding:4px 10px;background:var(--s1);border:1px solid var(--b1);border-radius:6px;color:var(--t2);font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;">📋 Copy</button>
+        </div>
+      </div>
+      <div id="hunt-outreach-msg" style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:14px;font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;"></div>
+      <button onclick="copyMsg('hunt-outreach-msg')" style="margin-top:8px;padding:7px 16px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t2);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copy</button>
+    </div>
+
+    <!-- 4 Follow-ups -->
+    <div class="card">
+      <div class="ct" style="margin-bottom:12px;">🔁 4 Follow-up Messages</div>
+      <div id="hunt-followups" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+
+  </div>
+
+  <!-- Hunt History -->
+  <div class="card" style="margin-top:14px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div class="ct">📜 Hunt History</div>
+      <button onclick="clearHuntHistory()" style="padding:4px 10px;background:none;border:1px solid var(--b1);border-radius:6px;color:var(--t3);font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">Clear</button>
+    </div>
+    <div id="hunt-history" style="display:flex;flex-direction:column;gap:6px;"></div>
+  </div>
+</div>
+
+<!-- PARTNERS -->
+<div class="pg" id="page-partners">
+  <div class="ph">
+    <div class="pt">🤝 <span class="hl">Partners</span></div>
+    <div class="ps-sub">Shopify developers, agencies & freelancers — your referral network</div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="dsg" style="margin-bottom:14px;" id="partner-stats">
+    <div class="dsc"><div class="dsv" style="color:var(--purple)" id="ps-total">0</div><div class="dsl">Total Partners</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--blue)" id="ps-active">0</div><div class="dsl">Active Deals</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--green)" id="ps-refs">0</div><div class="dsl">Total Referrals</div></div>
+    <div class="dsc"><div class="dsv" style="color:var(--gold)" id="ps-commission">$0</div><div class="dsl">Commission/mo</div></div>
+  </div>
+
+  <!-- Filter + Add -->
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <button class="ptab-f on" onclick="filterPartners('all',this)">All</button>
+      <button class="ptab-f" onclick="filterPartners('developer',this)">👨‍💻 Developers</button>
+      <button class="ptab-f" onclick="filterPartners('agency',this)">🏢 Agencies</button>
+      <button class="ptab-f" onclick="filterPartners('freelancer',this)">🧑‍💼 Freelancers</button>
+      <button class="ptab-f" onclick="filterPartners('active',this)">✅ Active Deal</button>
+      <button class="ptab-f" onclick="filterPartners('prospect',this)">🔵 Prospect</button>
+    </div>
+    <button onclick="openAddPartner()" style="padding:8px 18px;background:var(--purple);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">+ Add Partner</button>
+  </div>
+
+  <!-- Partner List -->
+  <div id="partner-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+
+  <!-- Outreach Templates -->
+  <div class="card" style="margin-top:16px;">
+    <div class="ct" style="margin-bottom:12px;">📩 Partner Outreach Templates</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+      <button class="ptab-f on" id="ptpl-li" onclick="setPartnerTpl('linkedin',this)">💼 LinkedIn</button>
+      <button class="ptab-f" id="ptpl-email" onclick="setPartnerTpl('email',this)">📧 Email</button>
+      <button class="ptab-f" id="ptpl-dm" onclick="setPartnerTpl('dm',this)">💬 Short DM</button>
+      <button class="ptab-f" id="ptpl-wp" onclick="setPartnerTpl('whitelabel',this)">🏷️ White-label</button>
+    </div>
+    <div id="partner-tpl-subject" style="display:none;padding:8px 12px;background:var(--s2);border:1px solid var(--purple);border-radius:8px;font-size:12px;color:var(--purple);font-weight:600;margin-bottom:8px;"></div>
+    <div id="partner-tpl-msg" style="background:var(--s2);border:1px solid var(--b1);border-radius:10px;padding:14px;font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;"></div>
+    <button onclick="copyPartnerTpl()" style="margin-top:8px;padding:7px 16px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t2);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copy</button>
+  </div>
+
+  <!-- Commission Calculator -->
+  <div class="card" style="margin-top:14px;">
+    <div class="ct" style="margin-bottom:12px;">💰 Commission Calculator</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;">
+      <div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Partners</div>
+        <input type="number" id="calc-partners" value="3" min="1" oninput="calcCommission()" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px;color:var(--text);font-size:14px;font-weight:700;text-align:center;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Refs each</div>
+        <input type="number" id="calc-refs" value="3" min="1" oninput="calcCommission()" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px;color:var(--text);font-size:14px;font-weight:700;text-align:center;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Retainer $</div>
+        <input type="number" id="calc-retainer" value="400" min="100" oninput="calcCommission()" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:8px;color:var(--text);font-size:14px;font-weight:700;text-align:center;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+    </div>
+    <div id="calc-result" style="background:var(--s1);border:1px solid var(--purple);border-radius:10px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  </div>
+</div>
+
+<!-- ADD PARTNER MODAL -->
+<div id="add-partner-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;align-items:center;justify-content:center;">
+  <div style="background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:24px;width:420px;max-width:95vw;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div style="font-weight:700;font-size:16px;">🤝 Add Partner</div>
+      <button onclick="closeAddPartner()" style="background:none;border:none;color:var(--t2);font-size:20px;cursor:pointer;">×</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Partner Name *</div>
+        <input id="ap-name" placeholder="John Smith / XYZ Agency" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Type *</div>
+        <select id="ap-type" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+          <option value="developer">👨‍💻 Developer</option>
+          <option value="agency">🏢 Agency</option>
+          <option value="freelancer">🧑‍💼 Freelancer</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Platform / Where Found</div>
+        <select id="ap-platform" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+          <option value="shopify_directory">Shopify Partners Directory</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="upwork">Upwork</option>
+          <option value="fiverr">Fiverr</option>
+          <option value="facebook">Facebook</option>
+          <option value="referral">Referral</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Website / Profile URL</div>
+        <input id="ap-url" placeholder="https://..." style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Contact (Email / LinkedIn / FB)</div>
+        <input id="ap-contact" placeholder="email@example.com or profile link" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Deal Status</div>
+        <select id="ap-status" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+          <option value="prospect">🔵 Prospect — Not contacted yet</option>
+          <option value="contacted">📨 Contacted — Awaiting reply</option>
+          <option value="talking">💬 Talking — In discussion</option>
+          <option value="active">✅ Active Deal — Partnership confirmed</option>
+          <option value="paused">⏸️ Paused</option>
+          <option value="lost">❌ Not interested</option>
+        </select>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Commission % (default 20%)</div>
+        <input id="ap-commission" type="number" value="20" min="5" max="50" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Referrals so far</div>
+        <input id="ap-refs" type="number" value="0" min="0" style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;">
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--t2);margin-bottom:4px;">Notes</div>
+        <textarea id="ap-notes" placeholder="Specialty, niche, anything relevant..." style="width:100%;background:var(--s2);border:1px solid var(--b1);border-radius:8px;padding:10px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;min-height:70px;resize:vertical;"></textarea>
+      </div>
+      <button onclick="savePartner()" style="padding:12px;background:var(--purple);border:none;border-radius:10px;color:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px;">✅ Save Partner</button>
+    </div>
+  </div>
 </div>
 
 <!-- TEAM -->
@@ -635,18 +914,638 @@ function go(v){
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   document.querySelectorAll('.mnb').forEach(n=>n.classList.remove('on'));
   document.getElementById('page-'+v).classList.add('on');
-  const idx={dash:0,gen:1,track:2,anl:3,team:4}[v]||0;
+  const idx={dash:0,gen:1,track:2,anl:3,hunt:4,partners:5,team:6}[v]||0;
   document.querySelectorAll('.ni')[idx]?.classList.add('on');
   document.querySelectorAll('.mnb')[idx]?.classList.add('on');
   if(v==='dash')renderDash();
   if(v==='track')renderTracker();
   if(v==='anl')renderAnl();
   if(v==='team')renderTeam();
+  if(v==='hunt')initHunt();
+  if(v==='partners'){initPartners();}
 }
 
 // ══════════════════════════════════════════
 // HELPERS
 // ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// HUNT SYSTEM
+// ══════════════════════════════════════════
+let HUNT_TPL = '113k';
+let HUNT_PLAT = 'fb';
+let CURRENT_HUNT = null;
+let HUNT_HISTORY = JSON.parse(localStorage.getItem('hunt_history')||'[]');
+
+const TPL_OFFERS = {
+  '113k': {
+    label:'🎉 113K Celebration',
+    reason:'To celebrate hitting 113K followers on our Facebook page',
+    cta:'Celebrating 113K followers — offering 2 brands FREE monthly management'
+  },
+  'ramadan': {
+    label:'🌙 Ramadan Special',
+    reason:'This Ramadan, as part of giving back',
+    cta:'Ramadan Special — offering 2 brands FREE monthly management'
+  },
+  'eid': {
+    label:'🎊 Eid Special',
+    reason:'To celebrate Eid, as a special gift to the community',
+    cta:'Eid Special — offering 2 brands FREE monthly management'
+  },
+  'generic': {
+    label:'📢 Generic Offer',
+    reason:'As part of a limited partnership offer this month',
+    cta:'Limited offer — giving 2 brands FREE monthly management'
+  }
+};
+
+function initHunt(){
+  setTpl(HUNT_TPL, document.getElementById('tpl-'+HUNT_TPL));
+  renderHuntHistory();
+}
+
+function setTpl(key, btn){
+  HUNT_TPL = key;
+  document.querySelectorAll('.hunt-tpl-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const t = TPL_OFFERS[key];
+  document.getElementById('tpl-preview').textContent = `"${t.cta}. The only cost is AI video production ($250-300/month)."\n→ Reason given to client: "${t.reason}"`;
+  if(CURRENT_HUNT) renderHuntMessages();
+}
+
+function setPlatform(p, btn){
+  HUNT_PLAT = p;
+  document.querySelectorAll('.hunt-plat-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(CURRENT_HUNT) renderHuntMessages();
+}
+
+function copySubject(){
+  const text = document.getElementById('hunt-subject-text').textContent;
+  navigator.clipboard.writeText(text);
+  const btn = document.getElementById('hunt-email-subject').querySelector('button');
+  const t = btn.textContent; btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent=t,1500);
+}
+
+function copyMsg(id){
+  const el = document.getElementById(id);
+  navigator.clipboard.writeText(el.textContent);
+  const orig = el.previousElementSibling?.nextElementSibling;
+  const btn = el.nextElementSibling;
+  if(btn){ const t=btn.textContent; btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent=t,1500); }
+}
+
+async function doHunt(){
+  const url = document.getElementById('hunt-url').value.trim();
+  if(!url){ alert('Store URL দাও'); return; }
+
+  const btn = document.getElementById('hunt-btn');
+  const status = document.getElementById('hunt-status');
+  btn.textContent = 'Analyzing...'; btn.disabled = true;
+  status.style.display = 'block';
+  status.textContent = '🔍 Fetching store data...';
+  document.getElementById('hunt-results').style.display = 'none';
+
+  try {
+    // Fetch store via proxy
+    status.textContent = '🌐 Loading store...';
+    let storeText = '';
+    try {
+      const r = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+      const d = await r.json();
+      storeText = d.content || d.text || '';
+    } catch(e){ storeText = ''; }
+
+    status.textContent = '🤖 AI analyzing...';
+
+    const tpl = TPL_OFFERS[HUNT_TPL];
+    const prompt = `You are analyzing a Shopify eCommerce store for a growth agency outreach. Based on the store URL and any content provided, analyze the store and generate outreach materials.
+
+Store URL: ${url}
+Store content snippet: ${storeText.slice(0,3000)}
+
+Return ONLY valid JSON (no markdown, no backticks):
+{
+  "store_name": "brand name",
+  "niche": "specific product niche (2-4 words)",
+  "market": "target country/market",
+  "products": "main products (1 sentence)",
+  "strength": "1 genuine thing they do well",
+  "pain_point": "their biggest growth weakness (social, ads, content, trust, etc)",
+  "hook": "1 sentence specific to their brand that makes the outreach feel personal",
+  "fb_message": "personalized Facebook DM using this offer context: '${tpl.reason}, I'm offering 2 brands FREE monthly management — ads, content strategy, organic growth. Only cost is AI video production ($250-300/month).' Make it 4-6 short paragraphs. Include AK Technology 113K+ followers credibility. End with Loom or Zoom offer. Sign: Obaydul (AK Technology) aktechnologybd.com",
+  "ig_message": "shorter Instagram DM version — 3 paragraphs max, casual tone",
+  "wa_message": "WhatsApp version — friendly, concise, uses emojis naturally",
+  "email_subject": "killer cold email subject line — curiosity + specific to their store, under 10 words, no spam words, no ALL CAPS",
+  "email_message": "professional cold email — has proper greeting, 4-5 short paragraphs, same offer as FB but more formal tone, include case study numbers ($800→$6200/month shapewear brand), clear CTA at end (Loom or Zoom), professional sign-off with Obaydul, AK Technology, aktechnologybd.com, facebook.com/aktechnology.bd",
+  "fu1": "Day 2 follow-up — very short, casual check-in, no pitch",
+  "fu2": "Day 4 follow-up — hit their specific pain point, mention 1 spot left",
+  "fu3": "Day 6 follow-up — urgency, 1 spot filled already, last chance",
+  "fu4": "Day 8 follow-up — breakup message, leave door open, warm"
+}`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await resp.json();
+    let raw = data.content?.find(b=>b.type==='text')?.text||'{}';
+    raw = raw.replace(/```json|```/g,'').trim();
+    const result = JSON.parse(raw);
+
+    CURRENT_HUNT = { url, ...result, analyzed_at: new Date().toISOString() };
+
+    // Save to history
+    HUNT_HISTORY.unshift({ url, store_name: result.store_name, niche: result.niche, analyzed_at: new Date().toISOString() });
+    if(HUNT_HISTORY.length > 50) HUNT_HISTORY.pop();
+    localStorage.setItem('hunt_history', JSON.stringify(HUNT_HISTORY));
+
+    status.style.display = 'none';
+    renderHuntResults();
+    renderHuntHistory();
+
+  } catch(e){
+    status.textContent = '❌ Error: ' + e.message;
+  } finally {
+    btn.textContent = 'Analyze →'; btn.disabled = false;
+  }
+}
+
+function renderHuntResults(){
+  const h = CURRENT_HUNT;
+  document.getElementById('hunt-results').style.display = 'block';
+
+  // Analysis grid
+  const grid = document.getElementById('hunt-analysis-grid');
+  const rows = [
+    ['🏪 Store', h.store_name||'—'],
+    ['🎯 Niche', h.niche||'—'],
+    ['🌍 Market', h.market||'—'],
+    ['📦 Products', h.products||'—'],
+    ['✅ Strength', h.strength||'—'],
+    ['⚠️ Pain Point', h.pain_point||'—'],
+  ];
+  grid.innerHTML = rows.map(([l,v])=>`
+    <div class="hunt-arow">
+      <div class="hunt-albl">${l}</div>
+      <div class="hunt-aval">${v}</div>
+    </div>`).join('');
+
+  renderHuntMessages();
+}
+
+function renderHuntMessages(){
+  const h = CURRENT_HUNT;
+  if(!h) return;
+
+  // Show/hide subject line for email
+  const subjectBox = document.getElementById('hunt-email-subject');
+  const subjectText = document.getElementById('hunt-subject-text');
+  if(HUNT_PLAT === 'email'){
+    subjectBox.style.display = 'block';
+    subjectText.textContent = h.email_subject || '';
+  } else {
+    subjectBox.style.display = 'none';
+  }
+
+  // Outreach message
+  const msgMap = { fb: h.fb_message, ig: h.ig_message, wa: h.wa_message, email: h.email_message };
+  document.getElementById('hunt-outreach-msg').textContent = msgMap[HUNT_PLAT]||h.fb_message||'';
+
+  // Follow-ups
+  const fuDays = [
+    { day:'Day 2', label:'Seen, No Reply', color:'var(--blue)', msg: h.fu1 },
+    { day:'Day 4', label:'Pain Point Hit', color:'var(--gold)', msg: h.fu2 },
+    { day:'Day 6', label:'Urgency', color:'var(--red)', msg: h.fu3 },
+    { day:'Day 8', label:'Break-up', color:'var(--t3)', msg: h.fu4 },
+  ];
+  document.getElementById('hunt-followups').innerHTML = fuDays.map((f,i)=>`
+    <div class="hunt-fu">
+      <div class="hunt-fu-hdr">
+        <span class="hunt-fu-day" style="background:${f.color}22;color:${f.color};border:1px solid ${f.color}44">${f.day} — ${f.label}</span>
+        <button onclick="copyFu(${i})" style="padding:4px 10px;background:var(--s1);border:1px solid var(--b1);border-radius:6px;color:var(--t2);font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copy</button>
+      </div>
+      <div id="fu-msg-${i}" style="font-size:12px;color:var(--text);line-height:1.6;white-space:pre-wrap;">${f.msg||''}</div>
+    </div>`).join('');
+}
+
+function copyFu(i){
+  const el = document.getElementById('fu-msg-'+i);
+  navigator.clipboard.writeText(el.textContent);
+  const btn = el.previousElementSibling.querySelector('button');
+  const t = btn.textContent; btn.textContent='✅ Copied!'; setTimeout(()=>btn.textContent=t,1500);
+}
+
+function saveHuntToTracker(){
+  if(!CURRENT_HUNT){ alert('First analyze a store!'); return; }
+  // Pre-fill add client modal with hunt data
+  document.getElementById('ac-name').value = CURRENT_HUNT.store_name||'';
+  document.getElementById('ac-niche').value = CURRENT_HUNT.niche||'';
+  document.getElementById('ac-url').value = CURRENT_HUNT.url||'';
+  go('track');
+  setTimeout(()=>{ const m=document.getElementById('add-modal'); if(m)m.style.display='flex'; },200);
+}
+
+function renderHuntHistory(){
+  const el = document.getElementById('hunt-history');
+  if(!el) return;
+  if(!HUNT_HISTORY.length){
+    el.innerHTML='<div style="color:var(--t3);font-size:12px;padding:8px;">No hunts yet. Analyze your first store above!</div>';
+    return;
+  }
+  el.innerHTML = HUNT_HISTORY.slice(0,20).map(h=>`
+    <div class="hunt-hi" onclick="reloadHunt('${h.url}')">
+      <div style="font-size:18px;">🏪</div>
+      <div style="flex:1;">
+        <div class="hunt-hi-url">${h.store_name||h.url}</div>
+        <div class="hunt-hi-niche">${h.niche||''}</div>
+      </div>
+      <div class="hunt-hi-time">${new Date(h.analyzed_at).toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>
+    </div>`).join('');
+}
+
+function reloadHunt(url){
+  document.getElementById('hunt-url').value = url;
+  doHunt();
+}
+
+function clearHuntHistory(){
+  HUNT_HISTORY = [];
+  localStorage.setItem('hunt_history','[]');
+  renderHuntHistory();
+}
+
+// ══════════════════════════════════════════
+// PARTNERS SYSTEM
+// ══════════════════════════════════════════
+let PARTNERS = JSON.parse(localStorage.getItem('ak_partners')||'[]');
+let PARTNER_FILT = 'all';
+let PARTNER_TPL = 'linkedin';
+
+const PARTNER_COLORS = ['#4D8EFF','#9B72FF','#00E5A0','#FF7B3B','#FFB800','#FF4466'];
+function pColor(name){ return PARTNER_COLORS[Math.abs((name||'A').charCodeAt(0))%PARTNER_COLORS.length]; }
+
+const PARTNER_TEMPLATES = {
+  linkedin: {
+    subject: null,
+    msg: `Hey [Name]!
+
+I came across your work and I'm genuinely impressed by your Shopify builds. I run AK Technology (113K+ followers on Facebook) — we're a Shopify Growth Partner agency specializing in Meta Ads, AI video content, SEO, CRO and full monthly management.
+
+I have a proposition that could mean passive income for you with zero extra work.
+
+Here's the idea: You build beautiful stores — but your clients always need marketing after launch. Instead of turning them away, you refer them to us. We handle everything: ads, content, SEO, CRO. You earn 20% of every monthly retainer, for as long as they stay.
+
+Example: 3 client referrals at $400/month each → you earn $240/month doing nothing extra.
+
+I'm looking for 3-5 serious Shopify partners to build this with long-term. Worth a quick 15-min call?
+
+— Obaydul
+AK Technology | aktechnologybd.com
+facebook.com/aktechnology.bd (113K+)`
+  },
+  email: {
+    subject: `Partnership opportunity — earn 20% passive income from your Shopify clients`,
+    msg: `Hi [Name],
+
+I hope this finds you well. My name is Obaydul — I run AK Technology, a Shopify Growth Partner agency with 113K+ followers and a track record of helping eCommerce brands scale with Meta Ads, AI video content, and full monthly management.
+
+I'm reaching out because I believe we can create something mutually beneficial.
+
+The Opportunity:
+You build and deliver Shopify stores — but once the site is live, clients need ongoing marketing. That's where we come in. For every client you refer to us, you earn 20% of the monthly retainer — passively, every month they stay.
+
+Real Numbers:
+→ 3 referrals × $400/month = $1,200 total revenue
+→ Your 20% = $240/month, every month, for zero ongoing work
+
+What we handle:
+→ Meta Ads (setup + management)
+→ AI product video content (15-20/month)
+→ SEO + CRO + store optimization
+→ Full monthly reporting
+
+I'd love to schedule a 15-minute call to walk you through how this works and answer any questions.
+
+Best regards,
+Obaydul
+AK Technology
+aktechnologybd.com | facebook.com/aktechnology.bd`
+  },
+  dm: {
+    subject: null,
+    msg: `Hey [Name]! I run AK Technology (Shopify Growth Agency, 113K followers). You build stores — we grow them. 🚀
+
+Simple deal: you refer clients who need marketing → we handle everything → you earn 20% monthly, passively.
+
+3 referrals = ~$240/month extra with zero work on your end.
+
+Worth a quick 15-min chat? 😊
+
+— Obaydul (AK Technology)`
+  },
+  whitelabel: {
+    subject: `White-label marketing partnership — AK Technology`,
+    msg: `Hi [Name],
+
+I run AK Technology — a full-service Shopify marketing agency (Meta Ads, AI video, SEO, CRO). I'm looking for select agency partners for a white-label arrangement.
+
+How it works:
+→ You sell marketing services to your clients under your brand
+→ We execute everything behind the scenes
+→ You keep the margin, we do the work
+
+You focus on what you do best (development/design). We handle the marketing delivery. Your clients get better results. You earn more without hiring.
+
+Typical margin: you charge clients $600-800, pay us $400, keep $200-400/client with zero marketing work.
+
+Interested in a call to discuss?
+
+— Obaydul | AK Technology | aktechnologybd.com`
+  }
+};
+
+function initPartners(){
+  renderPartners();
+  setPartnerTpl('linkedin', document.getElementById('ptpl-li'));
+  calcCommission();
+  updatePartnerStats();
+}
+
+function filterPartners(f, btn){
+  PARTNER_FILT = f;
+  document.querySelectorAll('.ptab-f').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderPartners();
+}
+
+function renderPartners(){
+  const el = document.getElementById('partner-list');
+  if(!el) return;
+  let list = [...PARTNERS];
+  if(PARTNER_FILT === 'developer') list = list.filter(p=>p.type==='developer');
+  else if(PARTNER_FILT === 'agency') list = list.filter(p=>p.type==='agency');
+  else if(PARTNER_FILT === 'freelancer') list = list.filter(p=>p.type==='freelancer');
+  else if(PARTNER_FILT === 'active') list = list.filter(p=>p.status==='active');
+  else if(PARTNER_FILT === 'prospect') list = list.filter(p=>p.status==='prospect');
+
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><span class="ei">🤝</span><h3>No partners yet</h3><p>Add your first Shopify partner or developer above!</p></div>`;
+    return;
+  }
+
+  const typeLabel = {developer:'👨‍💻 Developer', agency:'🏢 Agency', freelancer:'🧑‍💼 Freelancer'};
+  const statusLabel = {prospect:'🔵 Prospect', contacted:'📨 Contacted', talking:'💬 Talking', active:'✅ Active Deal', paused:'⏸️ Paused', lost:'❌ Not Interested'};
+
+  el.innerHTML = list.map(p => {
+    const color = pColor(p.name);
+    const commissionEarned = p.refs > 0 ? `$${Math.round(p.refs * (p.retainer||400) * (p.commission||20) / 100)}/mo` : '$0';
+    return `<div class="pcard">
+      <div class="pcard-top">
+        <div class="pav" style="background:${color}">${(p.name||'?')[0].toUpperCase()}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div class="pname">${p.name}</div>
+            <span class="ptype-tag ptype-${p.type||'developer'}">${typeLabel[p.type]||p.type}</span>
+            <span class="pstatus-tag pstatus-${p.status||'prospect'}">${statusLabel[p.status]||p.status}</span>
+          </div>
+          ${p.url?`<div style="font-size:11px;color:var(--blue);margin-top:2px;">${p.url}</div>`:''}
+        </div>
+      </div>
+      <div class="pinfo-row">
+        <div class="pinfo-item">📍 <b>${({shopify_directory:'Shopify Dir',linkedin:'LinkedIn',upwork:'Upwork',fiverr:'Fiverr',facebook:'Facebook',referral:'Referral',other:'Other'})[p.platform]||p.platform||'—'}</b></div>
+        <div class="pinfo-item">📨 <b>${p.contact||'—'}</b></div>
+        <div class="pinfo-item">🔗 Referrals: <b style="color:var(--green)">${p.refs||0}</b></div>
+        <div class="pinfo-item">💰 Commission: <b style="color:var(--gold)">${p.commission||20}% · ${commissionEarned}</b></div>
+      </div>
+      ${p.notes?`<div style="font-size:11px;color:var(--t2);padding:8px 10px;background:var(--s2);border-radius:8px;margin-bottom:8px;">${p.notes}</div>`:''}
+      <div class="pcard-actions">
+        <select onchange="updatePartnerStatus('${p.id}',this.value)" style="padding:6px 10px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none;">
+          ${['prospect','contacted','talking','active','paused','lost'].map(s=>`<option value="${s}" ${p.status===s?'selected':''}>${statusLabel[s]}</option>`).join('')}
+        </select>
+        <button onclick="addRefToPartner('${p.id}')" style="padding:6px 12px;background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);border-radius:8px;color:var(--green);font-size:11px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">+1 Referral</button>
+        <button onclick="deletePartner('${p.id}')" style="padding:6px 12px;background:none;border:1px solid var(--b1);border-radius:8px;color:var(--red);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updatePartnerStats(){
+  const total = PARTNERS.length;
+  const active = PARTNERS.filter(p=>p.status==='active').length;
+  const refs = PARTNERS.reduce((a,p)=>a+(p.refs||0),0);
+  const commission = PARTNERS.reduce((a,p)=>{
+    if(p.refs>0) return a + Math.round(p.refs*(p.retainer||400)*(p.commission||20)/100);
+    return a;
+  },0);
+  document.getElementById('ps-total').textContent = total;
+  document.getElementById('ps-active').textContent = active;
+  document.getElementById('ps-refs').textContent = refs;
+  document.getElementById('ps-commission').textContent = '$'+commission;
+  const nb = document.getElementById('nb-partners');
+  if(nb){ nb.textContent=total; nb.style.display=total>0?'inline':'none'; }
+}
+
+function setPartnerTpl(key, btn){
+  PARTNER_TPL = key;
+  document.querySelectorAll('#page-partners .ptab-f').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const t = PARTNER_TEMPLATES[key];
+  const subEl = document.getElementById('partner-tpl-subject');
+  if(t.subject){ subEl.style.display='block'; subEl.textContent='📧 Subject: '+t.subject; }
+  else subEl.style.display='none';
+  document.getElementById('partner-tpl-msg').textContent = t.msg;
+}
+
+function copyPartnerTpl(){
+  const t = PARTNER_TEMPLATES[PARTNER_TPL];
+  const text = (t.subject ? 'Subject: '+t.subject+'\n\n' : '') + t.msg;
+  navigator.clipboard.writeText(text);
+  toast('📋 Template copied!','#9B72FF');
+}
+
+function calcCommission(){
+  const partners = parseInt(document.getElementById('calc-partners')?.value)||3;
+  const refs = parseInt(document.getElementById('calc-refs')?.value)||3;
+  const retainer = parseInt(document.getElementById('calc-retainer')?.value)||400;
+  const totalClients = partners * refs;
+  const totalRevenue = totalClients * retainer;
+  const commissionPaid = Math.round(totalRevenue * 0.20);
+  const netRevenue = totalRevenue - commissionPaid;
+  const el = document.getElementById('calc-result');
+  if(!el) return;
+  el.innerHTML = `
+    <div style="text-align:center;padding:8px;">
+      <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Total Clients</div>
+      <div style="font-size:24px;font-weight:800;color:var(--blue)">${totalClients}</div>
+    </div>
+    <div style="text-align:center;padding:8px;">
+      <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Total Revenue/mo</div>
+      <div style="font-size:24px;font-weight:800;color:var(--text)">$${totalRevenue.toLocaleString()}</div>
+    </div>
+    <div style="text-align:center;padding:8px;">
+      <div style="font-size:10px;color:var(--t2);margin-bottom:4px;">Commission Paid</div>
+      <div style="font-size:24px;font-weight:800;color:var(--gold)">$${commissionPaid.toLocaleString()}</div>
+    </div>
+    <div style="text-align:center;padding:8px;background:rgba(0,229,160,.05);border-radius:8px;border:1px solid rgba(0,229,160,.2);">
+      <div style="font-size:10px;color:var(--green);margin-bottom:4px;">Your Net/mo 🎯</div>
+      <div style="font-size:24px;font-weight:800;color:var(--green)">$${netRevenue.toLocaleString()}</div>
+    </div>`;
+}
+
+function openAddPartner(){
+  document.getElementById('add-partner-modal').style.display='flex';
+}
+function closeAddPartner(){
+  document.getElementById('add-partner-modal').style.display='none';
+}
+
+function savePartner(){
+  const name = document.getElementById('ap-name').value.trim();
+  if(!name){ alert('Name দাও!'); return; }
+  const partner = {
+    id: Date.now().toString(),
+    name,
+    type: document.getElementById('ap-type').value,
+    platform: document.getElementById('ap-platform').value,
+    url: document.getElementById('ap-url').value.trim(),
+    contact: document.getElementById('ap-contact').value.trim(),
+    status: document.getElementById('ap-status').value,
+    commission: parseInt(document.getElementById('ap-commission').value)||20,
+    refs: parseInt(document.getElementById('ap-refs').value)||0,
+    notes: document.getElementById('ap-notes').value.trim(),
+    added_at: new Date().toISOString()
+  };
+  PARTNERS.unshift(partner);
+  localStorage.setItem('ak_partners', JSON.stringify(PARTNERS));
+  closeAddPartner();
+  renderPartners();
+  updatePartnerStats();
+  toast('🤝 Partner added!','#9B72FF');
+  ['ap-name','ap-url','ap-contact','ap-notes'].forEach(id=>document.getElementById(id).value='');
+}
+
+function updatePartnerStatus(id, status){
+  const p = PARTNERS.find(p=>p.id===id);
+  if(p){ p.status=status; localStorage.setItem('ak_partners',JSON.stringify(PARTNERS)); renderPartners(); updatePartnerStats(); toast('✅ Status updated','#9B72FF'); }
+}
+
+function addRefToPartner(id){
+  const p = PARTNERS.find(p=>p.id===id);
+  if(p){ p.refs=(p.refs||0)+1; localStorage.setItem('ak_partners',JSON.stringify(PARTNERS)); renderPartners(); updatePartnerStats(); toast('🔗 Referral added! +1','#00E5A0'); }
+}
+
+function deletePartner(id){
+  if(!confirm('Delete this partner?')) return;
+  PARTNERS = PARTNERS.filter(p=>p.id!==id);
+  localStorage.setItem('ak_partners',JSON.stringify(PARTNERS));
+  renderPartners();
+  updatePartnerStats();
+  toast('🗑 Deleted','#FF4466');
+}
+
+// ══════════════════════════════════════════
+// HOT SCORE
+// ══════════════════════════════════════════
+function calcHotScore(c){
+  let score = 50; // base
+
+  // Pipeline status boost
+  const psBoost = {lead:0, interested:20, call:35, closed:0, lost:-99};
+  score += (psBoost[c.pipeline_status||'lead']||0);
+
+  // Replies boost
+  const replies = c.stages?.filter(s=>s.reply_received===true).length||0;
+  score += replies * 15;
+
+  // No replies penalty
+  const noReplies = c.stages?.filter(s=>s.reply_received===false).length||0;
+  score -= noReplies * 8;
+
+  // Stages done boost — more engagement = hotter
+  const done = c.stages?.filter(s=>s.is_done).length||0;
+  score += done * 5;
+
+  // Contract value set = serious
+  if(c.contract_value > 0) score += 10;
+
+  // Notes filled = engaged
+  if(c.notes && c.notes.length > 20) score += 5;
+
+  // Days since added — older with no close = cooling
+  const daysSince = Math.floor((new Date()-new Date(c.added_at||Date.now()))/86400000);
+  if(daysSince > 14 && c.pipeline_status === 'lead') score -= 10;
+  if(daysSince > 30 && c.pipeline_status === 'lead') score -= 15;
+
+  return Math.max(0, Math.min(100, score));
+}
+
+function hotScoreHTML(c){
+  if(c.pipeline_status==='closed'||c.pipeline_status==='lost') return '';
+  const s = calcHotScore(c);
+  let cls, emoji, label;
+  if(s >= 70){ cls='hot-fire'; emoji='🔥'; label='Hot'; }
+  else if(s >= 40){ cls='hot-warm'; emoji='⚡'; label='Warm'; }
+  else { cls='hot-cold'; emoji='❄️'; label='Cold'; }
+  const fillColor = s>=70?'#FF4B4B':s>=40?'#FFB800':'#4D8EFF';
+  return `<span class="hot-score ${cls}">${emoji} ${label} ${s}
+    <span class="hot-bar"><span class="hot-bar-fill" style="width:${s}%;background:${fillColor};"></span></span>
+  </span>`;
+}
+
+// ══════════════════════════════════════════
+// FOLLOW-UP REMINDERS
+// ══════════════════════════════════════════
+function getFuReminders(){
+  const reminders = [];
+  const fuDays = [
+    { day: 2, label: 'Day 2 — Check In', color: 'var(--blue)', bg: 'rgba(77,142,255,0.15)' },
+    { day: 4, label: 'Day 4 — Pain Point', color: 'var(--gold)', bg: 'rgba(255,184,0,0.15)' },
+    { day: 6, label: 'Day 6 — Urgency', color: 'var(--red)', bg: 'rgba(255,68,102,0.15)' },
+    { day: 8, label: 'Day 8 — Break-up', color: 'var(--t2)', bg: 'rgba(138,155,191,0.15)' },
+  ];
+
+  MY_C.forEach(c => {
+    if(c.pipeline_status==='closed'||c.pipeline_status==='lost') return;
+    fuDays.forEach(f => {
+      const dueDate = addDays(c.added_at||c.start_date, f.day);
+      const dl = dL(dueDate);
+      if(dl === 0 || dl === -1){ // due today or yesterday
+        reminders.push({ c, ...f, dueDate, overdue: dl < 0 });
+      }
+    });
+  });
+
+  return reminders;
+}
+
+function renderFuReminders(){
+  const reminders = getFuReminders();
+  const wrap = document.getElementById('dash-fu-alerts');
+  const list = document.getElementById('dash-fu-list');
+  if(!wrap||!list) return;
+
+  if(!reminders.length){ wrap.style.display='none'; return; }
+  wrap.style.display = 'block';
+
+  list.innerHTML = reminders.map(r => `
+    <div class="fu-alert ${r.overdue?'urgent':'today'}" onclick="go('track')">
+      <span class="fu-day-badge" style="background:${r.bg};color:${r.color};border:1px solid ${r.color}44;">
+        ${r.label}
+      </span>
+      <div>
+        <div class="fu-alert-name">${r.c.name}</div>
+        <div class="fu-alert-sub">${r.c.niche||''} · ${r.overdue?'⚠️ Overdue':'🔔 Due Today'}</div>
+      </div>
+      <span style="font-size:18px;">${r.overdue?'🚨':'🔔'}</span>
+    </div>`).join('');
+}
+
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function addDays(ds,d){const x=new Date(ds);x.setDate(x.getDate()+d);return x;}
 function fmt(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});}
@@ -676,8 +1575,9 @@ function renderDash(){
   document.getElementById('dash-date').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   updStats();
   const tasks=getTasks();const el=document.getElementById('dash-tasks');
-  if(!tasks.length){el.innerHTML='<div class="empty"><span class="ei">✅</span><h3>All clear! No follow-ups due today.</h3><p>Keep hunting new clients! 🚀</p></div>';return;}
+  if(!tasks.length){el.innerHTML='<div class="empty"><span class="ei">✅</span><h3>All clear! No follow-ups due today.</h3><p>Keep hunting new clients! 🚀</p></div>';renderFuReminders();return;}
   el.innerHTML=`<div class="tgrd">${tasks.slice(0,8).map(t=>`<div class="tc ${t.ov?'ov':''}" onclick="go('track')"><div class="tc-n">${t.c.name}</div><div class="tc-s">${t.c.niche} · Stage ${t.i+1}: ${STAGES[t.i].name}</div><span class="tbdg ${t.ov?'tbdg-o':'tbdg-t'}">${t.ov?'⚠️ Overdue':'🔥 Due Today'}</span></div>`).join('')}</div>`;
+  renderFuReminders();
 }
 function updStats(){
   const tasks=getTasks();const td=tasks.filter(t=>!t.ov).length;const ov=tasks.filter(t=>t.ov).length;
@@ -1085,6 +1985,7 @@ function pipTag(ps){
 function buildRow(c){
   const isOwner=c.member_id===ME.id;const color=cColor(c.name);const ps=c.pipeline_status||'lead';
   const cval=c.contract_value>0?`<span class="cval-tag">$${Number(c.contract_value).toLocaleString()}</span>`:'';
+  const hotHTML = hotScoreHTML(c);
   const oName=c.members?.name||'';
 
   const dots=STAGES.map((s,i)=>{
@@ -1122,7 +2023,22 @@ function buildRow(c){
     const fuPP=i>0&&!d?`<div class="fuplat"><div class="fuplat-t">Mark platform sent:</div><div class="pc-opts"><label class="pco"><input type="checkbox" value="email" onchange="setStgP(this,'${c.id}',${i})">📧 Email</label><label class="pco"><input type="checkbox" value="whatsapp" onchange="setStgP(this,'${c.id}',${i})">💬 WA</label><label class="pco"><input type="checkbox" value="instagram" onchange="setStgP(this,'${c.id}',${i})">📸 IG</label><label class="pco"><input type="checkbox" value="facebook" onchange="setStgP(this,'${c.id}',${i})">📘 FB</label></div></div>`:'';
 
     const rep=st?.reply_received;
-    const replyRow=`<div class="reply-row"><span class="rlbl">Reply?</span><button class="rbtn ${rep===true?'replied':''}" onclick="markRep('${c.id}',${i},true)">✅ Replied</button><button class="rbtn ${rep===false?'no-rep':''}" onclick="markRep('${c.id}',${i},false)">❌ No Reply</button></div>`;
+    const repCid=c.id.replace(/-/g,'');
+    const replyRow=`<div class="reply-row">
+      <span class="rlbl">Reply?</span>
+      <button class="rbtn ${rep===true?'replied':''}" onclick="markRep('${c.id}',${i},true);showReplyBox('${repCid}',${i})">✅ Replied</button>
+      <button class="rbtn ${rep===false?'no-rep':''}" onclick="markRep('${c.id}',${i},false);hideReplyBox('${repCid}',${i})">❌ No Reply</button>
+    </div>
+    <div id="rbox-${repCid}-${i}" style="display:${rep===true?'block':'none'};">
+      <div style="margin-bottom:6px;font-size:11px;font-weight:700;color:var(--t2);letter-spacing:.5px;">💬 PASTE THEIR REPLY:</div>
+      <textarea id="rpaste-${repCid}-${i}" placeholder="তাদের reply টা এখানে paste করো..." style="width:100%;min-height:80px;background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:10px 12px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;resize:vertical;outline:none;line-height:1.6;" onfocus="this.style.borderColor='var(--blue)'" onblur="this.style.borderColor='var(--b1)'"></textarea>
+      <button onclick="genReplyResponse('${c.id}',${i},'${repCid}')" style="margin-top:7px;padding:8px 18px;background:var(--blue);border:none;border-radius:8px;color:#fff;font-weight:700;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;">🤖 Generate Response →</button>
+      <div id="rresp-${repCid}-${i}" style="display:none;margin-top:10px;">
+        <div style="font-size:11px;font-weight:700;color:var(--green);margin-bottom:6px;">✅ AI RESPONSE READY:</div>
+        <div id="rresp-msg-${repCid}-${i}" style="background:var(--s2);border:1px solid var(--green);border-radius:10px;padding:12px;font-size:12px;color:var(--text);line-height:1.7;white-space:pre-wrap;"></div>
+        <button onclick="copyRResp('${repCid}',${i})" style="margin-top:7px;padding:6px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--t2);font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copy Response</button>
+      </div>
+    </div>`;
 
     return`<div class="sc ${i===0?'on':''}" id="sc-${c.id.replace(/-/g,'')}-${i}">
       <div class="sm">
@@ -1172,7 +2088,7 @@ function buildRow(c){
   <div class="cav" style="background:${color}">${c.name[0]}</div>
   <div class="ci">
     <div class="cnr"><span class="cname">${c.name}</span><span class="ntag">${c.niche}</span>${!isOwner?`<span class="otag">by ${oName}</span>`:''}</div>
-    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">${pipTag(ps)}${cval}<span class="curl">${c.url||'—'}</span></div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">${pipTag(ps)}${cval}${hotHTML}<span class="curl">${c.url||'—'}</span></div>
   </div>
   <div class="sdots">${dots}</div>
   <div class="ca">
@@ -1198,6 +2114,99 @@ function swCdt(cid,tab){const ci=cid.replace(/-/g,'');['pipe','contract','notes'
 async function markSent(cid,si){const plats=stgPlats[`${cid}-${si}`]||[];await db.from('stages').update({is_done:true,done_at:new Date().toISOString(),platforms_used:plats}).eq('client_id',cid).eq('stage_num',si+1);if(plats.length)await db.from('outreach_log').insert(plats.map(p=>({member_id:ME.id,client_id:cid,stage_num:si+1,platform:p})));delete stgPlats[`${cid}-${si}`];await loadClients();renderTracker();toast(`✅ Stage ${si+1} marked sent!`);}
 async function qMark(cid,si){const c=MY_C.find(x=>x.id===cid);const st=gSt(c,si+1);if(!c||st?.is_done)return;if(!confirm(`Mark Stage ${si+1} sent for ${c.name}?`))return;await markSent(cid,si);}
 async function skipSt(cid,si){await db.from('stages').update({is_done:true,done_at:new Date().toISOString()}).eq('client_id',cid).eq('stage_num',si+1);await loadClients();renderTracker();toast('⏭ Skipped','#FF7B3B');}
+function showReplyBox(cid, i){
+  const box = document.getElementById(`rbox-${cid}-${i}`);
+  if(box) box.style.display = 'block';
+}
+function hideReplyBox(cid, i){
+  const box = document.getElementById(`rbox-${cid}-${i}`);
+  if(box) box.style.display = 'none';
+}
+function copyRResp(cid, i){
+  const el = document.getElementById(`rresp-msg-${cid}-${i}`);
+  if(!el) return;
+  navigator.clipboard.writeText(el.textContent);
+  const btns = el.parentElement.querySelectorAll('button');
+  btns.forEach(b=>{ if(b.textContent.includes('Copy')){ const t=b.textContent; b.textContent='✅ Copied!'; setTimeout(()=>b.textContent=t,1500); }});
+}
+
+async function genReplyResponse(clientId, stageIdx, cid){
+  const pasteEl = document.getElementById(`rpaste-${cid}-${stageIdx}`);
+  const respBox = document.getElementById(`rresp-${cid}-${stageIdx}`);
+  const respMsg = document.getElementById(`rresp-msg-${cid}-${stageIdx}`);
+  const btn = pasteEl.nextElementSibling;
+
+  const replyText = pasteEl.value.trim();
+  if(!replyText){ alert('তাদের reply টা paste করো আগে!'); return; }
+
+  // Get client context
+  const c = MY_C.find(cl=>cl.id===clientId);
+  if(!c) return;
+
+  btn.textContent = '🤖 Generating...'; btn.disabled = true;
+
+  try {
+    const tpl = TPL_OFFERS[HUNT_TPL]||TPL_OFFERS['113k'];
+    const stageNames = ['Initial Outreach','Day 2 Check-in','Day 4 Follow-up','Day 6 Urgency','Day 8 Break-up'];
+
+    const prompt = `You are Obaydul from AK Technology, a Shopify Growth Partner agency with 113K+ Facebook followers.
+
+You sent an outreach message to a potential client and they replied. Now write a smart, natural, personalized response to their reply.
+
+CLIENT INFO:
+- Store: ${c.name}
+- Niche: ${c.niche||'eCommerce'}
+- URL: ${c.url||''}
+- Current Stage: ${stageNames[stageIdx]||'Follow-up'}
+- Pipeline Status: ${c.pipeline_status||'lead'}
+
+YOUR OFFER:
+- ${tpl.reason}, you offered FREE monthly management (Meta Ads + content strategy + organic growth)
+- Only cost: AI video production $250-300/month
+- You help with: AI videos, Meta Ads, SEO, CRO, store redesign
+
+THEIR REPLY:
+"${replyText}"
+
+Write a response that:
+1. Directly addresses whatever they said (question, concern, objection, or interest)
+2. Feels natural and human — not salesy or robotic
+3. Moves them toward the next step (Loom video, Zoom call, or confirming the offer)
+4. Is concise — max 4 short paragraphs
+5. Ends with a clear, soft CTA
+
+If they have an objection (price, time, already have someone, need to think):
+- Acknowledge it genuinely first
+- Then address it confidently but not pushily
+- Reframe the value
+
+Sign off as: Obaydul (AK Technology)
+
+Return ONLY the message text, no labels, no markdown.`;
+
+    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data = await resp.json();
+    const msg = data.content?.find(b=>b.type==='text')?.text||'';
+
+    respMsg.textContent = msg;
+    respBox.style.display = 'block';
+    respBox.scrollIntoView({ behavior:'smooth', block:'nearest' });
+
+  } catch(e){
+    alert('Error: '+e.message);
+  } finally {
+    btn.textContent = '🤖 Generate Response →'; btn.disabled = false;
+  }
+}
+
 async function markRep(cid,si,r){await db.from('stages').update({reply_received:r,reply_date:r?new Date().toISOString():null}).eq('client_id',cid).eq('stage_num',si+1);await loadClients();renderTracker();toast(r?'💬 Reply logged!':'📭 No reply noted');}
 async function setPipe(cid,ps){await db.from('clients').update({pipeline_status:ps}).eq('id',cid);await loadClients();renderTracker();const l={lead:'🔵 Lead',interested:'💜 Interested!',call:'📞 Call Booked!',closed:'🏆 Closed!!',lost:'❌ Lost'};toast(l[ps]||ps,ps==='closed'?'#00E5A0':ps==='lost'?'#FF4466':'#4D8EFF');}
 async function saveCv(cid){const v=document.getElementById(`cv-${cid.replace(/-/g,'')}`).value;await db.from('clients').update({contract_value:parseFloat(v)||0}).eq('id',cid);await loadClients();renderTracker();toast('💰 Contract value saved!');}
@@ -1314,4 +2323,4 @@ function toast(msg,color='#00E5A0'){
 loadMembers();
 </script>
 </body>
-</html>
+          </html>
