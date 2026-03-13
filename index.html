@@ -1061,7 +1061,7 @@ async function doHunt(){
     status.textContent = '🌐 Loading store...';
     let storeText = '';
     try {
-      const r = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+      const r = await fetch(`/api/fetch-url?url=${encodeURIComponent(url)}`);
       if(!r.ok) throw new Error(`Function error: HTTP ${r.status}`);
       const d = await r.json();
       if(!d.success && d.error) throw new Error(d.error);
@@ -1378,7 +1378,7 @@ async function genPartnerOutreach(){
 
   let partnerText = '';
   try {
-    const r = await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+    const r = await fetch(`/api/fetch-url?url=${encodeURIComponent(url)}`);
     if(!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
     partnerText = d.text || d.content?.text || [d.ogTitle,d.ogDesc,d.title].filter(Boolean).join(' ') || '';
@@ -1833,7 +1833,7 @@ async function doScan(){
 
   let content=null;
   try{
-    const res=await fetch(`/.netlify/functions/fetch-url?url=${encodeURIComponent(url)}`);
+    const res=await fetch(`/api/fetch-url?url=${encodeURIComponent(url)}`);
     const data=await res.json();
     if(data.success&&data.content){content=data.content;setPS('fetch','ok',domain);}
     else setPS('fetch','warn','Partial');
@@ -2540,4 +2540,4 @@ function toast(msg,color='#00E5A0'){
 loadMembers();
 </script>
 </body>
-                                                                                      </html>
+  </html>
