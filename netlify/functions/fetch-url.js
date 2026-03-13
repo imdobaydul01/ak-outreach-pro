@@ -123,8 +123,16 @@ exports.handler = async (event) => {
   try {
     const { html, status, truncated } = await fetchWithRedirects(targetUrl);
     const content = extractContent(html);
-    return { statusCode: 200, headers, body: JSON.stringify({ success: true, url: targetUrl, httpStatus: status, truncated, content }) };
+    // also expose flat text for easy access
+    return { statusCode: 200, headers, body: JSON.stringify({ 
+      success: true, url: targetUrl, httpStatus: status, truncated, 
+      content,
+      text: content.text,
+      title: content.title,
+      ogTitle: content.ogTitle,
+      ogDesc: content.ogDesc
+    }) };
   } catch (err) {
-    return { statusCode: 200, headers, body: JSON.stringify({ success: false, url: targetUrl, error: err.message, content: null }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ success: false, url: targetUrl, error: err.message, content: null, text: '' }) };
   }
 };
