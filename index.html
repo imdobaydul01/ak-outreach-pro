@@ -1181,50 +1181,32 @@ async function doHunt(){
   const offerLine = `${tpl.cta}. The only cost is AI video production ($250-300/month).`;
   const reasonLine = tpl.reason;
 
-  const prompt = `You are Obaydul from AK Technology (113K+ Facebook followers). You're a Shopify Growth specialist analyzing a store for personalized outreach.
+  const prompt = `You are Obaydul from AK Technology (113K+ Facebook followers). Analyze this Shopify store and write outreach.
 
-Store URL: ${fullUrl}
-Store content: ${storeText.slice(0,3000)||'Analyze from URL only.'}
-Tracking detected: ${trackingFound.join(', ')||'Nothing detected'}
+URL: ${fullUrl}
+Content: ${storeText.slice(0,1500)||'Infer from URL.'}
+Tracking: ${trackingFound.slice(0,3).join(', ')||'None'}
+Offer: "${offerLine}" Reason: "${reasonLine}"
 
-OFFER TO INCLUDE IN ALL MESSAGES:
-"${offerLine}"
-Reason: "${reasonLine}"
-
-Analyze deeply and write outreach that feels like you spent 20 minutes on their store. Reference specific things about their products/brand.
-
-Return ONLY valid JSON (no markdown, no backticks):
-{
-  "store_name": "brand name",
-  "niche": "specific niche (2-4 words)",
-  "market": "target market/country",
-  "products": "main products (1 sentence)",
-  "strength": "1 genuine thing they do well",
-  "pain_point": "biggest growth weakness",
-  "has_pixel": ${T.hasPixel||false},
-  "has_email": ${T.hasKlaviyo||false},
-  "fb_message": "Personalized Facebook DM — reference their specific products/store. 4-5 short paragraphs. Include the offer naturally. Mention AK Technology 113K+ followers. End with Loom/Zoom CTA. Sign: Obaydul (AK Technology) aktechnologybd.com",
-  "ig_message": "Instagram DM — shorter, casual, 3 paragraphs, include offer",
-  "wa_message": "WhatsApp — friendly, concise, emojis, include offer",
-  "email_subject": "Killer subject line — specific to their store, under 10 words, no caps",
-  "email_message": "Professional cold email — 4-5 paragraphs, include offer with case study numbers (similar niche: $800→$6,200/month), CTA for Loom/Zoom, sign: Obaydul | AK Technology | aktechnologybd.com",
-  "fu1": "Day 2 — very short casual check-in, no pitch, warm",
-  "fu2": "Day 4 — hit their specific pain point (${T.hasPixel?'ads optimization':'no pixel tracking'}), mention 1 spot left",
-  "fu3": "Day 6 — urgency, 1 spot just filled, last chance tone",
-  "fu4": "Day 8 — breakup message, leave door open, no hard feelings"
-}`;
+Return ONLY valid JSON (no markdown):
+{"store_name":"brand","niche":"niche","market":"market","products":"products","strength":"strength","pain_point":"weakness","fb_message":"Facebook DM 3 paragraphs personal + offer + 113K credibility + CTA. Sign: Obaydul (AK Technology)","ig_message":"Instagram DM 2 paragraphs casual + offer","wa_message":"WhatsApp short friendly emojis + offer","email_subject":"subject under 10 words","email_message":"Email 4 paragraphs + offer + numbers + CTA. Sign: Obaydul | AK Technology | aktechnologybd.com","fu1":"Day 2 warm check-in","fu2":"Day 4 pain point + 1 spot left","fu3":"Day 6 urgency last chance","fu4":"Day 8 breakup warm"}`;
 
   try {
     const resp = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1500, messages:[{role:'user',content:prompt}] })
+      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:2000, messages:[{role:'user',content:prompt}] })
     });
     const data = await resp.json();
     let raw = data.content?.find(b=>b.type==='text')?.text||'{}';
     raw = raw.replace(/```json|```/g,'').trim();
-    const result = JSON.parse(raw);
-
+    let result;
+    try {
+      if(!raw.endsWith('}')) raw = raw.substring(0, raw.lastIndexOf('"')) + '"}';
+      result = JSON.parse(raw);
+    } catch(parseErr){
+      result = { store_name: new URL(fullUrl).hostname, niche: 'eCommerce', market: 'USA', products: 'Products', strength: 'Good store', pain_point: 'Marketing', fb_message: raw, ig_message: raw, wa_message: raw, email_subject: 'Partnership opportunity', email_message: raw, fu1: 'Hey! Just checking in 😊', fu2: 'Still 1 spot open!', fu3: 'Last chance!', fu4: 'No worries, best of luck!' };
+    }
     setHuntPS('ai','ok','Messages ready ✓');
     CURRENT_HUNT = { url: fullUrl, ...result, analyzed_at: new Date().toISOString() };
 
@@ -2758,4 +2740,4 @@ function toast(msg,color='#00E5A0'){
 loadMembers();
 </script>
 </body>
-    </html>
+  </html>
