@@ -1192,7 +1192,7 @@ Return ONLY valid JSON (no markdown):
 {"store_name":"brand","niche":"niche","market":"market","products":"products","strength":"strength","pain_point":"weakness","fb_message":"Facebook DM 3 paragraphs personal + offer + 113K credibility + CTA. Sign: Obaydul (AK Technology)","ig_message":"Instagram DM 2 paragraphs casual + offer","wa_message":"WhatsApp short friendly emojis + offer","email_subject":"subject under 10 words","email_message":"Email 4 paragraphs + offer + numbers + CTA. Sign: Obaydul | AK Technology | aktechnologybd.com","fu1":"Day 2 warm check-in","fu2":"Day 4 pain point + 1 spot left","fu3":"Day 6 urgency last chance","fu4":"Day 8 breakup warm"}`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    const resp = await fetch('/api/claude',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:2000, messages:[{role:'user',content:prompt}] })
@@ -1555,52 +1555,28 @@ async function genPartnerOutreach(){
   };
   const selectedDeals = [...PARTNER_DEAL_TYPES].map(t => dealDescriptions[t]).join('\n- ');
 
-  const prompt = `You are Obaydul from AK Technology — a Shopify Growth Partner agency with 113K+ Facebook followers. You specialize in Meta Ads, AI video content (15-20/month), SEO, CRO and full monthly management.
+  const urlSlug = url.split('/').pop() || url;
+  const prompt = `You are Obaydul from AK Technology (113K+ FB followers). Write B2B partner outreach.
 
-You are reaching out to a Shopify Partner for a B2B partnership.
+Partner URL: ${url}
+Partner info: ${partnerText.slice(0,1000)||'Infer from URL slug: '+urlSlug}
+Deal(s): ${selectedDeals}
 
-Partner Profile URL: ${url}
-Partner info from their profile: ${partnerText.slice(0,2500)||'Analyze from URL — infer their specialty from the URL slug.'}
-
-PROPOSED DEAL(S):
-- ${selectedDeals}
-
-Generate a highly personalized outreach for ALL 4 platforms + 4 follow-ups.
-
-Rules:
-1. Reference SPECIFIC details from their profile (their specialty, technologies, client types, location)
-2. Be genuine — feel like a real person, not a corporation
-3. Make value proposition clear and exciting
-4. Keep each message concise and appropriate for the platform
-5. Day 8 follow-up = breakup message, leave door open warmly
-
-Return ONLY valid JSON (no markdown, no backticks):
-{
-  "partner_name": "agency/company name from profile",
-  "partner_type": "developer or agency or freelancer",
-  "partner_specialty": "what they specialize in (1 sentence)",
-  "email_subject": "compelling subject line, under 10 words",
-  "email_message": "Professional email — 4-5 paragraphs, reference their specific work, explain the deal(s), income potential with real numbers, soft CTA for 15-min call. Sign: Obaydul | AK Technology | aktechnologybd.com",
-  "wa_message": "WhatsApp — friendly, warm, 3-4 short paragraphs, use emojis naturally, mention deal value, CTA for quick call",
-  "dm_message": "Short DM (FB/IG) — 2-3 paragraphs max, casual, intriguing, CTA to reply",
-  "linkedin_message": "LinkedIn — professional but personable, 3-4 paragraphs, reference their LinkedIn profile specifically, CTA for 15-min call",
-  "notes": "why this partner is valuable to target",
-  "fu1": "Day 2 — very short, casual, warm check-in. No pitch. Just making sure they saw it.",
-  "fu2": "Day 4 — reference their specific specialty, give them a concrete number (e.g. $240/month from 3 referrals), mention only 2 spots left",
-  "fu3": "Day 6 — urgency: 1 spot just filled, last chance, reference their specialty again",
-  "fu4": "Day 8 — warm breakup: no pressure, leave door open, wish them well, they can reach out anytime"
-}`;
+Return ONLY valid JSON (no markdown):
+{"partner_name":"name","partner_type":"developer/agency/freelancer","partner_specialty":"specialty","email_subject":"subject","email_message":"Professional 3-para email + deal value + numbers + CTA. Sign: Obaydul|AK Technology|aktechnologybd.com","wa_message":"WhatsApp 2-3 paras friendly emojis + deal + CTA","dm_message":"Short DM 2 paras casual + CTA","linkedin_message":"LinkedIn 3 paras professional + deal + CTA","notes":"why valuable","fu1":"Day 2 warm check-in","fu2":"Day 4 specialty+$240/mo+2 spots left","fu3":"Day 6 urgency 1 spot filled","fu4":"Day 8 warm breakup door open"}`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    const resp = await fetch('/api/claude',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1500, messages:[{role:'user',content:prompt}] })
+      body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, messages:[{role:'user',content:prompt}] })
     });
     const data = await resp.json();
+    if(data.error){ throw new Error(data.error.message||'API error'); }
     let raw = data.content?.find(b=>b.type==='text')?.text||'{}';
     raw = raw.replace(/```json|```/g,'').trim();
-    PARTNER_GEN_DATA = JSON.parse(raw);
+    try { PARTNER_GEN_DATA = JSON.parse(raw); }
+    catch(pe){ PARTNER_GEN_DATA = {partner_name:urlSlug, partner_type:'developer', partner_specialty:'Shopify development', email_subject:'Partnership opportunity', email_message:raw, wa_message:raw, dm_message:raw, linkedin_message:raw, notes:'', fu1:'Hey! Just checking in 😊', fu2:'Still 2 spots open — $240/mo passive income!', fu3:'Last spot left!', fu4:'No worries, door always open!'}; }
 
     document.getElementById('partner-gen-result').style.display = 'block';
     status.style.display = 'none';
@@ -2049,7 +2025,7 @@ async function doScan(){
 
   let ext={};
   try{
-    const aiRes=await fetch('https://api.anthropic.com/v1/messages',{
+    const aiRes=await fetch('/api/claude',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:`Analyze this e-commerce store for outreach. Respond ONLY in valid JSON (no backticks, no preamble).
 
@@ -2272,7 +2248,7 @@ S5_EMAIL: [body]`;
 
   let msgs={};
   try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
+    const r=await fetch('/api/claude',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1400,messages:[{role:'user',content:prompt}]})
     });
@@ -2601,7 +2577,7 @@ Sign off as: Obaydul (AK Technology)
 
 Return ONLY the message text, no labels, no markdown.`;
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages',{
+    const resp = await fetch('/api/claude',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -2740,4 +2716,4 @@ function toast(msg,color='#00E5A0'){
 loadMembers();
 </script>
 </body>
-  </html>
+      </html>
